@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8373b31-5a7f-46d0-bea0-a53a57f34a0f" name="Changes" comment="Subida cliente">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/app/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/app/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="c8373b31-5a7f-46d0-bea0-a53a57f34a0f" name="Changes" comment="Subida servicio">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +54,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1710941565871</updated>
-      <workItem from="1710941568952" duration="422000" />
+      <workItem from="1710941568952" duration="507000" />
     </task>
     <task id="LOCAL-00001" summary="Subida cliente">
       <option name="closed" value="true" />
@@ -76,7 +72,23 @@
       <option name="project" value="LOCAL" />
       <updated>1710941630718</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Subida gitignore">
+      <option name="closed" value="true" />
+      <created>1710942009427</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710942009427</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Subida servicio">
+      <option name="closed" value="true" />
+      <created>1710942041590</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1710942041590</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,6 +96,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Subida cliente" />
-    <option name="LAST_COMMIT_MESSAGE" value="Subida cliente" />
+    <MESSAGE value="Subida gitignore" />
+    <MESSAGE value="Subida servicio" />
+    <option name="LAST_COMMIT_MESSAGE" value="Subida servicio" />
   </component>
 </project>

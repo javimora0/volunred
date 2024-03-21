@@ -4,22 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8373b31-5a7f-46d0-bea0-a53a57f34a0f" name="Changes" comment="Subida servicio">
+    <list default="true" id="c8373b31-5a7f-46d0-bea0-a53a57f34a0f" name="Changes" comment="Instalada libreria principal en angular.">
+      <change afterPath="$PROJECT_DIR$/service/controllers/auth_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/database/Conexion.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/helpers/validar_campos.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/middlewares/check_datos.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/routes/access_routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/app.component.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/app.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/app/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/app/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/service/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/service/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -37,7 +50,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "service-registros",
     "last_opened_file_path": "D:/volunred/service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -112,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710942102001</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Instalada libreria principal en angular.">
+      <option name="closed" value="true" />
+      <created>1711015952969</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711015952969</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,6 +143,7 @@
     <MESSAGE value="Subida cliente" />
     <MESSAGE value="Subida gitignore" />
     <MESSAGE value="Subida servicio" />
-    <option name="LAST_COMMIT_MESSAGE" value="Subida servicio" />
+    <MESSAGE value="Instalada libreria principal en angular." />
+    <option name="LAST_COMMIT_MESSAGE" value="Instalada libreria principal en angular." />
   </component>
 </project>

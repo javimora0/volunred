@@ -6,6 +6,7 @@ const cors = require('cors');
 class Server {
     constructor() {
         this.app = express();
+        this.access_path = '/api'
         this.middlewares()
         this.routes()
     }
@@ -23,7 +24,9 @@ class Server {
 
     }
 
-    routes() {}
+    routes() {
+        this.app.use(this.access_path, require('../routes/access_routes'))
+    }
     listen() {
         this.app.listen(process.env.PORT, () => {
             console.log(`Servidor escuchando en: ${process.env.PORT}`);

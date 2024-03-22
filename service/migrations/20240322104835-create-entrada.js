@@ -2,23 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('comentarios_usuarios', {
+    await queryInterface.createTable('entradas', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      comentario: {
+      titulo: {
         type: Sequelize.STRING
       },
-      id_usuario_comentado: {
-        type: Sequelize.INTEGER,
-        references: {model:{tableName: 'usuarios'},key:'id'}
+      texto: {
+        type: Sequelize.STRING
       },
-      id_usuario_comenta: {
+      nombre_foto: {
+        type: Sequelize.STRING
+      },
+      extension_foto: {
+        type: Sequelize.STRING
+      },
+      id_tipo_entrada: {
         type: Sequelize.INTEGER,
-        references: {model:{tableName: 'usuarios'},key:'id'}
+        references: {model:{tableName: 'tipos_entradas'},key:'id'}
+      },
+      activa: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('comentarios_usuarios');
+    await queryInterface.dropTable('entradas');
   }
 };

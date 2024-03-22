@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8373b31-5a7f-46d0-bea0-a53a57f34a0f" name="Changes" comment="Subida servicio">
+    <list default="true" id="c8373b31-5a7f-46d0-bea0-a53a57f34a0f" name="Changes" comment="Creados ALGUNOS models y migraciones.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/.env" beforeDir="false" afterPath="$PROJECT_DIR$/service/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/migrations/20240321114846-create-voluntario.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/migrations/20240321114846-create-voluntario.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/migrations/20240321115942-create-ambito-voluntario.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/migrations/20240321115942-create-ambito-voluntario.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/migrations/20240321120920-create-organizacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/migrations/20240321120920-create-organizacion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/migrations/20240321121326-create-comentario-usuario.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/migrations/20240321121326-create-comentario-usuario.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/migrations/20240321121716-create-rol-usuario.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/migrations/20240321121716-create-rol-usuario.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,21 +37,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "service-models/migrations",
-    "last_opened_file_path": "D:/volunred/service",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\volunred\\client\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;service-models/migrations&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/volunred/service&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\volunred\\client\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\volunred\service" />
@@ -61,6 +67,7 @@
       <option name="presentableId" value="Default" />
       <updated>1710941565871</updated>
       <workItem from="1710941568952" duration="554000" />
+      <workItem from="1711102980860" duration="3305000" />
     </task>
     <task id="LOCAL-00001" summary="Subida cliente">
       <option name="closed" value="true" />
@@ -110,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710942102001</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Creados ALGUNOS models y migraciones.">
+      <option name="closed" value="true" />
+      <created>1711023857666</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711023857667</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,6 +135,7 @@
     <MESSAGE value="Subida cliente" />
     <MESSAGE value="Subida gitignore" />
     <MESSAGE value="Subida servicio" />
-    <option name="LAST_COMMIT_MESSAGE" value="Subida servicio" />
+    <MESSAGE value="Creados ALGUNOS models y migraciones." />
+    <option name="LAST_COMMIT_MESSAGE" value="Creados ALGUNOS models y migraciones." />
   </component>
 </project>

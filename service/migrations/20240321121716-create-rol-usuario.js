@@ -11,11 +11,11 @@ module.exports = {
       },
       id_rol: {
         type: Sequelize.INTEGER,
-        references: {tableName:'roles', key:'id'}
+        references: {model:{tableName: 'roles'},key:'id'}
       },
       id_usuario: {
         type: Sequelize.INTEGER,
-        references: {tableName:'usuarios', key:'id'}
+        references: {model:{tableName: 'usuarios'},key:'id'}
       },
       createdAt: {
         allowNull: false,

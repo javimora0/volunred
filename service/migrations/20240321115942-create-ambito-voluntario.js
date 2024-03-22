@@ -11,11 +11,11 @@ module.exports = {
       },
       id_ambito_profesional: {
         type: Sequelize.INTEGER,
-        references: { tableName: 'ambitos_profesionales', key: 'id'}
+        references: {model:{tableName: 'ambitos_profesionales'},key:'id'}
       },
       id_voluntario: {
         type: Sequelize.INTEGER,
-        references: { tableName: 'voluntarios', key:'id'}
+        references: {model:{tableName: 'voluntarios'},key:'id'}
       },
       createdAt: {
         allowNull: false,

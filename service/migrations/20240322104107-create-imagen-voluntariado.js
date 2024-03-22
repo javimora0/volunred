@@ -2,25 +2,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('organizaciones', {
+        await queryInterface.createTable('imagenes_voluntariados', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            cif: {
-                type: Sequelize.STRING
-            },
-            sitio_web: {
-                type: Sequelize.STRING
-            },
-            id_usuario: {
+            id_imagen: {
                 type: Sequelize.INTEGER,
-                references: {model: {tableName: 'usuarios'}, key: 'id'}
+                references: {model:{tableName: 'imagenes'},key:'id'}
             },
-            nombre: {
-                type: Sequelize.STRING
+            id_voluntariado: {
+                type: Sequelize.INTEGER,
+                references: {model:{tableName: 'voluntariados'},key:'id'}
             },
             createdAt: {
                 allowNull: false,
@@ -33,6 +28,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('organizaciones');
+        await queryInterface.dropTable('imagenes_voluntariados');
     }
 };

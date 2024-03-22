@@ -2,23 +2,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('comentarios_usuarios', {
+    await queryInterface.createTable('estados_solicitudes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      comentario: {
+      estado: {
         type: Sequelize.STRING
-      },
-      id_usuario_comentado: {
-        type: Sequelize.INTEGER,
-        references: {model:{tableName: 'usuarios'},key:'id'}
-      },
-      id_usuario_comenta: {
-        type: Sequelize.INTEGER,
-        references: {model:{tableName: 'usuarios'},key:'id'}
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +23,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('comentarios_usuarios');
+    await queryInterface.dropTable('estados_solicitudes');
   }
 };

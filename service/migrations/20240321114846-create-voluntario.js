@@ -28,8 +28,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_usuario:{
-        type: Sequelize,INTEGER,
-        references: {tableName:'usuarios', key:'id'}
+        type: Sequelize.INTEGER,
+        references: {
+          model:{
+            tableName:'usuarios'
+          },
+          key:'id'
+        }
       },
       createdAt: {
         allowNull: false,

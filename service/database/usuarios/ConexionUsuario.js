@@ -1,8 +1,60 @@
 const Conexion = require('../Conexion')
-const model = require('../../models')
+const model = require('../../models/index')
 const conx = new Conexion()
 
 class ConexionUsuario {
+
+    /**
+     * @desc Crea un usuario
+     * @param body
+     * @returns {Promise<null>}
+     */
+    crear_usuario = async (body) => {
+        conx.conectar()
+        let usuario
+        try {
+            body.activo = true
+            body.nombre_foto = 'foto_perfil_defecto'
+            body.extension_foto = '.jpg'
+            usuario = await model.Usuario.create(body)
+
+        } catch (err) {
+            console.error(err)
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
+
+    /**
+     * @desc Obtiene los roles de un usuario
+     * @param id
+     * @returns {Promise<*[]|null>}
+     */
+    get_roles_usuario = async (id) => {
+        let resultado = []
+        conx.conectar()
+        try {
+            resultado = await model.Usuario.findAll({
+                where: { id: id },
+                include: [{
+                    model: model.Rol,
+                    as: 'roles',
+                    through: {
+                        model: model.Rol_usuario, attributes: []
+                    },
+                    attributes: ['id', 'nombre']
+                }]
+            });
+        } catch (error) {
+            resultado = null
+        } finally {
+            conx.desconectar()
+        }
+        return resultado
+    }
+
     /**
      * @desc Comprueba un usuario por su email
      * @param email
@@ -12,7 +64,8 @@ class ConexionUsuario {
         conx.conectar()
         let usuario = [];
         try {
-            usuario = await model.Usuario.find({where:{email:email}})
+            usuario = await model.Usuario.findAll({where:{email:email, activo:1}})
+            console.log(usuario)
         } catch (error) {
             console.error(error)
         } finally {
@@ -33,7 +86,7 @@ class ConexionUsuario {
         conx.conectar()
         let usuario = [];
         try {
-            usuario = await model.Usuario.find({where:{username:username}})
+            usuario = await model.Usuario.findAll({where:{username:username, activo:1}})
         } catch (error) {
             console.error(error)
         } finally {

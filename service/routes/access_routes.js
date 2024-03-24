@@ -19,4 +19,15 @@ router.post('/registro/voluntario', [
     ,validar_campos
 ],auth_controller.registro_voluntario)
 
+router.post('/registro/organizacion', [
+    check('email', 'Debe introducir un correo electrónico válido').isEmail().custom(middleware.existe_email),
+    check('password','Deber introducir una contraseña válida').isLength({min:6,max:60}),
+    check('username', 'Debe introducir un nombre de usuario válido').isLength({min:3,max:30}).custom(middleware.existe_username),
+    check('ubicacion', 'Debe introducir una ubicacion válida').isString(),
+    check('cif', 'Debe introducir un CIF válido').custom(middleware.check_cif).custom(middleware.existe_cif),
+    check('sitio_web', 'Debe introducir un sitio web válido').isURL(),
+    check('nombre', 'El nombre de la organización es obligatorio').not().isEmpty()
+    ,validar_campos
+],auth_controller.registro_organizacion)
+
 module.exports = router

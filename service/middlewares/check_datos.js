@@ -1,5 +1,6 @@
 const conexion_usuario =  require('../database/usuarios/ConexionUsuario')
 const conexion_voluntario =  require('../database/usuarios/ConexionVoluntario')
+const conexion_organizacion =  require('../database/usuarios/ConexionOrganizacion')
 
 /**
  * @description Validacion para que no se repitan emails
@@ -75,6 +76,24 @@ const existe_telefono = async (telefono) => {
 }
 
 /**
+ * Validacion para que no se repitan cif en las organizaciones
+ * @param cif
+ * @returns {Promise<unknown>}
+ */
+const existe_cif = async (cif) => {
+    return new Promise((resolve, reject) => {
+        const conx_organizacion = new conexion_organizacion()
+        conx_organizacion.cif_existe_validator(cif)
+            .then(msg => {
+                resolve(true)
+            })
+            .catch(err => {
+                reject(new Error('Ya existe el cif'))
+            })
+    })
+}
+
+/**
  * @desc Valida el formato tanto del dni como de un nie
  * @param dni_nie
  * @returns {Promise<Error|boolean>}
@@ -101,10 +120,16 @@ const check_dni_nie = async (dni_nie = '') => {
     }
 }
 
+const check_cif = async (cif = '') => {
+
+}
+
 module.exports = {
     existe_email,
     existe_username,
     check_dni_nie,
     existe_dni_nie,
-    existe_telefono
+    existe_telefono,
+    check_cif,
+    existe_cif
 }

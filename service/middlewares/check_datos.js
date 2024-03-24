@@ -20,7 +20,6 @@ const existe_email = async(email = '') => {
     })
 }
 
-
 /**
  * @desc Validacion para que no se repitan nombre de usuario
  * @param username
@@ -98,30 +97,47 @@ const existe_cif = async (cif) => {
  * @param dni_nie
  * @returns {Promise<Error|boolean>}
  */
-const check_dni_nie = async (dni_nie = '') => {
-    let numero, letr, letra;
-    let expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
+const check_dni_nie = (dni_nie = '') => {
+    return new Promise((resolve, reject) => {
+        let letras = 'TRWAGMYFPDXBNJZSQVHLCKET';
+        let nif_regexp = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+        let nie_regexp = /^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+        let str = dni_nie.toString().toUpperCase();
 
-    dni_nie = dni_nie.toUpperCase();
-
-    if (dni_nie.match(expresion_regular_dni)) {
-        numero = dni_nie.substring(0, dni_nie.length - 1).replace('X', '0').replace('Y', '1').replace('Z', '2');
-        letr = dni_nie.substring(dni_nie.length - 1);
-        numero = parseInt(numero) % 23;
-        letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
-        letra = letra.substring(numero, numero + 1);
-        if (letr === letra) {
-            return true
-        }else {
-            return new Error('dni o nie erroneo');
+        if (!nif_regexp.test(str) && !nie_regexp.test(str)) {
+            return reject(new Error('dni o nie erroneo'));
         }
-    } else {
-        return new Error('dni o nie erroneo');
-    }
+
+        let nie = str
+            .replace(/^X/, '0')
+            .replace(/^Y/, '1')
+            .replace(/^Z/, '2');
+
+        let letra = str.substring(str.length - 1);
+        let caracter = parseInt(nie.substring(0, 8)) % 23;
+
+        if (letras.charAt(caracter) === letra) {
+            resolve(true);
+        } else {
+            reject(new Error('dni o nie erroneo'));
+        }
+    });
 }
 
+/**
+ * @desc Valida el formato del cif, si las letras son validas no
+ * @param cif
+ * @returns {Promise<unknown>}
+ */
 const check_cif = async (cif = '') => {
-
+    const regex = /^[A-Z][0-9]{7}[A-Z]$/;
+    return new Promise((resolve, reject) => {
+        if (regex.test(cif)) {
+            resolve(true);
+        }else {
+            reject(new Error('cif erroneo'));
+        }
+    })
 }
 
 module.exports = {

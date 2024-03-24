@@ -2,7 +2,7 @@ service/node_modules
 service/.env
 client/node_modules
 
-.idea/
+.idea
 .vscode/
 service/.idea/
 service/.vscode/

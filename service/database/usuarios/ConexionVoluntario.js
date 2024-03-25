@@ -4,6 +4,19 @@ const conx = new Conexion()
 
 class ConexionVoluntario {
 
+    get_voluntario = async (id_usuario) => {
+        conx.conectar()
+        let voluntario
+        try {
+            voluntario = await model.Voluntario.findOne({where:{id_usuario:id_usuario}})
+        } catch (err) {
+            voluntario = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntario
+    }
+
     /**
      * @desc Crea un voluntario, necesario haber creado antes un usuario.
      * @param body
@@ -29,7 +42,7 @@ class ConexionVoluntario {
         conx.conectar()
         let voluntario = [];
         try {
-            voluntario = await model.Voluntario.findAll({where:{dni_nie:dni_nie}})
+            voluntario = await model.Voluntario.findAll({where: {dni_nie: dni_nie}})
         } catch (error) {
             console.error(error)
         } finally {
@@ -45,7 +58,7 @@ class ConexionVoluntario {
         conx.conectar()
         let voluntario = [];
         try {
-            voluntario = await model.Voluntario.findAll({where:{telefono:telefono}})
+            voluntario = await model.Voluntario.findAll({where: {telefono: telefono}})
         } catch (error) {
             console.error(error)
         } finally {

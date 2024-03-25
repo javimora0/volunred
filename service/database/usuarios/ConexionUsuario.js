@@ -5,6 +5,55 @@ const conx = new Conexion()
 
 class ConexionUsuario {
 
+
+    /**
+     * @desc Comprueba las credenciales por email de un usuario
+     * @param email
+     * @param password
+     * @returns {Promise<Model>}
+     */
+    check_credentials_email = async (email, password) => {
+        let usuario
+        conx.conectar()
+        try {
+            usuario = await model.Usuario.findOne({where:{email:email}})
+            if (!usuario) {
+                usuario = null
+            }
+            if (!await bcrypt.compare(password, usuario.password)) {
+                usuario = null
+            }
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
+    /**
+     * @desc Comprueba las credenciales de un usuario por su nombre de usuario
+     * @param username
+     * @param password
+     * @returns {Promise<Model>}
+     */
+    check_credentials_username = async (username, password) => {
+        let usuario
+        conx.conectar()
+        try {
+            usuario = await model.Usuario.findOne({where:{username:username}})
+            if (!usuario) {
+                usuario = null
+            }
+            if (!await bcrypt.compare(password, usuario.password)) {
+                usuario = null
+            }
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
     /**
      * @desc Crea un usuario
      * @param body

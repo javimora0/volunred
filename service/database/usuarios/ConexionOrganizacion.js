@@ -4,6 +4,19 @@ const conx = new Conexion()
 
 class ConexionOrganizacion {
 
+    get_organizacion = async (id_usuario) => {
+        conx.conectar()
+        let org
+        try {
+            org = await model.Organizacion.findOne({where:{id_usuario:id_usuario}})
+        } catch (err) {
+            org = null
+        } finally {
+            conx.desconectar()
+        }
+        return org
+    }
+
     /**
      * @desc Crea una organizacion
      * @param body

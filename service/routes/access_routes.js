@@ -30,4 +30,11 @@ router.post('/registro/organizacion', [
     ,validar_campos
 ],auth_controller.registro_organizacion)
 
+router.post('/login', [
+    check('login', 'Debe introducir un correo electrónico o un nombre de usuario.').not().isEmpty(),
+    check('password','Deber introducir una contraseña válida').isLength({min:6,max:60}),
+    check('rol', 'Debe introducir un rol válido').isString().isIn(['voluntario','organizacion','administrador'])
+    ,validar_campos
+], auth_controller.login)
+
 module.exports = router

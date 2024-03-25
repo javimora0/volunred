@@ -33,7 +33,7 @@ router.post('/registro/organizacion', [
 router.post('/login', [
     check('login', 'Debe introducir un correo electrónico o un nombre de usuario.').not().isEmpty(),
     check('password','Deber introducir una contraseña válida').isLength({min:6,max:60}),
-    check('rol', 'Debe introducir un rol válido').isString().isIn(['voluntario','organizacion','administrador'])
+    check('rol', 'Debe introducir un rol válido').isString().isIn(['voluntario','organizacion','admin'])
     ,validar_campos
 ], auth_controller.login)
 

@@ -80,7 +80,7 @@ const login = async (req, res = response) => {
             await login_admin(res, req.body)
             break;
         default:
-            return res.status(StatusCodes.NO_CONTENT).json('Error')
+            return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al elegir el rol'})
             break;
     }
 }
@@ -102,7 +102,7 @@ async function login_organizacion(res, body) {
     }
     // Obtener roles usuario y generar token
     let {roles_usuario, token} = await get_token(organizacion, usuario)
-    if (!roles_usuario[0].filter((rol) => rol.nombre === 'organizacion')) {
+    if (!roles_usuario[0].roles.filter((rol) => rol.nombre === 'organizacion')) {
         return res.status(StatusCodes.NO_CONTENT).json('Error')
     }
     res.status(StatusCodes.OK).json({
@@ -131,7 +131,7 @@ async function login_voluntario(res, body) {
 
     // Obtener roles usuario y generar token
     let {roles_usuario, token} = await get_token(voluntario, usuario)
-    if (!roles_usuario[0].filter((rol) => rol.nombre === 'voluntario')) {
+    if (!roles_usuario[0].roles.filter((rol) => rol.nombre === 'voluntario')) {
         return res.status(StatusCodes.NO_CONTENT).json('Error')
     }
     res.status(StatusCodes.OK).json({
@@ -150,7 +150,8 @@ async function login_admin(res, body) {
         return res.status(StatusCodes.NO_CONTENT).json('Error')
     }
     let {roles_usuario, token} = await get_token('', usuario)
-    if (!roles_usuario[0].filter((rol) => rol.nombre === 'admin')) {
+    console.log(roles_usuario[0])
+    if (!roles_usuario[0].roles.filter((rol) => rol.nombre === 'admin')) {
         return res.status(StatusCodes.NO_CONTENT).json('Error')
     }
     res.status(StatusCodes.OK).json({

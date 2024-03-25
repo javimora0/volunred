@@ -1,5 +1,6 @@
 const Conexion = require('../Conexion')
 const model = require('../../models/index')
+const bcrypt = require ('bcrypt')
 const conx = new Conexion()
 
 class ConexionUsuario {
@@ -16,6 +17,7 @@ class ConexionUsuario {
             body.activo = true
             body.nombre_foto = 'foto_perfil_defecto'
             body.extension_foto = '.jpg'
+            body.password = await bcrypt.hash(body.password, 10)
             usuario = await model.Usuario.create(body)
 
         } catch (err) {

@@ -26,7 +26,7 @@ const registro_voluntario = async (req, res = response) => {
     if (!rol_asignar) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al asignar el rol'})
     }
-    let {roles_usuario,token} = await get_token(voluntario, usuario)
+    let {roles_usuario, token} = await get_token(voluntario, usuario)
     res.status(StatusCodes.CREATED).json({
         'usuario': usuario,
         'vol_org': voluntario,
@@ -57,7 +57,7 @@ const registro_organizacion = async (req, res = response) => {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al asignar el rol'})
     }
 
-    let {roles_usuario,token} = await get_token(organizacion, usuario)
+    let {roles_usuario, token} = await get_token(organizacion, usuario)
     res.status(StatusCodes.CREATED).json({
         'usuario': usuario,
         'vol_org': organizacion,
@@ -97,12 +97,14 @@ async function login_organizacion(res, body) {
     }
     // Usuario correcto, miramos que sea voluntario
     let organizacion = await conx_organizacion.get_organizacion(usuario.id)
-    if (!organizacion){
+    if (!organizacion) {
         return res.status(StatusCodes.NO_CONTENT).json('Error')
     }
     // Obtener roles usuario y generar token
-    let {roles_usuario,token} = await get_token(organizacion, usuario)
-
+    let {roles_usuario, token} = await get_token(organizacion, usuario)
+    if (!roles_usuario[0].filter((rol) => rol.nombre === 'organizacion')) {
+        return res.status(StatusCodes.NO_CONTENT).json('Error')
+    }
     res.status(StatusCodes.OK).json({
         'usuario': usuario,
         'vol_org': organizacion,
@@ -123,12 +125,15 @@ async function login_voluntario(res, body) {
 
     // Usuario correcto, miramos que sea voluntario
     let voluntario = await conx_voluntario.get_voluntario(usuario.id)
-    if (!voluntario){
+    if (!voluntario) {
         return res.status(StatusCodes.NO_CONTENT).json('Error')
     }
 
     // Obtener roles usuario y generar token
-    let {roles_usuario,token} = await get_token(voluntario, usuario)
+    let {roles_usuario, token} = await get_token(voluntario, usuario)
+    if (!roles_usuario[0].filter((rol) => rol.nombre === 'voluntario')) {
+        return res.status(StatusCodes.NO_CONTENT).json('Error')
+    }
     res.status(StatusCodes.OK).json({
         'usuario': usuario,
         'vol_org': voluntario,
@@ -139,7 +144,23 @@ async function login_voluntario(res, body) {
 
 async function login_admin(res, body) {
     // TODO: Realizar el login del admin correspondiente
+    const conx_usuario = new conexion_usuario()
+    let usuario = await check_login(body.login, body.password)
+    if (!usuario) {
+        return res.status(StatusCodes.NO_CONTENT).json('Error')
+    }
+    let {roles_usuario, token} = await get_token('', usuario)
+    if (!roles_usuario[0].filter((rol) => rol.nombre === 'admin')) {
+        return res.status(StatusCodes.NO_CONTENT).json('Error')
+    }
+    res.status(StatusCodes.OK).json({
+        'usuario': usuario,
+        'vol_org': '',
+        'roles': roles_usuario[0].roles,
+        'token': token
+    })
 }
+
 // ------------------------------------------------------------------------------//
 
 
@@ -164,6 +185,7 @@ async function check_login(login, password) {
     }
     return usuario
 }
+
 // ------------------------------------------------------------------------------//
 
 module.exports = {

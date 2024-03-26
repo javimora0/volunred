@@ -1,6 +1,10 @@
-@import "ng-zorro-antd/ng-zorro-antd.min.css";
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import '../styles/variables';
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 body {
   font-family: "Roboto Condensed", sans-serif;
-  background-color: #EDE9E1;
+  background-color: $color_principal;
 }

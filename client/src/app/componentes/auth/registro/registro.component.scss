@@ -1,0 +1,33 @@
+@import '../styles/variables';
+
+.main-container {
+  .title-container {
+    display: flex;
+    justify-content: center;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+    .btn-no-pulsado {
+      background-color: transparent;
+      color: black;
+      margin: 0 10px;
+      border-radius: 10px;
+      border: $color_secundario 1px solid;
+      transition: background-color 0.7s;
+    }
+
+    button:hover {
+      background-color: $color_secundario;
+    }
+
+    .btn-pulsado {
+      border-radius: 10px;
+      margin: 0 10px;
+      background-color: $color_secundario;
+      color: white;
+      border: $color_secundario 1px solid;
+      transition: background-color 0.7s;
+    }
+  }
+}

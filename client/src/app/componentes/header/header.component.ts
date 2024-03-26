@@ -1,29 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
-import {NzFlexDirective} from "ng-zorro-antd/flex";
-import {NzColDirective} from 'ng-zorro-antd/grid';
-import {NzIconDirective, NzIconModule} from 'ng-zorro-antd/icon';
-import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
-import {NzButtonComponent} from "ng-zorro-antd/button";
+import {Component} from '@angular/core';
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
-    NzMenuModule,
-    NzFlexDirective,
-    NzColDirective,
-    NzTooltipDirective,
-    NzIconDirective,
-    NzButtonComponent,
+    RouterLink,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  isCollapsed = false;
+  constructor(private router: Router) {
+  }
 
-  toggleCollapsed(): void {
-    this.isCollapsed = !this.isCollapsed;
+  navegarRegistro() {
+    this.router.navigate(['/registro'])
   }
 }

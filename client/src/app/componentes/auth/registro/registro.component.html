@@ -1,1 +1,18 @@
-<p>registro works!</p>
+<div class="main-container">
+  <div class="title-container">
+    <h2>¿Como te quieres registrar?</h2>
+  </div>
+  <div class="button-container">
+    @if (boton_voluntario_pulsado) {
+      <button pButton class="btn-pulsado" (click)="click_boton_voluntario()">Voluntario</button>
+    } @else {
+      <button pButton class="btn-no-pulsado" (click)="click_boton_voluntario()">Voluntario</button>
+    }
+    @if (boton_organizacion_pulsado) {
+      <button pButton class="btn-pulsado" (click)="click_boton_organizacion()">Organización</button>
+    } @else {
+      <button pButton class="btn-no-pulsado"(click)="click_boton_organizacion()">Organización</button>
+    }
+  </div>
+</div>
+

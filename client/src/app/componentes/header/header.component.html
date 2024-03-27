@@ -1,0 +1,20 @@
+<header>
+  <div class="logo-container">
+    <img class="logo" src="assets/logo.png" alt="">
+  </div>
+  <nav class="nav-container">
+    <button mat-button>HAZTE VOLUNTARIO</button>
+    <button mat-button>COLABORA CON UNA ONG</button>
+    <button mat-button>INFÓRMATE</button>
+    <button mat-button>NOTICIAS</button>
+    <button mat-button>RECOMENDACIONES</button>
+    <button mat-button>ADMINISTRACIÓN</button>
+    <button mat-button>QUIENES SOMOS</button>
+    <button mat-button [matMenuTriggerFor]="belowMenu">ACCESOS</button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button class="item" mat-menu-item>Iniciar sesión</button>
+      <button class="item" mat-menu-item>Registrarse</button>
+    </mat-menu>
+  </nav>
+  <hr>
+</header>

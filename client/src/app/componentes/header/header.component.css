@@ -1,0 +1,33 @@
+
+.logo-container{
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
+.nav-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+button:hover {
+  border-bottom: #7EB494 1px solid;
+}
+
+.item {
+  background-color: #EDE9E1;
+}
+.item:hover {
+  background-color: #EDE9E1;
+}
+hr {
+  width: 75%;
+  border-color: #7EB494;
+}

@@ -1,0 +1,66 @@
+<div class="form-container">
+  <div class="formulario">
+    <h2>Registro organización</h2>
+    <form [formGroup]="formulario_organizacion">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de la organización</mat-label>
+          <input matInput placeholder="Organizaciones unidas" formControlName="nombre">
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CIF de la organización</mat-label>
+          <input matInput placeholder="X0000000E" formControlName="cif">
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput placeholder="email@email.com" formControlName="email">
+          <mat-icon matSuffix>mail</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="elon musk" formControlName="username">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Ubicación</mat-label>
+          <mat-select formControlName="ubicacion">
+            @for (pais of paises; track pais.name) {
+              <mat-option [value]="pais.name.common">{{pais.name.common}}</mat-option>
+            }
+          </mat-select>
+          <mat-icon matSuffix>pin_drop</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Sitio web</mat-label>
+          <input matInput placeholder="www.ejemplo.org" formControlName="sitio_web">
+          <mat-icon matSuffix>public</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Introduzca su contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Repìta su contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </form>
+    <button mat-stroked-button class="btn-registro" (click)="boton_registro_org()">Registrarse</button>
+    <span class="inicio-sesion">¿Ya tiene una cuenta? <strong><a>Iniciar sesión</a></strong></span>
+  </div>
+
+</div>

@@ -1,0 +1,85 @@
+<div class="form-container">
+  <div class="formulario">
+    <h2>Registro voluntario</h2>
+    <form [formGroup]="formulario_voluntario">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Alberto" formControlName="nombre">
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Apellidos</mat-label>
+          <input matInput placeholder="Morales Rico" formControlName="apellidos">
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput placeholder="email@email.com" formControlName="email">
+          @if (formulario_voluntario.get('email')?.hasError('required')) {
+            <mat-error>Correo electrónico <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_voluntario.get('email')?.hasError('email')) {
+            <mat-error>Introduzca un correo electrónico <strong>válido</strong></mat-error>
+          }
+          <mat-icon matSuffix>mail</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="elon musk" formControlName="username">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" (click)="picker.open()">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
+          <mat-icon matSuffix>calendar_month</mat-icon>
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>DNI | NIE</mat-label>
+          <input matInput placeholder="00000000E" formControlName="dni_nie">
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Número de teléfono</mat-label>
+          <input matInput placeholder="666000666" formControlName="telefono">
+          <mat-icon matSuffix>call</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Ubicación</mat-label>
+          <mat-select formControlName="ubicacion">
+            @for (pais of paises; track pais.name) {
+              <mat-option [value]="pais.name.common">{{pais.name.common}}</mat-option>
+            }
+          </mat-select>
+          <mat-icon matSuffix>pin_drop</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Introduzca su contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Repìta su contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </form>
+    <button mat-stroked-button class="btn-registro" (click)="boton_registro_vol()">Registrarse</button>
+    <span class="inicio-sesion">¿Ya tiene una cuenta? <strong><a>Iniciar sesión</a></strong></span>
+  </div>
+</div>

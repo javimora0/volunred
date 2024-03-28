@@ -39,17 +39,18 @@ import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocom
 })
 export class RegistroComponent implements OnInit {
   formulario_voluntario = new FormGroup({
-    nombre: new FormControl('', [Validators.required]),
-    apellidos: new FormControl('', [Validators.required]),
+    nombre: new FormControl('', [Validators.required, Validators.min(2),Validators.max(50)]),
+    apellidos: new FormControl('', [Validators.required, Validators.min(4),Validators.max(90)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    username: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required, Validators.min(3),Validators.max(30)]),
     fecha_nacimiento: new FormControl('', [Validators.required]),
     dni_nie: new FormControl('', [Validators.required]),
-    telefono: new FormControl('', [Validators.required]),
+    telefono: new FormControl('', [Validators.required, Validators.pattern("^[0-9,$]*$")]),
     ubicacion: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    repeat_password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required,Validators.min(6),Validators.max(60)]),
+    repeat_password: new FormControl('', [Validators.required, Validators.min(6),Validators.max(60)])
   })
+
   formulario_organizacion = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     cif: new FormControl('', [Validators.required]),

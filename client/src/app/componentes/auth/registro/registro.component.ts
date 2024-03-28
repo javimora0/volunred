@@ -9,7 +9,6 @@ import {MatOption, provideNativeDateAdapter} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
 import {PaisesService} from "../../../services/paises.service";
 import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocomplete";
-import {map, Observable, startWith} from "rxjs";
 
 @Component({
   selector: 'app-registro',
@@ -39,7 +38,7 @@ import {map, Observable, startWith} from "rxjs";
   providers: [provideNativeDateAdapter()]
 })
 export class RegistroComponent implements OnInit {
-  formulario_registro = new FormGroup({
+  formulario_voluntario = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     apellidos: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -50,6 +49,16 @@ export class RegistroComponent implements OnInit {
     ubicacion: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     repeat_password: new FormControl('', [Validators.required])
+  })
+  formulario_organizacion = new FormGroup({
+    nombre: new FormControl('', [Validators.required]),
+    cif: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    ubicacion: new FormControl('', [Validators.required]),
+    sitio_web: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    repeat_password: new FormControl('', [Validators.required]),
   })
   hide = true;
   boton_vol_pulsado = false;
@@ -73,9 +82,20 @@ export class RegistroComponent implements OnInit {
     if (boton === 'vol') {
       this.boton_vol_pulsado = true
       this.boton_org_pulsado = false
+      this.formulario_organizacion.reset()
     } else {
       this.boton_vol_pulsado = false
       this.boton_org_pulsado = true
+      this.formulario_voluntario.reset()
     }
   }
+  boton_registro_vol() {
+
+  }
+
+  boton_registro_org() {
+
+  }
 }
+
+

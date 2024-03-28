@@ -15,11 +15,14 @@
 }
 
 .boton-no-pulsado {
+  border:1px solid #4e6e5c;
+
   margin: 0 10px;
 
 }
 
 .boton-pulsado {
+  border:1px solid #4e6e5c;
   margin: 0 10px;
   background-color: #7EB494;
   color: white;

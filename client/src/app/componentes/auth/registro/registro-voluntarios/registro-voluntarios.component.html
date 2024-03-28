@@ -6,11 +6,23 @@
         <mat-form-field appearance="outline">
           <mat-label>Nombre</mat-label>
           <input matInput placeholder="Alberto" formControlName="nombre">
+          @if (formulario_voluntario.get('nombre')?.hasError('required')) {
+            <mat-error>El nombre es <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_voluntario.get('nombre')?.hasError('minlength') || formulario_voluntario.get('nombre')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>2 y 50</strong> caracteres</mat-error>
+          }
           <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Apellidos</mat-label>
           <input matInput placeholder="Morales Rico" formControlName="apellidos">
+          @if (formulario_voluntario.get('apellidos')?.hasError('required')) {
+            <mat-error>Los apellidos son <strong>obligatorios</strong></mat-error>
+          }
+          @if (formulario_voluntario.get('apellidos')?.hasError('minlength') || formulario_voluntario.get('nombre')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>4 y 90</strong> caracteres</mat-error>
+          }
           <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
       </div>
@@ -21,7 +33,7 @@
           @if (formulario_voluntario.get('email')?.hasError('required')) {
             <mat-error>Correo electrónico <strong>obligatorio</strong></mat-error>
           }
-          @if (formulario_voluntario.get('email')?.hasError('email')) {
+          @if (formulario_voluntario.get('email')?.hasError('pattern')) {
             <mat-error>Introduzca un correo electrónico <strong>válido</strong></mat-error>
           }
           <mat-icon matSuffix>mail</mat-icon>
@@ -29,6 +41,12 @@
         <mat-form-field appearance="outline">
           <mat-label>Nombre de usuario</mat-label>
           <input matInput placeholder="elon musk" formControlName="username">
+          @if (formulario_voluntario.get('username')?.hasError('required')) {
+            <mat-error>El nombre de usuario es <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_voluntario.get('username')?.hasError('minlength') || formulario_voluntario.get('username')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>3 y 30</strong> caracteres</mat-error>
+          }
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
       </div>
@@ -37,12 +55,21 @@
           <mat-label>Fecha de nacimiento</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
           <mat-icon matSuffix>calendar_month</mat-icon>
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          @if (formulario_voluntario.get('fecha_nacimiento')?.hasError('required')) {
+            <mat-error>La fecha de nacimiento es <strong>obligatoria</strong></mat-error>
+          }
+          @if (formulario_voluntario.get('fecha_nacimiento')?.hasError('validar_fecha_nacimiento') && !formulario_voluntario.get('fecha_nacimiento')?.hasError('required')) {
+            <mat-error>La fecha de nacimiento es <strong>erronea. +18</strong></mat-error>
+          }
+
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>DNI | NIE</mat-label>
           <input matInput placeholder="00000000E" formControlName="dni_nie">
+          @if (formulario_voluntario.get('dni_nie')?.hasError('required')) {
+            <mat-error>El DNI o el NIE es obligatorio</mat-error>
+          }
           <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
       </div>
@@ -50,6 +77,12 @@
         <mat-form-field appearance="outline">
           <mat-label>Número de teléfono</mat-label>
           <input matInput placeholder="666000666" formControlName="telefono">
+          @if (formulario_voluntario.get('telefono')?.hasError('required')) {
+            <mat-error>El teléfono es obligatorio</mat-error>
+          }
+          @if (formulario_voluntario.get('telefono')?.hasError('minlength') || formulario_voluntario.get('telefono')?.hasError('maxlength') || formulario_voluntario.get('telefono')?.hasError('pattern')) {
+            <mat-error>Debe contener solo 6 números</mat-error>
+          }
           <mat-icon matSuffix>call</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -59,23 +92,44 @@
               <mat-option [value]="pais.name.common">{{pais.name.common}}</mat-option>
             }
           </mat-select>
+          @if (formulario_voluntario.get('ubicacion')?.hasError('required')) {
+            <mat-error>La ubicación es obligatoria</mat-error>
+          }
           <mat-icon matSuffix>pin_drop</mat-icon>
         </mat-form-field>
       </div>
       <div class="form-row">
         <mat-form-field appearance="outline">
           <mat-label>Introduzca su contraseña</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
+          <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          @if (formulario_voluntario.get('password')?.hasError('required')) {
+            <mat-error>La contraseña es <strong>obligatoria</strong></mat-error>
+          }
+          @if (formulario_voluntario.get('password')?.hasError('minlength') || formulario_voluntario.get('password')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+          }
+          @if (formulario_voluntario.get('password')?.hasError('validar_passwords')) {
+            <mat-error>Las contraseñas no coinciden</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Repìta su contraseña</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <input formControlName="repeat_password" matInput [type]="hide ? 'password' : 'text'">
+          <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          @if (formulario_voluntario.get('repeat_password')?.hasError('required')) {
+            <mat-error>Repita su contraseña</mat-error>
+          }
+          @if (formulario_voluntario.get('repeat_password')?.hasError('minlength') || formulario_voluntario.get('repeat_password')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+          }
+          @if (formulario_voluntario.get('repeat_password')?.hasError('validar_passwords')) {
+            <mat-error>Las contraseñas no coinciden</mat-error>
+          }
         </mat-form-field>
       </div>
     </form>

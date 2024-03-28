@@ -1,5 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from "@angular/forms";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatDatepicker, MatDatepickerInput} from "@angular/material/datepicker";
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
@@ -35,16 +43,16 @@ import {PaisesService} from "../../../../services/paises.service";
 export class RegistroVoluntariosComponent implements OnInit{
 
   formulario_voluntario = new FormGroup({
-    nombre: new FormControl('', [Validators.required, Validators.min(2),Validators.max(50)]),
-    apellidos: new FormControl('', [Validators.required, Validators.min(4),Validators.max(90)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    username: new FormControl('', [Validators.required, Validators.min(3),Validators.max(30)]),
-    fecha_nacimiento: new FormControl('', [Validators.required]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(2),Validators.maxLength(50)]),
+    apellidos: new FormControl('', [Validators.required, Validators.minLength(4),Validators.maxLength(90)]),
+    email: new FormControl('', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3),Validators.maxLength(30)]),
+    fecha_nacimiento: new FormControl('', [Validators.required, this.validar_fecha_nacimiento]),
     dni_nie: new FormControl('', [Validators.required]),
-    telefono: new FormControl('', [Validators.required, Validators.pattern("^[0-9,$]*$")]),
+    telefono: new FormControl('', [Validators.required, Validators.minLength(9),Validators.maxLength(9),Validators.pattern("^[0-9,$]*$")]),
     ubicacion: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required,Validators.min(6),Validators.max(60)]),
-    repeat_password: new FormControl('', [Validators.required, Validators.min(6),Validators.max(60)])
+    password: new FormControl('', [Validators.required,Validators.minLength(6),Validators.maxLength(60)]),
+    repeat_password: new FormControl('', [Validators.required, Validators.minLength(6),Validators.maxLength(60),])
   })
   hide = true;
   paises: any
@@ -55,11 +63,32 @@ export class RegistroVoluntariosComponent implements OnInit{
       .subscribe({
         next:(res) => {
           this.paises = res.body
-          console.log(this.paises[0].name)
         }
       })
   }
   boton_registro_vol() {
 
+  }
+
+  /**
+   * @desc https://www.digitalocean.com/community/tutorials/angular-reactive-forms-custom-validator
+   * @param control
+   */
+  validar_fecha_nacimiento(control: AbstractControl): ValidationErrors | null {
+    const date = new Date(control.value);
+    const system_date = new Date();
+    let age = system_date.getFullYear() - date.getFullYear();
+    // Asegurarse de que no solo el año, sino la fecha completa indica que el usuario tiene al menos 18 años
+    if (system_date.getMonth() < date.getMonth() || (system_date.getMonth() === date.getMonth() && system_date.getDate() < date.getDate())) {
+      age--;
+    }
+
+    return age >= 18 ? null : { 'validar_fecha_nacimiento': true };
+  }
+
+  validar_telefono(control: AbstractControl): ValidationErrors | null {
+    const telefono = control.value
+    console.log(isNaN(telefono))
+    return null
   }
 }

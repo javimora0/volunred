@@ -6,11 +6,20 @@
         <mat-form-field appearance="outline">
           <mat-label>Nombre de la organización</mat-label>
           <input matInput placeholder="Organizaciones unidas" formControlName="nombre">
+          @if (formulario_organizacion.get('nombre')?.hasError('required')) {
+            <mat-error>El nombre es <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('nombre')?.hasError('minlength') || formulario_organizacion.get('nombre')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>2 y 50</strong> caracteres</mat-error>
+          }
           <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>CIF de la organización</mat-label>
           <input matInput placeholder="X0000000E" formControlName="cif">
+          @if (formulario_organizacion.get('cif')?.hasError('required')) {
+            <mat-error>El CIF es obligatorio</mat-error>
+          }
           <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
       </div>
@@ -18,11 +27,23 @@
         <mat-form-field appearance="outline">
           <mat-label>Correo electrónico</mat-label>
           <input matInput placeholder="email@email.com" formControlName="email">
+          @if (formulario_organizacion.get('email')?.hasError('required')) {
+            <mat-error>Correo electrónico <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('email')?.hasError('pattern')) {
+            <mat-error>Introduzca un correo electrónico <strong>válido</strong></mat-error>
+          }
           <mat-icon matSuffix>mail</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Nombre de usuario</mat-label>
           <input matInput placeholder="elon musk" formControlName="username">
+          @if (formulario_organizacion.get('username')?.hasError('required')) {
+            <mat-error>El nombre de usuario es <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('username')?.hasError('minlength') || formulario_organizacion.get('username')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>3 y 30</strong> caracteres</mat-error>
+          }
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
       </div>
@@ -34,11 +55,20 @@
               <mat-option [value]="pais.name.common">{{pais.name.common}}</mat-option>
             }
           </mat-select>
+          @if (formulario_organizacion.get('ubicacion')?.hasError('required')) {
+            <mat-error>La ubicación es obligatoria</mat-error>
+          }
           <mat-icon matSuffix>pin_drop</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Sitio web</mat-label>
           <input matInput placeholder="www.ejemplo.org" formControlName="sitio_web">
+          @if (formulario_organizacion.get('sitio_web')?.hasError('required')) {
+            <mat-error>El sitio web es <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('sitio_web')?.hasError('pattern')){
+            <mat-error>Introduzca un sitio web correcto</mat-error>
+          }
           <mat-icon matSuffix>public</mat-icon>
         </mat-form-field>
       </div>
@@ -49,6 +79,15 @@
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          @if (formulario_organizacion.get('password')?.hasError('required')) {
+            <mat-error>La contraseña es <strong>obligatoria</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('password')?.hasError('minlength') || formulario_organizacion.get('password')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+          }
+          @if (formulario_organizacion.get('password')?.hasError('validar_passwords')) {
+            <mat-error>Las contraseñas no coinciden</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Repìta su contraseña</mat-label>
@@ -56,6 +95,15 @@
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          @if (formulario_organizacion.get('repeat_password')?.hasError('required')) {
+            <mat-error>Repita su contraseña</mat-error>
+          }
+          @if (formulario_organizacion.get('repeat_password')?.hasError('minlength') || formulario_organizacion.get('repeat_password')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+          }
+          @if (formulario_organizacion.get('repeat_password')?.hasError('validar_passwords')) {
+            <mat-error>Las contraseñas no coinciden</mat-error>
+          }
         </mat-form-field>
       </div>
     </form>

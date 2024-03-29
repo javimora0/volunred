@@ -99,6 +99,7 @@ export class RegistroVoluntariosComponent implements OnInit {
     this.loading = true
     if (this.formulario_voluntario.value.password !== this.formulario_voluntario.value.repeat_password) {
       this.mensaje_password = 'Las contraseñas no coincide'
+      this.loading = false
     } else {
       this.mensaje_password = ''
       let body: RegistroVoluntario = {

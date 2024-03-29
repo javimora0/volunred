@@ -58,3 +58,10 @@ a {
   overflow: hidden;
 }
 
+small {
+  color: red;
+}
+
+mat-spinner {
+  margin-top: 10px;
+}

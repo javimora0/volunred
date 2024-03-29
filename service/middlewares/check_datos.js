@@ -135,7 +135,7 @@ const check_cif = async (cif = '') => {
         if (regex.test(cif)) {
             resolve(true);
         }else {
-            reject(new Error('cif erroneo'));
+            reject(new Error('CIF incorrecto'));
         }
     })
 }

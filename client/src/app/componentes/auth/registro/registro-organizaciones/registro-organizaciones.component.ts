@@ -11,6 +11,7 @@ import {MatDatepicker, MatDatepickerInput} from "@angular/material/datepicker";
 import {AuthService} from "../../../../services/auth.service";
 import {RegistroOrganizacion} from "../../../../interfaces/auth";
 import {Router} from "@angular/router";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-registro-organizaciones',
@@ -30,7 +31,8 @@ import {Router} from "@angular/router";
     MatOption,
     MatSelect,
     MatSuffix,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinner
   ],
   templateUrl: './registro-organizaciones.component.html',
   styleUrl: './registro-organizaciones.component.css'
@@ -43,14 +45,18 @@ export class RegistroOrganizacionesComponent implements OnInit{
     username: new FormControl('', [Validators.required, Validators.minLength(3),Validators.maxLength(30)]),
     email: new FormControl('', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
     ubicacion: new FormControl('', [Validators.required]),
-    sitio_web: new FormControl('', [Validators.required, Validators.pattern('https?://(www\\.)?[a-zA-Z0-9]{2,}(\\.[a-zA-Z0-9]{2,})(\\.[a-zA-Z0-9]{2,})?')]),
+    sitio_web: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required,Validators.minLength(6),Validators.maxLength(60)]),
     repeat_password: new FormControl('', [Validators.required, Validators.minLength(6),Validators.maxLength(60),])
   })
   hide = true;
   mensaje_password = ''
   paises: any
-
+  error_email = ''
+  mensaje_servidor = ''
+  error_username = ''
+  error_cif = ''
+  error_nombre = ''
   constructor(private paises_service: PaisesService, private auth_service: AuthService, private router: Router) {
   }
 
@@ -65,6 +71,7 @@ export class RegistroOrganizacionesComponent implements OnInit{
   boton_registro_org() {
     this.loading = true
     if (this.formulario_organizacion.value.password !== this.formulario_organizacion.value.repeat_password) {
+      this.loading = false
       this.mensaje_password = 'Las contraseñas no coincide'
     } else {
       this.mensaje_password = ''
@@ -77,10 +84,11 @@ export class RegistroOrganizacionesComponent implements OnInit{
         password: this.formulario_organizacion.value.password ?? '',
         username: this.formulario_organizacion.value.username ?? ''
       }
+      console.log(body)
       this.auth_service.registro_organizacion(body)
         .subscribe({
           next:(res) => {
-            console.log(res)
+            this.loading = false
             if (res.status === 201 && res.body?.token) {
               sessionStorage.setItem('token', res.body.token)
               //TODO: Redirigir a pagina de inicio
@@ -88,10 +96,48 @@ export class RegistroOrganizacionesComponent implements OnInit{
             }
           },
           error:(err) => {
-            //TODO: Manejar todos los casos de error 409 400 default
             console.log(err)
+            switch (err.status) {
+              case 409:
+                this.loading = false
+                this.check_datos_repetidos(err.error.errors)
+                break;
+              case 400:
+                this.loading = false
+                this.mensaje_servidor = 'Error interno. Vuelva a intentarlo mas tarde'
+                setTimeout(() => {
+                  this.mensaje_servidor = '';
+                }, 5000);
+                break;
+              default:
+                this.loading = false
+                this.mensaje_servidor = 'Error interno. Vuelva a intentarlo mas tarde'
+                setTimeout(() => {
+                  this.mensaje_servidor = '';
+                }, 5000);
+                break
+            }
           }
         })
+    }
+  }
+
+  check_datos_repetidos(errores: any) {
+    if (errores.some((error: any) => error.path === 'email')) {
+      let mensaje_error = errores.filter((error: any) => error.path === 'email')[0].msg
+      this.error_email = mensaje_error
+    }
+    if (errores.some((error: any) => error.path === 'username')) {
+      let mensaje_error = errores.filter((error: any) => error.path === 'username')[0].msg
+      this.error_username = mensaje_error
+    }
+    if (errores.some((error: any) => error.path === 'cif')) {
+      let mensaje_error = errores.filter((error: any) => error.path === 'cif')[0].msg
+      this.error_cif = mensaje_error
+    }
+    if (errores.some((error: any) => error.path === 'nombre')) {
+      let mensaje_error = errores.filter((error: any) => error.path === 'nombre')[0].msg
+      this.error_nombre = mensaje_error
     }
   }
 }

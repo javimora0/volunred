@@ -1,0 +1,22 @@
+<div class="main-container">
+    <h1>¿Como quieres registrarte?</h1>
+</div>
+<div class="botones-container">
+  @if (!boton_vol_pulsado) {
+    <button mat-stroked-button class="boton-no-pulsado" (click)="pulsar_boton('vol')">Voluntario</button>
+  }@else {
+    <button mat-stroked-button class="boton-pulsado">Voluntario</button>
+  }
+  @if (!boton_org_pulsado) {
+    <button class="boton-no-pulsado" (click)="pulsar_boton('org')" mat-stroked-button>Organización</button>
+  } @else {
+    <button mat-stroked-button class="boton-pulsado">Organización</button>
+  }
+</div>
+
+@if (boton_vol_pulsado) {
+  <app-registro-voluntarios></app-registro-voluntarios>
+}
+@if (boton_org_pulsado) {
+  <app-registro-organizaciones></app-registro-organizaciones>
+}

@@ -1,0 +1,123 @@
+<div class="form-container">
+  <div class="formulario">
+    <h2>Registro organización</h2>
+    <form [formGroup]="formulario_organizacion">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de la organización</mat-label>
+          <input matInput placeholder="Organizaciones unidas" formControlName="nombre">
+          @if (formulario_organizacion.get('nombre')?.hasError('required')) {
+            <mat-error>El nombre es <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('nombre')?.hasError('minlength') || formulario_organizacion.get('nombre')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>2 y 50</strong> caracteres</mat-error>
+          }
+          <small>{{error_nombre}}</small>
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CIF de la organización</mat-label>
+          <input matInput placeholder="X0000000E" formControlName="cif">
+          @if (formulario_organizacion.get('cif')?.hasError('required')) {
+            <mat-error>El CIF es obligatorio</mat-error>
+          }
+          <mat-icon matSuffix>badge</mat-icon>
+          <small>{{error_cif}}</small>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput placeholder="email@email.com" formControlName="email">
+          @if (formulario_organizacion.get('email')?.hasError('required')) {
+            <mat-error>Correo electrónico <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('email')?.hasError('pattern')) {
+            <mat-error>Introduzca un correo electrónico <strong>válido</strong></mat-error>
+          }
+          <mat-icon matSuffix>mail</mat-icon>
+          <small>{{error_email}}</small>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="elon musk" formControlName="username">
+          @if (formulario_organizacion.get('username')?.hasError('required')) {
+            <mat-error>El nombre de usuario es <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('username')?.hasError('minlength') || formulario_organizacion.get('username')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>3 y 30</strong> caracteres</mat-error>
+          }
+          <mat-icon matSuffix>person</mat-icon>
+          <small>{{error_username}}</small>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Ubicación</mat-label>
+          <mat-select formControlName="ubicacion">
+            @for (pais of paises; track pais.name) {
+              <mat-option [value]="pais.name.common">{{pais.name.common}}</mat-option>
+            }
+          </mat-select>
+          @if (formulario_organizacion.get('ubicacion')?.hasError('required')) {
+            <mat-error>La ubicación es obligatoria</mat-error>
+          }
+          <mat-icon matSuffix>pin_drop</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Sitio web</mat-label>
+          <input matInput placeholder="www.ejemplo.org" formControlName="sitio_web">
+          @if (formulario_organizacion.get('sitio_web')?.hasError('required')) {
+            <mat-error>El sitio web es <strong>obligatorio</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('sitio_web')?.hasError('pattern')){
+            <mat-error>Introduzca un sitio web correcto</mat-error>
+          }
+          <mat-icon matSuffix>public</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Introduzca su contraseña</mat-label>
+          <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          @if (formulario_organizacion.get('password')?.hasError('required')) {
+            <mat-error>La contraseña es <strong>obligatoria</strong></mat-error>
+          }
+          @if (formulario_organizacion.get('password')?.hasError('minlength') || formulario_organizacion.get('password')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+          }
+          @if (formulario_organizacion.get('password')?.hasError('validar_passwords')) {
+            <mat-error>Las contraseñas no coinciden</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Repìta su contraseña</mat-label>
+          <input formControlName="repeat_password"  matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          @if (formulario_organizacion.get('repeat_password')?.hasError('required')) {
+            <mat-error>Repita su contraseña</mat-error>
+          }
+          @if (formulario_organizacion.get('repeat_password')?.hasError('minlength') || formulario_organizacion.get('repeat_password')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+          }
+          @if (formulario_organizacion.get('repeat_password')?.hasError('validar_passwords')) {
+            <mat-error>Las contraseñas no coinciden</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+    <span class="mensaje-error">{{mensaje_password}}</span>
+    <span class="mensaje-error">{{mensaje_servidor}}</span>
+    <button mat-stroked-button class="btn-registro" (click)="boton_registro_org()" [disabled]="!formulario_organizacion.valid">Registrarse</button>
+    @if (loading) {
+      <mat-spinner diameter="30" color="primary"></mat-spinner>
+    }
+    <span class="inicio-sesion">¿Ya tiene una cuenta? <strong><a>Iniciar sesión</a></strong></span>
+  </div>
+
+</div>

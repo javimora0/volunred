@@ -7,8 +7,13 @@
 .logo {
   width: 100px;
   height: 100px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  overflow: hidden;
 }
-
+img:hover {
+  transform: scale(1.1);
+}
 .nav-container {
   width: 100%;
   display: flex;

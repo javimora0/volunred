@@ -1,0 +1,90 @@
+.main-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.botones-container {
+  display: flex;
+  justify-content: center;
+}
+
+.boton-no-pulsado:hover {
+  background-color: #7EB494;
+  color: white;
+}
+
+.boton-no-pulsado {
+  border:1px solid #4e6e5c;
+
+  margin: 0 10px;
+
+}
+
+.boton-pulsado {
+  border:1px solid #4e6e5c;
+  margin: 0 10px;
+  background-color: #7EB494;
+  color: white;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+mat-form-field {
+  margin: 0 20px;
+}
+
+.form-container .formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn-registro {
+  background-color: #7EB494;
+}
+
+@media (min-width: 1080px) {
+  .form-row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .form-row mat-form-field {
+    width: calc(50% - 10px);
+  }
+}
+
+.inicio-sesion {
+  margin-top: 20px;
+}
+
+a {
+  color: blue;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+

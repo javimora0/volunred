@@ -15,7 +15,7 @@ const existe_email = async(email = '') => {
                 resolve(true)
             })
             .catch(err => {
-                reject(new Error('Ya existe el email'))
+                reject(new Error('Correo electrónico ya en uso'))
             })
     })
 }
@@ -33,7 +33,7 @@ const existe_username = async(username = '') => {
                 resolve(true)
             })
             .catch(err => {
-                reject(new Error('Ya existe el username'))
+                reject(new Error('Nombre de usuario ya en uso'))
             })
     })
 }
@@ -51,7 +51,7 @@ const existe_dni_nie = async (dni_nie) => {
                 resolve(true)
             })
             .catch(err => {
-                reject(new Error('Ya existe el dni o el nie'))
+                reject(new Error('DNI o NIE ya registrado'))
             })
     })
 }
@@ -69,7 +69,7 @@ const existe_telefono = async (telefono) => {
                 resolve(true)
             })
             .catch(err => {
-                reject(new Error('Ya existe el telefono'))
+                reject(new Error('Número de telefono ya en uso'))
             })
     })
 }
@@ -105,7 +105,7 @@ const check_dni_nie = (dni_nie = '') => {
         let str = dni_nie.toString().toUpperCase();
 
         if (!nif_regexp.test(str) && !nie_regexp.test(str)) {
-            return reject(new Error('dni o nie erroneo'));
+            return reject(new Error('Error de formato en el DNI'));
         }
 
         let nie = str
@@ -119,7 +119,7 @@ const check_dni_nie = (dni_nie = '') => {
         if (letras.charAt(caracter) === letra) {
             resolve(true);
         } else {
-            reject(new Error('dni o nie erroneo'));
+            reject(new Error('Error de formato en el DNI'));
         }
     });
 }
@@ -135,7 +135,7 @@ const check_cif = async (cif = '') => {
         if (regex.test(cif)) {
             resolve(true);
         }else {
-            reject(new Error('cif erroneo'));
+            reject(new Error('CIF incorrecto'));
         }
     })
 }

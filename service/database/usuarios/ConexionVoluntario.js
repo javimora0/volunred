@@ -48,7 +48,7 @@ class ConexionVoluntario {
         } finally {
             conx.desconectar()
             if (voluntario.length !== 0) {
-                throw new CustomError('Ya existe el dni o el nie')
+                throw new CustomError('DNI o NIE ya registrado')
             }
         }
         return voluntario
@@ -64,7 +64,7 @@ class ConexionVoluntario {
         } finally {
             conx.desconectar()
             if (voluntario.length !== 0) {
-                throw new CustomError('Ya existe el telefono')
+                throw new CustomError('Número de telefono ya en uso')
             }
         }
         return voluntario

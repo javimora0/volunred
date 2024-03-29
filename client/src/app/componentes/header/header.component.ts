@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
@@ -16,7 +16,17 @@ import {Router, RouterLink} from "@angular/router";
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+
+  is_login = false
+  is_admin = false
+  ngOnInit() {
+    if (sessionStorage.getItem('token')) {
+      this.is_login = true
+    }
+
+  }
+
   constructor(private router: Router) {
   }
   navegar_registro() {

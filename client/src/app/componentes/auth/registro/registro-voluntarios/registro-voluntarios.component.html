@@ -37,6 +37,7 @@
             <mat-error>Introduzca un correo electrónico <strong>válido</strong></mat-error>
           }
           <mat-icon matSuffix>mail</mat-icon>
+          <small>{{error_email}}</small>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Nombre de usuario</mat-label>
@@ -48,6 +49,7 @@
             <mat-error>Debe contener entre <strong>3 y 30</strong> caracteres</mat-error>
           }
           <mat-icon matSuffix>person</mat-icon>
+          <small>{{error_username}}</small>
         </mat-form-field>
       </div>
       <div class="form-row">
@@ -71,6 +73,7 @@
             <mat-error>El DNI o el NIE es obligatorio</mat-error>
           }
           <mat-icon matSuffix>badge</mat-icon>
+          <small>{{error_dni_nie}}</small>
         </mat-form-field>
       </div>
       <div class="form-row">
@@ -133,7 +136,15 @@
         </mat-form-field>
       </div>
     </form>
-    <button mat-stroked-button class="btn-registro" (click)="boton_registro_vol()">Registrarse</button>
+    <span class="mensaje-error">{{mensaje_password}}</span>
+    <span class="mensaje-error">{{mensaje_servidor}}</span>
+    <button mat-stroked-button class="btn-registro" (click)="boton_registro_vol()" [disabled]="!formulario_voluntario.valid">Registrarse</button>
+    @if (loading) {
+      <mat-spinner diameter="30" color="primary"></mat-spinner>
+    }
     <span class="inicio-sesion">¿Ya tiene una cuenta? <strong><a>Iniciar sesión</a></strong></span>
   </div>
 </div>
+
+
+

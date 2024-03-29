@@ -64,3 +64,16 @@ a {
   overflow: hidden;
 }
 
+.mensaje-error {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  color: #ee2121;
+}
+
+small {
+  color: red;
+}
+
+mat-spinner {
+  margin-top: 10px;
+}

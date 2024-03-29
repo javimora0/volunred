@@ -122,7 +122,7 @@ class ConexionUsuario {
         } finally {
             conx.desconectar()
             if (usuario.length !== 0) {
-                throw new CustomError('Ya existe el email')
+                throw new CustomError('Correo electrónico ya en uso')
             }
         }
 
@@ -143,7 +143,7 @@ class ConexionUsuario {
         } finally {
             conx.desconectar()
             if (usuario.length !== 0) {
-                throw new CustomError('Ya existe el username')
+                throw new CustomError('Nombre de usuario ya en uso')
             }
         }
         return usuario

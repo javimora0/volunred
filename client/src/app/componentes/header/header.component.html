@@ -8,15 +8,20 @@
       <button mat-button>COLABORA CON UNA ONG</button>
       <button mat-button>INFÓRMATE</button>
       <button mat-button>NOTICIAS</button>
-      <button mat-button>RECOMENDACIONES</button>
-      <button mat-button>ADMINISTRACIÓN</button>
+      @if (is_admin) {
+        <button mat-button>ADMINISTRACIÓN</button>
+      }
       <button mat-button>QUIENES SOMOS</button>
-      <button mat-button [matMenuTriggerFor]="belowMenu">ACCESOS</button>
-      <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button class="item" mat-menu-item>Iniciar sesión</button>
-        <button class="item" mat-menu-item (click)="navegar_registro()">Registrarse</button>
-      </mat-menu>
-    </nav>  <hr>
+      @if (!is_login) {
+        <button mat-button>RECOMENDACIONES</button>
+        <button mat-button [matMenuTriggerFor]="belowMenu">ACCESOS</button>
+        <mat-menu #belowMenu="matMenu" yPosition="below">
+          <button class="item" mat-menu-item>Iniciar sesión</button>
+          <button class="item" mat-menu-item (click)="navegar_registro()">Registrarse</button>
+        </mat-menu>
+      }
+    </nav>
+    <hr>
   }
 
 </header>

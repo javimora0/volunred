@@ -1,6 +1,7 @@
 const conexion_usuario =  require('../database/usuarios/ConexionUsuario')
 const conexion_voluntario =  require('../database/usuarios/ConexionVoluntario')
 const conexion_organizacion =  require('../database/usuarios/ConexionOrganizacion')
+const {StatusCodes} = require("http-status-codes");
 
 /**
  * @description Validacion para que no se repitan emails
@@ -140,6 +141,24 @@ const check_cif = async (cif = '') => {
     })
 }
 
+/**
+ * @desc Comprueba si existe el usuario indicando en req.params.id_usuario
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<*>}
+ */
+const existe_usuario = async (req, res, next) => {
+    const conx = new conexion_usuario()
+    const id = req.params.id_usuario
+    let usuario = await conx.get_usuario(id)
+    if (!usuario) {
+        return res.status(StatusCodes.NO_CONTENT).json({ 'msg': 'Usuario no encontrado' })
+    }
+    next()
+}
+
+
 module.exports = {
     existe_email,
     existe_username,
@@ -147,5 +166,6 @@ module.exports = {
     existe_dni_nie,
     existe_telefono,
     check_cif,
-    existe_cif
+    existe_cif,
+    existe_usuario
 }

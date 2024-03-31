@@ -7,6 +7,7 @@ class Server {
     constructor() {
         this.app = express();
         this.access_path = '/api'
+        this.ambitos_path = '/api/ambitos'
         this.middlewares()
         this.routes()
     }
@@ -26,6 +27,7 @@ class Server {
 
     routes() {
         this.app.use(this.access_path, require('../routes/access_routes'))
+        this.app.use(this.ambitos_path, require('../routes/ambitos_profesionales_routes'))
     }
     listen() {
         this.app.listen(process.env.PORT, () => {

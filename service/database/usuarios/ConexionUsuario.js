@@ -5,6 +5,18 @@ const conx = new Conexion()
 
 class ConexionUsuario {
 
+    get_usuario = async (id) => {
+        let usuario
+        conx.conectar()
+        try {
+            usuario = await model.Usuario.findByPk(id)
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
 
     /**
      * @desc Comprueba las credenciales por email de un usuario

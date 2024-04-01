@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const ambitos_controller = require('../controllers/ambitos_controller')
-const check_datos = require('/middlewares/check_datos')
+const check_datos = require('../middlewares/check_datos')
 const router = Router()
 
 router.get('', ambitos_controller.get_ambitos)

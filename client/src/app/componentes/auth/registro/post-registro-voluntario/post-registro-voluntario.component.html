@@ -1,1 +1,25 @@
-<p>post-registro-voluntario works!</p>
+<div class="container">
+  <div class="main-container">
+    <div class="select-container">
+    </div>
+    <h1>Elige tus ámbitos profesionales</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>Ámbitos</mat-label>
+      <mat-select [formControl]="ambitos_elegidos" multiple>
+        @for (ambito of ambitos_profesionales?.ambitos_profesionales; track ambito.id) {
+          <mat-option (click)="seleccion_ambito()" [value]="ambito">{{ambito.ambito}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <div class="botones">
+      @if (!ambitos_seleccionados) {
+        <button class="btn-continuar" disabled mat-button>Continuar</button>
+      } @else {
+        <button class="btn-saltar" (click)="boton_continuar()" mat-button>Continuar</button>
+      }
+      <button class="btn-saltar" (click)="boton_saltar()" mat-button>Saltar</button>
+    </div>
+
+  </div>
+
+</div>

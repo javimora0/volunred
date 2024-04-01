@@ -22,7 +22,7 @@ class ConexionAmbitos {
         try {
             for (const ambito of ambitos) {
                 //TODO: Crear ambito
-                retornar = await model.Ambito_voluntario.create({id_usuario: id_usuario,id_ambito:ambito.id})
+                retornar = await model.Ambito_voluntario.create({id_voluntario: id_usuario,id_ambito_profesional:ambito.id})
             }
         } catch (err) {
             retornar = null

@@ -30,11 +30,10 @@ export class HeaderComponent implements OnInit{
     if (token) {
       this.is_login = true
       this.usuario = this.utils_service.getUsuarioSession(token)
-      console.log(this.usuario)
       if (this.usuario?.roles.some((rol) => rol.nombre === 'voluntario')) {
         this.is_voluntario = true
       }
-      if (this.usuario?.roles.some((rol) => rol.nombre === 'admnin')) {
+      if (this.usuario?.roles.some((rol) => rol.nombre === 'admin')) {
         this.is_admin = true
       }
     }

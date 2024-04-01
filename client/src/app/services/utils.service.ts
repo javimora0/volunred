@@ -8,7 +8,7 @@ import {RespuestaRegistro} from "../interfaces/auth";
 export class UtilsService {
 
   constructor() { }
-  getUsuarioSession(token: string) : RespuestaRegistro | null{
+  getUsuarioSession(token: any) : RespuestaRegistro{
     return jwtDecode(token)
   }
 }

@@ -21,7 +21,6 @@ const get_ambitos = async (req, res = response) => {
  * @desc Asigna ambitos profesionales a un usuario
  * @param req
  * @param res
- * @returns {Promise<e.Response<any, Record<string, any>>>}
  */
 const asignar_ambitos = async(req, res = response) => {
     const conx_ambitos = new conexion_ambitos()

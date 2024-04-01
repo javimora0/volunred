@@ -1,0 +1,35 @@
+.main-container{
+  width: 50%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.select-container {
+  display: flex;
+  justify-content: center;
+}
+.container {
+  display: flex;
+  justify-content: center;
+}
+.btn-saltar {
+  color: white;
+  background-color: #7EB494;
+}
+
+.btn-continuar {
+  color: white;
+  background-color: #868686;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  width: 25%;
+
+}

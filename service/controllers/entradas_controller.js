@@ -15,7 +15,19 @@ const get_hazte_voluntario = async (req, res = response) => {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error en el tipo de entrada'})
     }
     let entradas = await conx_entradas.get_entradas_tipo(tipo_hazte_voluntario.dataValues.id)
-    console.log(entradas)
+    if (!entradas) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error en la entrada'})
+    }
+    res.status(StatusCodes.OK).json({'entradas':entradas})
+}
+
+const get_quienes_somos = async (req, res = response) => {
+    const conx_entradas = new conexion_entradas()
+    let tipo_quienes_somos = await conx_entradas.get_tipo_entrada('quienes_somos')
+    if (!tipo_quienes_somos) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error en el tipo de entrada'})
+    }
+    let entradas = await conx_entradas.get_entradas_tipo(tipo_quienes_somos.dataValues.id)
     if (!entradas) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error en la entrada'})
     }
@@ -23,5 +35,6 @@ const get_hazte_voluntario = async (req, res = response) => {
 }
 
 module.exports = {
-    get_hazte_voluntario
+    get_hazte_voluntario,
+    get_quienes_somos
 }

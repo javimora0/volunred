@@ -4,9 +4,12 @@ import {
   PostRegistroVoluntarioComponent
 } from "./componentes/auth/registro/post-registro-voluntario/post-registro-voluntario.component";
 import {InicioComponent} from "./componentes/inicio/inicio.component";
+import {LoginComponent} from "./componentes/auth/login/login.component";
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {path: 'registro', component: RegistroComponent},
   {path: 'registro/post', component: PostRegistroVoluntarioComponent},
-  { path: 'inicio', component: InicioComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'inicio', component: InicioComponent},
 ];

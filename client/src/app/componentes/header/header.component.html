@@ -18,7 +18,7 @@
       @if (!is_login) {
         <button mat-button [matMenuTriggerFor]="belowMenu">ACCESOS</button>
         <mat-menu #belowMenu="matMenu" yPosition="below">
-          <button class="item" mat-menu-item>Iniciar sesión</button>
+          <button class="item" mat-menu-item (click)="navegar_login()">Iniciar sesión</button>
           <button class="item" mat-menu-item (click)="navegar_registro()">Registrarse</button>
         </mat-menu>
       } @else {

@@ -1,0 +1,27 @@
+<div class="form-container">
+  <div class="formulario">
+    <h2>Iniciar sesión</h2>
+    <form [formGroup]="formulario_login">
+      <mat-form-field appearance="outline">
+        <mat-label>Correo electrónico o Nombre de usuario</mat-label>
+        <input matInput formControlName="login">
+        @if (formulario_login.get('login')?.hasError('required')) {
+          <mat-error>Correo electrónico o nombre de usuario <strong>obligatorio</strong></mat-error>
+        }
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Introduzca su contraseña</mat-label>
+        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        @if (formulario_login.get('password')?.hasError('required')) {
+          <mat-error>Contraseña <strong>obligatoria</strong></mat-error>
+        }
+      </mat-form-field>
+    </form>
+    <button mat-stroked-button class="btn-registro" (click)="boton_login()" [disabled]="!formulario_login.valid">Iniciar sesión</button>
+    <span class="inicio-sesion">¿No tienes una cuenta? <strong><a>Regístrate</a></strong></span>
+  </div>
+</div>

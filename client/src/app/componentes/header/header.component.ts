@@ -54,4 +54,7 @@ export class HeaderComponent implements OnInit{
     window.location.reload()
     this.router.navigate([''])
   }
+  navegar_login() {
+    this.router.navigate(['login'])
+  }
 }

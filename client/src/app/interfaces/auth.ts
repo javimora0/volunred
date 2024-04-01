@@ -59,3 +59,8 @@ export interface VolOrg {
   updatedAt: Date;
   createdAt: Date;
 }
+
+export interface Login {
+  login: string;
+  password: string;
+}

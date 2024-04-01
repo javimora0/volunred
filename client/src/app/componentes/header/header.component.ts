@@ -45,13 +45,13 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['registro'])
   }
 
-  isLoginOrRegister(): boolean {
-    const url = this.router.url;
-    return url.includes('/login') || url.includes('/registro') || url.includes('/error');
-  }
+
   cerrar_sesion() {
     sessionStorage.clear()
     window.location.reload()
     this.router.navigate([''])
+  }
+  navegar_login() {
+    this.router.navigate(['login'])
   }
 }

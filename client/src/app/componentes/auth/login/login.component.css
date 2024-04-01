@@ -1,0 +1,43 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.btn-registro {
+  background-color: #7EB494;
+  margin-top: 20px;
+}
+
+.inicio-sesion {
+  margin-top: 20px;
+}
+
+a {
+  color: blue;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.mensaje-error {
+  color: red;
+}
+
+mat-spinner {
+  margin-top: 10px;
+}

@@ -9,6 +9,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatSelect} from "@angular/material/select";
 import {Login} from "../../../interfaces/auth";
 import {AuthService} from "../../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -36,9 +37,10 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   })
   hide = true
-
+  mensjae_error = ''
   constructor(
-    private auth_service: AuthService
+    private auth_service: AuthService,
+    private router: Router
   ) {
   }
 
@@ -52,6 +54,16 @@ export class LoginComponent {
       .subscribe({
         next: (res) => {
           console.log(res)
+          if (res.status === 200) {
+            let token = res.body?.token
+            if (token) {
+              sessionStorage.setItem('token', token)
+              this.router.navigate(['inicio'])
+            }
+          }
+          if (res.status == 204){
+            this.mensjae_error = 'Credenciales incorrectas'
+          }
         },
         error: (err) => {
           console.log(err)

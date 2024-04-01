@@ -30,7 +30,7 @@ class ConexionEntradas{
         let entrada_retornar
         conx.conectar()
         try {
-            entrada_retornar = await model.entrada.findAll({where:{id_tipo_entrada:id_tipo}})
+            entrada_retornar = await model.entrada.findAll({where:{id_tipo_entrada:id_tipo, activa:true}})
         } catch (err) {
             entrada_retornar = null
         } finally {

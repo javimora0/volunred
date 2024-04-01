@@ -1,2 +1,8 @@
-<app-header></app-header>
+@if (!isLoginOrRegister()) {
+  <app-header></app-header>
+} @else {
+  <div class="logo-container">
+    <img routerLink="" class="logo" src="assets/logo.png" alt="">
+  </div>
+}
 <router-outlet></router-outlet>

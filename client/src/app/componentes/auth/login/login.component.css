@@ -34,7 +34,7 @@ a {
   transition: transform 0.3s ease;
 }
 
-small {
+.mensaje-error {
   color: red;
 }
 

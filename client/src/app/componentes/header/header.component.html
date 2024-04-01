@@ -1,34 +1,36 @@
 <header>
-  <div class="logo-container">
-    <img routerLink="" class="logo" src="assets/logo.png" alt="">
-  </div>
-  @if (!isLoginOrRegister()) {
-    <nav class="nav-container">
-      <button mat-button>HAZTE VOLUNTARIO</button>
-      <button mat-button>COLABORA CON UNA ONG</button>
-      <button mat-button>INFÓRMATE</button>
-      <button mat-button>NOTICIAS</button>
-      @if (is_admin) {
-        <button mat-button>ADMINISTRACIÓN</button>
-      }
-      @if (is_voluntario) {
-        <button mat-button>RECOMENDACIONES</button>
-      }
-      <button mat-button>QUIENES SOMOS</button>
-      @if (!is_login) {
-        <button mat-button [matMenuTriggerFor]="belowMenu">ACCESOS</button>
-        <mat-menu #belowMenu="matMenu" yPosition="below">
-          <button class="item" mat-menu-item (click)="navegar_login()">Iniciar sesión</button>
-          <button class="item" mat-menu-item (click)="navegar_registro()">Registrarse</button>
-        </mat-menu>
-      } @else {
-        <button mat-button [matMenuTriggerFor]="belowMenu"><mat-icon>face</mat-icon>PERFIL</button>
-        <mat-menu #belowMenu="matMenu" yPosition="below">
-          <button class="item" mat-menu-item>MIS DATOS</button>
-          <button class="item" mat-menu-item (click)="cerrar_sesion()">CERRAR SESIÓN</button>
-        </mat-menu>
-      }
-    </nav>
-    <hr>
-  }
+    <div class="logo-container">
+      <img routerLink="" class="logo" src="assets/logo.png" alt="">
+    </div>
+  <nav class="nav-container">
+    <button mat-button>HAZTE VOLUNTARIO</button>
+    <button mat-button>COLABORA CON UNA ONG</button>
+    <button mat-button>INFÓRMATE</button>
+    <button mat-button>NOTICIAS</button>
+    @if (is_admin) {
+      <button mat-button>ADMINISTRACIÓN</button>
+    }
+    @if (is_voluntario) {
+      <button mat-button>RECOMENDACIONES</button>
+    }
+    <button mat-button>QUIENES SOMOS</button>
+    @if (!is_login) {
+      <button mat-button [matMenuTriggerFor]="belowMenu">ACCESOS</button>
+      <mat-menu #belowMenu="matMenu" yPosition="below">
+        <button class="item" mat-menu-item (click)="navegar_login()">Iniciar sesión</button>
+        <button class="item" mat-menu-item (click)="navegar_registro()">Registrarse</button>
+      </mat-menu>
+    } @else {
+      <button mat-button [matMenuTriggerFor]="belowMenu">
+        <mat-icon>face</mat-icon>
+        PERFIL
+      </button>
+      <mat-menu #belowMenu="matMenu" yPosition="below">
+        <button class="item" mat-menu-item>MIS DATOS</button>
+        <button class="item" mat-menu-item (click)="cerrar_sesion()">CERRAR SESIÓN</button>
+      </mat-menu>
+    }
+  </nav>
+  <hr>
+
 </header>

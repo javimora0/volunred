@@ -8,7 +8,7 @@
         @if (formulario_login.get('login')?.hasError('required')) {
           <mat-error>Correo electrónico o nombre de usuario <strong>obligatorio</strong></mat-error>
         }
-        <mat-icon matSuffix>mail</mat-icon>
+        <mat-icon matSuffix>person</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Introduzca su contraseña</mat-label>
@@ -19,10 +19,13 @@
         @if (formulario_login.get('password')?.hasError('required')) {
           <mat-error>Contraseña <strong>obligatoria</strong></mat-error>
         }
+        @if (formulario_login.get('password')?.hasError('minlength') || formulario_login.get('password')?.hasError('maxlength')) {
+          <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+        }
       </mat-form-field>
     </form>
-    <small>{{mensjae_error}}</small>
+    <span class="mensaje-error">{{mensjae_error}}</span>
     <button mat-stroked-button class="btn-registro" (click)="boton_login()" [disabled]="!formulario_login.valid">Iniciar sesión</button>
-    <span class="inicio-sesion">¿No tienes una cuenta? <strong><a>Regístrate</a></strong></span>
+    <span class="inicio-sesion">¿No tienes una cuenta? <strong><a routerLink="/registro">Regístrate</a></strong></span>
   </div>
 </div>

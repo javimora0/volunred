@@ -9,7 +9,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatSelect} from "@angular/material/select";
 import {Login} from "../../../interfaces/auth";
 import {AuthService} from "../../../services/auth.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,8 @@ import {Router} from "@angular/router";
     MatOption,
     MatProgressSpinner,
     MatSelect,
-    MatSuffix
+    MatSuffix,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -34,7 +35,7 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   formulario_login = new FormGroup({
     login: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required,Validators.minLength(6),Validators.maxLength(60)]),
   })
   hide = true
   mensjae_error = ''
@@ -53,7 +54,6 @@ export class LoginComponent {
     this.auth_service.login(body)
       .subscribe({
         next: (res) => {
-          console.log(res)
           if (res.status === 200) {
             let token = res.body?.token
             if (token) {
@@ -66,7 +66,6 @@ export class LoginComponent {
           }
         },
         error: (err) => {
-          console.log(err)
         }
       })
   }

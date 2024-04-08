@@ -48,6 +48,7 @@ class ConexionOrganizacion {
         try {
             organizacion = await model.Organizacion.findAll({where:{cif:cif}})
         } catch (error) {
+            organizacion = null
             console.error(error)
         } finally {
             conx.desconectar()

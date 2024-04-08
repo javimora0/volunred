@@ -1,6 +1,6 @@
 const {response} = require('express')
 const {StatusCodes} = require("http-status-codes");
-const conexion_entradas = require('../database/usuarios/ConexionEntradas')
+const conexion_entradas = require('../database/ConexionEntradas')
 
 /**
  * @desc Obtiene las entradas 'hazte voluntario'
@@ -34,7 +34,39 @@ const get_quienes_somos = async (req, res = response) => {
     res.status(StatusCodes.OK).json({'entradas':entradas})
 }
 
+/**
+ * @desc Soft delete de una entrada
+ * @param req
+ * @param res
+ * @returns {Promise<e.Response<any, Record<string, any>>>}
+ */
+const delete_entrada = async (req, res = response) => {
+    const conx_entradas = new conexion_entradas()
+    let entrada = await conx_entradas.delete_entrada(req.params.id)
+    if (!entrada) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al borrar la entrada'})
+    }
+    res.status(StatusCodes.OK).json({'msg':'Entrada borrada correctamente'})
+}
+
+/**
+ * @desc Crea una nueva entrada.
+ * @param req
+ * @param res
+ * @returns {Promise<e.Response<any, Record<string, any>>>}
+ */
+const crear_entrada = async (req, res = response) => {
+    const conx_entradas = new conexion_entradas()
+    let entrada = await conx_entradas.crear_entrada(req.body)
+    if (!entrada) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al crear la entrada'})
+    }
+    res.status(StatusCodes.CREATED).json({'msg':'Entrada creada correctamente'})
+}
+
 module.exports = {
     get_hazte_voluntario,
-    get_quienes_somos
+    get_quienes_somos,
+    delete_entrada,
+    crear_entrada
 }

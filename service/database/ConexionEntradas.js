@@ -3,12 +3,83 @@ const model = require('../models')
 const conx = new Conexion()
 
 class ConexionEntradas {
+
+    /**
+     * @desc Modificar la imagen de una entrada
+     * @param id_entrada
+     * @param nombre
+     * @param extension
+     * @returns {Promise<[affectedCount: number, affectedRows: Model[]]>}
+     */
+    asignar_imagen = async (id_entrada, nombre, extension) => {
+        let entrada
+        conx.conectar()
+        try {
+            entrada = await model.entrada.update({nombre_foto:nombre,extension_foto:extension}, {where:{id:id_entrada,activa:true}})
+        } catch (err) {
+            entrada = null
+        } finally {
+            conx.desconectar()
+        }
+        return entrada
+    }
+    /**
+     * @desc Obtiene los tipos de entradas
+     * @returns {Promise<Model[]>}
+     */
+    get_tipos_entradas = async () => {
+        let tipos_entradas
+        conx.conectar()
+        try {
+            tipos_entradas = await model.tipos_entradas.findAll()
+        } catch (err) {
+            tipos_entradas = null
+        } finally {
+            conx.desconectar()
+        }
+        return tipos_entradas
+    }
+    /**
+     * @desc Obtiene una entrada por su id
+     * @param id_entrada
+     * @returns {Promise<Model[]>}
+     */
+    get_entrada = async (id_entrada) => {
+        let entrada
+        conx.conectar()
+        try {
+            entrada = await model.entrada.findAll({where: {id: id_entrada, activa: true}})
+        } catch (err) {
+            entrada = null
+        } finally {
+            conx.desconectar()
+        }
+        return entrada
+    }
+    /**
+     * @desc Modifica una entrada
+     * @param body
+     * @param id_entrada
+     * @returns {Promise<[affectedCount: number, affectedRows: Model[]]>}
+     */
+    modificar_entrada = async (body, id_entrada) => {
+        let entrada
+        conx.conectar()
+        try {
+            entrada = await model.entrada.update(body, {where: {id: id_entrada, activa: true}})
+        } catch (err) {
+            entrada = null
+        } finally {
+            conx.desconectar()
+        }
+        return entrada
+    }
+
     /**
      * @desc Crea una nueva entrada
      * @param body
      * @returns {Promise<null>}
      */
-
     crear_entrada = async (body) => {
         let entrada
         body.activa = true

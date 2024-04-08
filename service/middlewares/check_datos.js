@@ -177,6 +177,15 @@ const existe_usuario = async (req, res, next) => {
     next()
 }
 
+const existe_entrada = async (req,res,next) => {
+    const conx = new conexion_entrada()
+    const entrada = await conx.get_entrada(req.params.id_entrada)
+    if (!entrada) {
+        return res.status(StatusCodes.NO_CONTENT).json({ 'msg': 'Entrada no encontrada' })
+    }
+    next()
+}
+
 
 module.exports = {
     existe_email,
@@ -187,5 +196,6 @@ module.exports = {
     check_cif,
     existe_cif,
     existe_usuario,
-    existe_tipo_entrada
+    existe_tipo_entrada,
+    existe_entrada
 }

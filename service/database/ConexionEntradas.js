@@ -50,7 +50,7 @@ class ConexionEntradas {
         let entrada
         conx.conectar()
         try {
-            entrada = await model.entrada.findAll({where: {id: id_entrada, activa: true}})
+            entrada = await model.entrada.findOne({where: {id: id_entrada, activa: true}})
         } catch (err) {
             entrada = null
         } finally {

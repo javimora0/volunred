@@ -134,14 +134,15 @@ const put_imagen = async (req, res = response) => {
 const get_imagen = async (req, res = response) => {
     const conx = new conexion_entradas()
     let entrada = await conx.get_entrada(req.params.id_entrada)
+    console.log(entrada)
     let nombre_foto = entrada.nombre_foto + entrada.extension_foto
     if (nombre_foto) {
-        const path_img = path.join(__dirname, '../uploads', 'perfil_usuarios', nombre_foto)
+        const path_img = path.join(__dirname, '../uploads', 'imgs_entradas', nombre_foto)
         if (path_img) {
             return res.sendFile(path_img)
         }
     }
-    const path_img = path.join(__dirname, '../uploads', 'perfil_usuarios', 'foto_perfil_defecto.jpg')
+    const path_img = path.join(__dirname, '../uploads', 'imgs_entradas', 'foto_entrada_defecto.jpg')
     res.sendFile(path_img);
 }
 

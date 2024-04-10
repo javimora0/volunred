@@ -1,9 +1,9 @@
 const {response} = require('express')
 const {StatusCodes} = require("http-status-codes");
 const conexion_entradas = require('../database/ConexionEntradas')
-const conexion_imagenes = require('../database/ConexionImagen')
 
 const { subir_archivo } = require('../helpers/subir_archivo')
+const path = require('path');
 
 /**
  * @desc Obtiene las entradas 'hazte voluntario'
@@ -51,7 +51,7 @@ const get_quienes_somos = async (req, res = response) => {
  */
 const delete_entrada = async (req, res = response) => {
     const conx_entradas = new conexion_entradas()
-    let entrada = await conx_entradas.delete_entrada(req.params.id)
+    let entrada = await conx_entradas.delete_entrada(req.params.id_entrada)
     if (!entrada) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al borrar la entrada'})
     }
@@ -79,8 +79,7 @@ const crear_entrada = async (req, res = response) => {
  * @param req.params.id_entrada
  * @param req.body
  * @param res
- * @returns {Promise<e.Response<any, Record<string, any>>>}
- */
+ * @returns {Promise<e.Response<any, Record<string, any>>>} */
 const modificar_entrada = async (req, res = response) => {
     const conx_entradas = new conexion_entradas()
     let entrada = await conx_entradas.modificar_entrada(req.body, req.params.id_entrada)
@@ -126,6 +125,26 @@ const put_imagen = async (req, res = response) => {
     res.status(StatusCodes.OK).json({'entrada': entrada})
 }
 
+/**
+ * @desc Obtiene la imagen de la entrada especificada por req.params.id_entrada
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
+const get_imagen = async (req, res = response) => {
+    const conx = new conexion_entradas()
+    let entrada = await conx.get_entrada(req.params.id_entrada)
+    let nombre_foto = entrada.nombre_foto + entrada.extension_foto
+    if (nombre_foto) {
+        const path_img = path.join(__dirname, '../uploads', 'perfil_usuarios', nombre_foto)
+        if (path_img) {
+            return res.sendFile(path_img)
+        }
+    }
+    const path_img = path.join(__dirname, '../uploads', 'perfil_usuarios', 'foto_perfil_defecto.jpg')
+    res.sendFile(path_img);
+}
+
 module.exports = {
     get_hazte_voluntario,
     get_quienes_somos,
@@ -133,5 +152,6 @@ module.exports = {
     crear_entrada,
     modificar_entrada,
     get_tipos,
-    put_imagen
+    put_imagen,
+    get_imagen
 }

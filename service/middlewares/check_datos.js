@@ -101,6 +101,7 @@ const existe_cif = async (cif) => {
  * @returns {Promise<unknown>}
  */
 const existe_tipo_entrada = async (id_tipo_entrada) => {
+    console.log("entro")
     return new Promise((resolve, reject) => {
         const conx_entrada = new conexion_entrada()
         conx_entrada.get_tipo_entrada_id(id_tipo_entrada)
@@ -180,7 +181,7 @@ const existe_usuario = async (req, res, next) => {
 const existe_entrada = async (req,res,next) => {
     const conx = new conexion_entrada()
     const entrada = await conx.get_entrada(req.params.id_entrada)
-    if (!entrada) {
+    if (entrada.length === 0) {
         return res.status(StatusCodes.NO_CONTENT).json({ 'msg': 'Entrada no encontrada' })
     }
     next()

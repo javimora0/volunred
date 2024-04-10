@@ -1,7 +1,8 @@
 const {Router} = require('express')
 const auth_controller = require('../controllers/auth_controller')
 const middleware = require('../middlewares/check_datos')
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   const {check} = require('express-validator')
+const {check} = require('express-validator')
+const validar_campos = require("../helpers/validar_campos");
 const router = Router()
 
 // Ruta para registrar voluntarios con las válidaciones necesarias

@@ -15,7 +15,8 @@ class ConexionEntradas {
         let entrada
         conx.conectar()
         try {
-            entrada = await model.entrada.update({nombre_foto:nombre,extension_foto:extension}, {where:{id:id_entrada,activa:true}})
+            await model.entrada.update({nombre_foto:nombre,extension_foto:extension}, {where:{id:id_entrada,activa:true}})
+            entrada = await model.entrada.findByPk(id_entrada)
         } catch (err) {
             entrada = null
         } finally {
@@ -28,16 +29,17 @@ class ConexionEntradas {
      * @returns {Promise<Model[]>}
      */
     get_tipos_entradas = async () => {
-        let tipos_entradas
+        let tipos
         conx.conectar()
         try {
-            tipos_entradas = await model.tipos_entradas.findAll()
+            tipos = await model.tipo_entrada.findAll()
         } catch (err) {
-            tipos_entradas = null
+            console.error(err)
+            tipos = null
         } finally {
             conx.desconectar()
         }
-        return tipos_entradas
+        return tipos
     }
     /**
      * @desc Obtiene una entrada por su id
@@ -66,7 +68,8 @@ class ConexionEntradas {
         let entrada
         conx.conectar()
         try {
-            entrada = await model.entrada.update(body, {where: {id: id_entrada, activa: true}})
+            await model.entrada.update(body, {where: {id: id_entrada, activa: true}})
+            entrada = await model.entrada.findByPk(id_entrada)
         } catch (err) {
             entrada = null
         } finally {

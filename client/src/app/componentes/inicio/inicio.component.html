@@ -1,1 +1,14 @@
-<p>inicio works!</p>
+<div class="main-container">
+  <h1>¿Quienes somos?</h1>
+</div>
+@for (entrada of entradas; track entrada.id) {
+  <div class="entrada-container">
+    <div class="text-container">
+      <h2>{{ entrada.titulo }}</h2>
+      <p>{{ entrada.texto }}</p>
+    </div>
+    <div class="image-container">
+      <img src="{{image_url + entrada.id}}" alt="Imagen de una entrada" id="imagen">
+    </div>
+  </div>
+}

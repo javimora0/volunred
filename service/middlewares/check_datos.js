@@ -1,6 +1,8 @@
 const conexion_usuario =  require('../database/usuarios/ConexionUsuario')
 const conexion_voluntario =  require('../database/usuarios/ConexionVoluntario')
 const conexion_organizacion =  require('../database/usuarios/ConexionOrganizacion')
+const conexion_entrada =  require('../database/ConexionEntradas')
+
 const {StatusCodes} = require("http-status-codes");
 
 /**
@@ -94,6 +96,24 @@ const existe_cif = async (cif) => {
 }
 
 /**
+ * @desc Comprueba si existe el tipo de entrada por id (parametro)
+ * @param id_tipo_entrada
+ * @returns {Promise<unknown>}
+ */
+const existe_tipo_entrada = async (id_tipo_entrada) => {
+    console.log("entro")
+    return new Promise((resolve, reject) => {
+        const conx_entrada = new conexion_entrada()
+        conx_entrada.get_tipo_entrada_id(id_tipo_entrada)
+            .then(msg => {
+                resolve(true)
+            })
+            .catch(err => {
+                reject(new Error('No existe el tipo de entrada'))
+            })
+    })
+}
+/**
  * @desc Valida el formato tanto del dni como de un nie
  * @param dni_nie
  * @returns {Promise<Error|boolean>}
@@ -158,6 +178,15 @@ const existe_usuario = async (req, res, next) => {
     next()
 }
 
+const existe_entrada = async (req,res,next) => {
+    const conx = new conexion_entrada()
+    const entrada = await conx.get_entrada(req.params.id_entrada)
+    if (entrada.length === 0) {
+        return res.status(StatusCodes.NO_CONTENT).json({ 'msg': 'Entrada no encontrada' })
+    }
+    next()
+}
+
 
 module.exports = {
     existe_email,
@@ -167,5 +196,7 @@ module.exports = {
     existe_telefono,
     check_cif,
     existe_cif,
-    existe_usuario
+    existe_usuario,
+    existe_tipo_entrada,
+    existe_entrada
 }

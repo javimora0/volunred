@@ -9,6 +9,7 @@ class Server {
         this.access_path = '/api'
         this.ambitos_path = '/api/ambitos'
         this.entradas_path = '/api/entradas'
+        this.derechos_deberes_path = '/api/derechos_deberes'
         this.middlewares()
         this.routes()
     }
@@ -30,6 +31,7 @@ class Server {
         this.app.use(this.access_path, require('../routes/access_routes'))
         this.app.use(this.ambitos_path, require('../routes/ambitos_profesionales_routes'))
         this.app.use(this.entradas_path, require('../routes/entradas_routes'))
+        this.app.use(this.derechos_deberes_path, require('../routes/derechos_deberes_routes'))
     }
     listen() {
         this.app.listen(process.env.PORT, () => {

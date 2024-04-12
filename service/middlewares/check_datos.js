@@ -2,6 +2,7 @@ const conexion_usuario =  require('../database/usuarios/ConexionUsuario')
 const conexion_voluntario =  require('../database/usuarios/ConexionVoluntario')
 const conexion_organizacion =  require('../database/usuarios/ConexionOrganizacion')
 const conexion_entrada =  require('../database/ConexionEntradas')
+const conexion_derecho_deber =  require('../database/ConexionDerechosDeberes')
 
 const {StatusCodes} = require("http-status-codes");
 
@@ -113,6 +114,20 @@ const existe_tipo_entrada = async (id_tipo_entrada) => {
             })
     })
 }
+const existe_tipo_derecho_deber = async (id_tipo = 0) => {
+    return new Promise((resolve, reject) => {
+        const conx_derecho_deber = new conexion_derecho_deber()
+        conx_derecho_deber.get_tipo_derecho(id_tipo)
+            .then(msg => {
+                resolve(true)
+            })
+            .catch(err => {
+                reject(new Error('Tipo no válido'))
+            })
+    })
+
+}
+
 /**
  * @desc Valida el formato tanto del dni como de un nie
  * @param dni_nie
@@ -161,6 +176,7 @@ const check_cif = async (cif = '') => {
     })
 }
 
+
 /**
  * @desc Comprueba si existe el usuario indicando en req.params.id_usuario
  * @param req
@@ -188,6 +204,7 @@ const existe_entrada = async (req,res,next) => {
 }
 
 
+
 module.exports = {
     existe_email,
     existe_username,
@@ -198,5 +215,6 @@ module.exports = {
     existe_cif,
     existe_usuario,
     existe_tipo_entrada,
-    existe_entrada
+    existe_entrada,
+    existe_tipo_derecho_deber
 }

@@ -65,6 +65,20 @@ class ConexionCategoriasVoluntariado {
         }
         return categoria
     }
+
+    asignar_imagen = async (id_categoria, nombre, extension) => {
+        let categoria
+        conx.conectar()
+        try {
+            await model.categoria.update({nombre_imagen:nombre, extension_imagen: extension}, {where:{id:id_categoria}})
+            categoria = await model.categoria.findByPk(id_categoria)
+        } catch (err) {
+            categoria = err
+        } finally {
+            conx.desconectar()
+        }
+        return categoria
+    }
 }
 
 module.exports = ConexionCategoriasVoluntariado

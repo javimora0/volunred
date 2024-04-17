@@ -3,7 +3,7 @@ const conexion_voluntario =  require('../database/usuarios/ConexionVoluntario')
 const conexion_organizacion =  require('../database/usuarios/ConexionOrganizacion')
 const conexion_entrada =  require('../database/ConexionEntradas')
 const conexion_derecho_deber =  require('../database/ConexionDerechosDeberes')
-
+const conexion_categoria = require('../database/ConexionCategoriasVoluntariado')
 const {StatusCodes} = require("http-status-codes");
 
 /**
@@ -194,6 +194,23 @@ const existe_usuario = async (req, res, next) => {
     next()
 }
 
+/**
+ * @author Comprueba si existe la categoria de voluntariado
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<*>}
+ */
+const existe_categoria = async (req, res, next) => {
+    const conx = new conexion_categoria()
+    const id = req.params.id_categoria
+    let categoria = await conx.get_categoria(id)
+    if (!categoria) {
+        return res.status(StatusCodes.NO_CONTENT).json({ 'msg': 'Categoría no encontrado' })
+    }
+    next()
+}
+
 const existe_entrada = async (req,res,next) => {
     const conx = new conexion_entrada()
     const entrada = await conx.get_entrada(req.params.id_entrada)
@@ -216,5 +233,6 @@ module.exports = {
     existe_usuario,
     existe_tipo_entrada,
     existe_entrada,
-    existe_tipo_derecho_deber
+    existe_tipo_derecho_deber,
+    existe_categoria
 }

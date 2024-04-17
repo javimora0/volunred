@@ -134,7 +134,6 @@ const put_imagen = async (req, res = response) => {
 const get_imagen = async (req, res = response) => {
     const conx = new conexion_entradas()
     let entrada = await conx.get_entrada(req.params.id_entrada)
-    console.log(entrada)
     let nombre_foto = entrada.nombre_foto + entrada.extension_foto
     if (nombre_foto) {
         const path_img = path.join(__dirname, '../uploads', 'imgs_entradas', nombre_foto)

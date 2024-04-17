@@ -21,3 +21,4 @@ router.route('/:id')
         ,validar_campos], derechos_deberes_controller.modificar_derecho_deber)
 
     .delete(derechos_deberes_controller.eliminar_derecho_deber)
+module.exports = router

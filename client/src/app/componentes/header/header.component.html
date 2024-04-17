@@ -5,7 +5,11 @@
   <nav class="nav-container">
     <button mat-button (click)="navegar_inicio()">HAZTE VOLUNTARIO</button>
     <button mat-button>COLABORA CON UNA ONG</button>
-    <button mat-button>INFÓRMATE</button>
+    <button mat-button [matMenuTriggerFor]="informateMenu">INFÓRMATE</button>
+    <mat-menu #informateMenu="matMenu" yPosition="below">
+      <button class="item" mat-menu-item (click)="navegar_login()">DERECHOS Y DEBERES</button>
+      <button class="item" mat-menu-item (click)="navegar_registro()">TIPOS DE VOLUNTARIADO</button>
+    </mat-menu>
     <button mat-button>NOTICIAS</button>
     @if (is_admin) {
       <button mat-button>ADMINISTRACIÓN</button>
@@ -17,8 +21,8 @@
     @if (!is_login) {
       <button mat-button [matMenuTriggerFor]="belowMenu">ACCESOS</button>
       <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button class="item" mat-menu-item (click)="navegar_login()">Iniciar sesión</button>
-        <button class="item" mat-menu-item (click)="navegar_registro()">Registrarse</button>
+        <button class="item" mat-menu-item (click)="navegar_login()">INICIAR SESIÓN</button>
+        <button class="item" mat-menu-item (click)="navegar_registro()">REGISTRARSE</button>
       </mat-menu>
     } @else {
       <button mat-button [matMenuTriggerFor]="belowMenu">

@@ -126,7 +126,7 @@ class ConexionEntradas {
         let tipo_entrada = []
         conx.conectar()
         try {
-            tipo_entrada = await model.tipo_entrada.findAll({where: {id: id_tipo}})
+            tipo_entrada = await model.tipo_entrada.findAll({where: {id: id_tipo, activo:1}})
         } catch (err) {
             tipo_entrada = null
         } finally {

@@ -46,7 +46,7 @@ class ConexionOrganizacion {
         conx.conectar()
         let organizacion = [];
         try {
-            organizacion = await model.Organizacion.findAll({where:{cif:cif}})
+            organizacion = await model.Organizacion.findAll({where:{cif:cif, activo:1}})
         } catch (error) {
             organizacion = null
             console.error(error)

@@ -96,7 +96,7 @@ class ConexionDerechosDeberes {
         return deber
     }
 
-    get_tipo_derecho_deber = async (id_tipo) => {
+    get_tipo_derecho = async (id_tipo) => {
         conx.conectar()
         let tipo = []
         try {

@@ -42,7 +42,7 @@ class ConexionVoluntario {
         conx.conectar()
         let voluntario = [];
         try {
-            voluntario = await model.Voluntario.findAll({where: {dni_nie: dni_nie}})
+            voluntario = await model.Voluntario.findAll({where: {dni_nie: dni_nie, activo:1}})
         } catch (error) {
             console.error(error)
         } finally {
@@ -58,7 +58,7 @@ class ConexionVoluntario {
         conx.conectar()
         let voluntario = [];
         try {
-            voluntario = await model.Voluntario.findAll({where: {telefono: telefono}})
+            voluntario = await model.Voluntario.findAll({where: {telefono: telefono, activo:1}})
         } catch (error) {
             console.error(error)
         } finally {

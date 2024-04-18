@@ -9,7 +9,7 @@ class ConexionUsuario {
         let usuario
         conx.conectar()
         try {
-            usuario = await model.Usuario.findByPk(id)
+            usuario = await model.Usuario.findByPk(id, {where:{activo:1}})
         } catch (err) {
             usuario = null
         } finally {

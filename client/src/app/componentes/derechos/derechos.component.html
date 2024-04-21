@@ -1,0 +1,39 @@
+<div class="image-container">
+  <img class="img" src="assets/fondo-derechos-deberes.png">
+</div>
+<div class="info-container">
+  <div class="info">
+    <h2>El voluntariado en España está regulado por la <a class="link" href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11072">Ley de Voluntariado (2015): La Ley 45/2015, de 14 de octubre (BOE)</a>
+      .En esta ley se definen los derechos y deberes de las personas voluntarias.</h2>
+  </div>
+</div>
+<div class="contenedor-columnas">
+  <div class="columna">
+    <h2>Derechos de voluntarios</h2>
+    <ul>
+      @for (derecho of derechos; track derecho.id) {
+        <li>{{derecho.descripcion}}</li>
+      }
+    </ul>
+  </div>
+  <div class="columna">
+    <h2>Deberes de los voluntarios</h2>
+    <ul>
+      @for (deber of deberes; track deber.id) {
+        <li>{{deber.descripcion}}</li>
+      }
+    </ul>
+  </div>
+</div>
+<div class="links-container">
+  <div class="lista">
+    <h3>Más información sobre la Ley del Voluntariado en España</h3>
+
+    <ul>
+      <li>Sobre la <a href="https://plataformavoluntariado.org/ley-del-voluntariado/"> Ley del Voluntariado 2015</a> en la Plataforma del Voluntariado de España</li>
+      <li>Guía <a href="https://plataformavoluntariado.org/wp-content/uploads/2018/09/guia-facil-la-ley-del-voluntariado-en-5-pasos-ley-45-2015-de-14-de-octubre-de-voluntariado-boe-247-del-15-de-octubre.pdf"> La Ley del voluntariado en 5 pasos </a>elaborada por la Plataforma del Voluntariado de España</li>
+      <li>Código ético de las organizaciones de voluntariado <a href="https://plataformavoluntariado.org/la-plataforma-del-voluntariado-actualiza-su-codigo-etico/">(Plataforma del Voluntariado de España, 2000)</a></li>
+    </ul>
+  </div>
+</div>
+

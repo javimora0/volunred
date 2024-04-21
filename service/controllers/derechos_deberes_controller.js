@@ -14,7 +14,7 @@ const get_derechos = async (req, res = response) => {
     if (!derechos) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener los deberes'})
     }
-    res.status(StatusCodes.OK).json({'derechos':derechos})
+    res.status(StatusCodes.OK).json({'derecho_deber':derechos})
 }
 
 /**
@@ -29,14 +29,13 @@ const get_deberes = async (req, res = response) => {
     if (!deberes) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener los deberes'})
     }
-    res.status(StatusCodes.OK).json({'deberes':deberes})
+    res.status(StatusCodes.OK).json({'derecho_deber':deberes})
 }
 
 /**
  * @desc Crea un derecho/deber
  * @param req
  * @param res
- * @returns {Promise<e.Response<any, Record<string, any>>>}
  */
 const crear_derecho_deber = async (req, res = response) => {
     const conx_derechos_deberes = new conexion_deberes_derechos()

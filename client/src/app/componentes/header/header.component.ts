@@ -57,4 +57,8 @@ export class HeaderComponent implements OnInit{
   navegar_inicio() {
     this.router.navigate(['inicio'])
   }
+
+  navegar_derechos_deberes() {
+    this.router.navigate(['inicio/legal'])
+  }
 }

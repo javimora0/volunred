@@ -109,7 +109,7 @@ class ConexionDerechosDeberes {
                 throw new CustomError('No existe el tipo de entrada')
             }
         }
-        return tipo_entrada
+        return tipo
     }
 }
 

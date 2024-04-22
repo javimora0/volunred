@@ -1,0 +1,24 @@
+<div class="image-container">
+  <img class="img" src="assets/fondo-tipos-voluntariado.png">
+</div>
+
+<div class="top-container">
+  @for (cat of tipos_voluntariado; track cat.id) {
+    <a [href]="'#' + cat.id">
+      <div class="category-container">
+        <h3>{{cat.categoria}}</h3>
+        <img src="{{image_url + cat.id}}" alt="Imagen de {{cat.categoria}}" class="category-image">
+      </div>
+    </a>
+  }
+</div>
+<hr>
+@for (cat of tipos_voluntariado; track cat.id) {
+  <div [id]="'#' + cat.id" class="full-category-container">
+    <div class="text-container">
+      <h3 class="titulo">{{cat.categoria}}</h3>
+      <p>{{cat.descripcion}}</p>
+    </div>
+    <img src="{{image_url + cat.id}}" alt="Imagen de {{cat.categoria}}" class="category-image">
+  </div>
+}

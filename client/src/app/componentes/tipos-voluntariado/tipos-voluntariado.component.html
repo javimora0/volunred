@@ -1,0 +1,13 @@
+<div class="image-container">
+  <img class="img" src="assets/fondo-tipos-voluntariado.png">
+</div>
+
+<div class="top-container">
+  @for (cat of tipos_voluntariado; track cat.id) {
+    <div class="category-container">
+      <h3>{{cat.categoria}}</h3>
+      <img src="{{image_url + cat.id}}" alt="Imagen de {{cat.categoria}}" class="category-image">
+    </div>
+  }
+</div>
+<hr>

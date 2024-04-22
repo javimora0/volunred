@@ -8,7 +8,7 @@
     <button mat-button [matMenuTriggerFor]="informateMenu">INFÓRMATE</button>
     <mat-menu #informateMenu="matMenu" yPosition="below">
       <button class="item" mat-menu-item (click)="navegar_derechos_deberes()">DERECHOS Y DEBERES</button>
-      <button class="item" mat-menu-item >TIPOS DE VOLUNTARIADO</button>
+      <button class="item" mat-menu-item (click)="navegar_tipos_voluntariado()">TIPOS DE VOLUNTARIADO</button>
     </mat-menu>
     <button mat-button>NOTICIAS</button>
     @if (is_admin) {

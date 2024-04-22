@@ -61,4 +61,8 @@ export class HeaderComponent implements OnInit{
   navegar_derechos_deberes() {
     this.router.navigate(['inicio/legal'])
   }
+
+  navegar_tipos_voluntariado() {
+    this.router.navigate(['inicio/tipos-voluntariado'])
+  }
 }

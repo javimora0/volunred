@@ -6,6 +6,7 @@ import {
 import {InicioComponent} from "./componentes/inicio/inicio.component";
 import {LoginComponent} from "./componentes/auth/login/login.component";
 import {DerechosComponent} from "./componentes/derechos/derechos.component";
+import {TiposVoluntariadoComponent} from "./componentes/tipos-voluntariado/tipos-voluntariado.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'inicio', component: InicioComponent},
   { path: 'inicio/legal', component: DerechosComponent},
+  { path: 'inicio/tipos-voluntariado', component: TiposVoluntariadoComponent},
 ];

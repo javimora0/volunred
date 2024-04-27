@@ -5,7 +5,6 @@ const voluntariado_factorie = require('../factories/voluntariado_factorie')
 module.exports = {
   async up (queryInterface, Sequelize) {
     let tipos_voluntariado = await voluntariado_factorie.crear_tipos_voluntariado()
-    console.log(tipos_voluntariado)
     await queryInterface.bulkInsert('categorias', tipos_voluntariado, {})
 
   },

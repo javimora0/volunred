@@ -4,11 +4,30 @@ const conx = new Conexion()
 
 class ConexionVoluntario {
 
+
+    get_voluntarios = async()=> {
+        conx.conectar()
+        let voluntarios
+        try {
+            voluntarios = await model.Voluntario.findAll({where:{activo:true}})
+        } catch (err) {
+            voluntarios = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntarios
+    }
+
+    /**
+     * @desc Obtiene un voluntario por IDUSUARIO
+     * @param id_usuario
+     * @returns {Promise<Model>}
+     */
     get_voluntario = async (id_usuario) => {
         conx.conectar()
         let voluntario
         try {
-            voluntario = await model.Voluntario.findOne({where:{id_usuario:id_usuario}})
+            voluntario = await model.Voluntario.findOne({where:{id_usuario:id_usuario,activo: true}})
         } catch (err) {
             voluntario = null
         } finally {
@@ -29,6 +48,7 @@ class ConexionVoluntario {
         try {
             body.id_usuario = id_usuario
             body.media_calificaciones = 0
+            body.activo = true
             voluntario = await model.Voluntario.create(body)
         } catch (err) {
             voluntario = null

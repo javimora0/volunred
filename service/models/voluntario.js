@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
         dni_nie: DataTypes.STRING,
         telefono: DataTypes.INTEGER,
         media_calificaciones: DataTypes.INTEGER,
-        id_usuario: DataTypes.INTEGER
+        id_usuario: DataTypes.INTEGER,
+        activo: DataTypes.BOOLEAN
     }, {
         sequelize,
         modelName: 'Voluntario',

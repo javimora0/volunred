@@ -102,7 +102,6 @@ const existe_cif = async (cif) => {
  * @returns {Promise<unknown>}
  */
 const existe_tipo_entrada = async (id_tipo_entrada) => {
-    console.log("entro")
     return new Promise((resolve, reject) => {
         const conx_entrada = new conexion_entrada()
         conx_entrada.get_tipo_entrada_id(id_tipo_entrada)

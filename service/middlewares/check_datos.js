@@ -186,7 +186,7 @@ const check_cif = async (cif = '') => {
  */
 const existe_usuario = async (req, res, next) => {
     const conx = new conexion_usuario()
-    const id = req.params.id_usuario
+    const id = req.params.id_usuario | req.params.id
     let usuario = await conx.get_usuario(id)
     if (!usuario) {
         return res.status(StatusCodes.NO_CONTENT).json({ 'msg': 'Usuario no encontrado' })

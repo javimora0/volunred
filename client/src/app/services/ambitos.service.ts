@@ -15,6 +15,6 @@ export class AmbitosService {
   }
 
   asignar_ambito(id_usuario: number | undefined, body:any): Observable<HttpResponse<any>> {
-    return this.http.post<any>(env.URL + `ambitos/${id_usuario}`, body,{observe: 'response' as 'response'})
+    return this.http.post<any>(env.URL + `ambitos/${id_usuario}`, body,{observe: 'response' as 'response', params:{auth:1}},)
   }
 }

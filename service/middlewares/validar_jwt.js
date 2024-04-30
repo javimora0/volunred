@@ -1,6 +1,15 @@
 const jwt = require('jsonwebtoken')
 const {StatusCodes} = require("http-status-codes");
 
+const validar_token = (req, res, next) => {
+    const token = req.header('x-token')
+
+    if (!token) {
+        return res.status(StatusCodes.UNAUTHORIZED).json({'msg':'No hay token en la peticion'})
+    }
+    next()
+}
+
 const validar_voluntario = (req, res, next) => {
     const token = req.header('x-token')
 
@@ -60,5 +69,6 @@ const validar_admin = (req, res, next) => {
 module.exports = {
     validar_voluntario,
     validar_organizacion,
-    validar_admin
+    validar_admin,
+    validar_token
 }

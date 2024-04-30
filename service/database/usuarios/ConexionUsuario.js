@@ -5,6 +5,33 @@ const conx = new Conexion()
 
 class ConexionUsuario {
 
+    get_comentarios = async (id) => {
+        conx.conectar()
+        let comentarios
+        try {
+            comentarios = await model.Comentario_usuario.findAll({
+                include: [{
+                    model: model.Usuario,
+                    as: 'usuario_comenta',
+                    attributes: ['id', 'email', 'username', 'ubicacion', 'nombre_foto', 'extension_foto', 'activo']
+                }]
+            });
+
+            //comentarios = comentarios.map(comentario => {
+            //    return {
+            //        comentario: comentario.comentario,
+            //        usuarioComenta: comentario.usuario_comenta
+            //    };
+            //});
+        } catch (err) {
+            console.log(err)
+            comentarios = null
+        } finally {
+            conx.desconectar()
+        }
+        return comentarios
+    }
+
     get_usuario = async (id) => {
         let usuario
         conx.conectar()

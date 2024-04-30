@@ -48,8 +48,17 @@ const get_solicitudes = async (req, res = response) => {
     res.status(StatusCodes.OK).json({'solicitudes': solicitudes})
 }
 
+const get_voluntariados = async (req, res = response) => {
+    const conx = new conexion_usuario()
+    let voluntariados_usuario = await conx.get_voluntariados(req.params.id_usuario)
+    if (!voluntariados_usuario) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados del usuario'})
+    }
+    res.status(StatusCodes.OK).json({'voluntariados_usuario': voluntariados_usuario})
+}
 module.exports = {
     get_datos,
     get_comentarios,
-    get_solicitudes
+    get_solicitudes,
+    get_voluntariados
 }

@@ -16,4 +16,7 @@ router.get('/comentarios/:id_usuario', middleware.existe_usuario, usuario_contro
 router.route('/solicitudes/:id_usuario')
 // Obtiene todas las solicitudes de un usuario
     .get(middleware.existe_usuario, usuario_controller.get_solicitudes)
+
+// Obtiene todos los datos de un voluntariado de un usuario.
+router.get('/voluntariados/:id_usuario', middleware.existe_usuario, usuario_controller.get_voluntariados)
 module.exports = router

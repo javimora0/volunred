@@ -39,7 +39,17 @@ const get_comentarios = async (req, res = response) => {
     res.status(StatusCodes.OK).json({'comentarios': comentarios})
 }
 
+const get_solicitudes = async (req, res = response) => {
+    const conx = new conexion_usuario()
+    let solicitudes = await conx.get_solicitudes(req.params.id_usuario)
+    if (!solicitudes) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener las solicitudes del usuario'})
+    }
+    res.status(StatusCodes.OK).json({'solicitudes': solicitudes})
+}
+
 module.exports = {
     get_datos,
-    get_comentarios
+    get_comentarios,
+    get_solicitudes
 }

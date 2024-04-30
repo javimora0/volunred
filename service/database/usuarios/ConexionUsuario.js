@@ -5,32 +5,55 @@ const conx = new Conexion()
 
 class ConexionUsuario {
 
-    get_comentarios = async (id) => {
+    get_solicitudes = async (id) => {
         conx.conectar()
-        let comentarios
+        let solicitudes
+        try {
+            solicitudes = await model.solicitud_voluntariado.findAll({
+                where: { id_usuario: id },
+                include: [{
+                    model: model.voluntariado,
+                    as: 'voluntariado',
+                    attributes: ['titulo', 'descripcion', 'ubicacion', 'fecha_inicio', 'fecha_fin', 'enlace', 'modalidad', 'activo']
+                }, {
+                    model: model.estado_solicitud,
+                    as: 'estado',
+                    attributes: ['estado']
+                }]
+            });
+
+        } catch (error) {
+            console.log(error)
+            solicitudes = null
+        } finally {
+            conx.desconectar()
+        }
+        return solicitudes
+    }
+
+    get_comentarios = async (id) => {
+        conx.conectar();
+        let comentarios;
         try {
             comentarios = await model.Comentario_usuario.findAll({
+                where: {
+                    id_usuario_comentado: id
+                },
                 include: [{
                     model: model.Usuario,
                     as: 'usuario_comenta',
                     attributes: ['id', 'email', 'username', 'ubicacion', 'nombre_foto', 'extension_foto', 'activo']
                 }]
             });
-
-            //comentarios = comentarios.map(comentario => {
-            //    return {
-            //        comentario: comentario.comentario,
-            //        usuarioComenta: comentario.usuario_comenta
-            //    };
-            //});
         } catch (err) {
-            console.log(err)
-            comentarios = null
+            console.log(err);
+            comentarios = null;
         } finally {
-            conx.desconectar()
+            conx.desconectar();
         }
-        return comentarios
-    }
+        return comentarios;
+    };
+
 
     get_usuario = async (id) => {
         let usuario

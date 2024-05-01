@@ -5,6 +5,46 @@ const conx = new Conexion()
 
 class ConexionUsuario {
 
+    put_password = async (password, id) => {
+        conx.conectar()
+        let usuario
+        let password_crypt = bcrypt.hash(password, 10)
+        try {
+            usuario = await model.Usuario.update({password:password_crypt}, {where:{id:id}})
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
+    put_usuario = async (id, body) => {
+        conx.conectar()
+        let usuario
+        try {
+            await model.Usuario.update(body, {where:{id:id}})
+            usuario = await model.Usuario.findByPk(id)
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
+
+    asignar_imagen = async (id, nombre, extension) => {
+        let usuario
+        conx.conectar()
+        try {
+            await model.Usuario.update({nombre_foto:nombre,extension_foto:extension}, {where:{id:id,activa:true}})
+            usuario = await model.Usuario.findByPk(id)
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
     get_voluntariados = async (id) => {
         conx.conectar()
         let voluntariados

@@ -5,6 +5,116 @@ const conx = new Conexion()
 
 class ConexionUsuario {
 
+    put_password = async (password, id) => {
+        conx.conectar()
+        let usuario
+        let password_crypt = bcrypt.hash(password, 10)
+        try {
+            usuario = await model.Usuario.update({password:password_crypt}, {where:{id:id}})
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
+    put_usuario = async (id, body) => {
+        conx.conectar()
+        let usuario
+        try {
+            await model.Usuario.update(body, {where:{id:id}})
+            usuario = await model.Usuario.findByPk(id)
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
+
+    asignar_imagen = async (id, nombre, extension) => {
+        let usuario
+        conx.conectar()
+        try {
+            await model.Usuario.update({nombre_foto:nombre,extension_foto:extension}, {where:{id:id,activa:true}})
+            usuario = await model.Usuario.findByPk(id)
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
+    get_voluntariados = async (id) => {
+        conx.conectar()
+        let voluntariados
+        try {
+            voluntariados = await model.participante_voluntariado.findAll({
+                where: { id_usuario: id },
+                include: [{
+                    model: model.voluntariado,
+                    as: 'voluntariado',
+                    attributes: ['titulo', 'descripcion', 'ubicacion', 'fecha_inicio', 'fecha_fin', 'enlace', 'modalidad', 'activo']
+                }]
+            });
+        } catch (error) {
+            voluntariados = null;
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
+
+    get_solicitudes = async (id) => {
+        conx.conectar()
+        let solicitudes
+        try {
+            solicitudes = await model.solicitud_voluntariado.findAll({
+                where: { id_usuario: id },
+                include: [{
+                    model: model.voluntariado,
+                    as: 'voluntariado',
+                    attributes: ['titulo', 'descripcion', 'ubicacion', 'fecha_inicio', 'fecha_fin', 'enlace', 'modalidad', 'activo']
+                }, {
+                    model: model.estado_solicitud,
+                    as: 'estado',
+                    attributes: ['estado']
+                }]
+            });
+
+        } catch (error) {
+            console.log(error)
+            solicitudes = null
+        } finally {
+            conx.desconectar()
+        }
+        return solicitudes
+    }
+
+    get_comentarios = async (id) => {
+        conx.conectar();
+        let comentarios;
+        try {
+            comentarios = await model.Comentario_usuario.findAll({
+                where: {
+                    id_usuario_comentado: id
+                },
+                include: [{
+                    model: model.Usuario,
+                    as: 'usuario_comenta',
+                    attributes: ['id', 'email', 'username', 'ubicacion', 'nombre_foto', 'extension_foto', 'activo']
+                }]
+            });
+        } catch (err) {
+            console.log(err);
+            comentarios = null;
+        } finally {
+            conx.desconectar();
+        }
+        return comentarios;
+    };
+
+
     get_usuario = async (id) => {
         let usuario
         conx.conectar()

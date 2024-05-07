@@ -30,7 +30,7 @@
         PERFIL
       </button>
       <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button class="item" mat-menu-item>MIS DATOS</button>
+        <button class="item" mat-menu-item (click)="navegar_perfil()">MIS DATOS</button>
         <button class="item" mat-menu-item (click)="cerrar_sesion()">CERRAR SESIÓN</button>
       </mat-menu>
     }

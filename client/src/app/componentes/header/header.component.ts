@@ -65,4 +65,7 @@ export class HeaderComponent implements OnInit{
   navegar_tipos_voluntariado() {
     this.router.navigate(['inicio/tipos-voluntariado'])
   }
+  navegar_perfil() {
+    this.router.navigate(['perfil'])
+  }
 }

@@ -6,6 +6,7 @@ const {StatusCodes} = require("http-status-codes");
 const conexion_entradas = require("../database/ConexionEntradas");
 const path = require("path");
 const {subir_archivo} = require("../helpers/subir_archivo");
+const bcrypt = require("bcrypt");
 
 /**
  * @desc Devuelve todos los datos de un usuario
@@ -153,15 +154,22 @@ const put_usuario = async (req, res = response) => {
 }
 
 /**
- * @desc Modifica la constraseña de un usuario
+ * @desc Comprueba y modifica la contraseña de un usuario
  * @param req
+ * @param req.body.new_password
+ * @param req.body.old_password
+ * @param req.params
  * @param res
  * @returns {Promise<e.Response<any, Record<string, any>>>}
  */
 const put_password = async (req, res = response) => {
     let conx = new conexion_usuario()
-    let usuario = await conx.put_password(req.body.password, req.params.id_usuario)
-    if (!usuario) {
+    let usuario = await conx.get_usuario(req.params.id_usuario)
+    if (!bcrypt.compare(req.body.old_password, usuario.password)) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Contraseña incorrecta'})
+    }
+    let usuario_modificado = await conx.put_password(req.body.new_password, req.params.id_usuario)
+    if (!usuario_modificado) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al modificar la contraseña'})
     }
     res.status(StatusCodes.OK).json({'usuario': usuario})

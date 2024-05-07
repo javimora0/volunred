@@ -1,0 +1,39 @@
+<div class="main-container">
+  <div class="sidebar">
+    <ul class="menu">
+      <li><a (click)="seleccionar('datos')">Información personal</a></li>
+      <li><a (click)="seleccionar('mis_voluntariados')">Mis voluntariados</a></li>
+      @if (usuario.roles[0].nombre === 'voluntario') {
+        <li><a (click)="seleccionar('mis_solicitudes')">Mis solicitudes</a></li>
+      }
+      @if (usuario.roles[0].nombre === 'organizacion') {
+        <li><a (click)="seleccionar('solicitudes_voluntariado')">Solicitudes voluntariado</a></li>
+        <li><a (click)="seleccionar('crear_voluntariado')">Crear voluntariado</a></li>
+      }
+    </ul>
+  </div>
+  <div class="content-container">
+    @switch (menu_seleccionado) {
+      @case ('datos') {
+        @if (usuario.roles[0].nombre === 'voluntario') {
+          <app-perfil-voluntario></app-perfil-voluntario>
+        }
+        @if (usuario.roles[0].nombre === 'organizacion') {
+          <app-perfil-organizacion></app-perfil-organizacion>
+        }
+      }
+      @case ('crear_voluntariado') {
+
+      }
+      @case ('mis_voluntariados') {
+
+      }
+      @case ('solicitudes_voluntariado') {
+
+      }
+      @case ('mis_solicitudes') {
+
+      }
+    }
+  </div>
+</div>

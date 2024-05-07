@@ -50,8 +50,13 @@ export class PerfilVoluntarioComponent implements OnInit {
     telefono: new FormControl(0, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern("^[0-9,$]*$")]),
     ubicacion: new FormControl('', [Validators.required]),
   })
+  password = new FormGroup({
+    old_password: new FormControl('', [Validators.required,Validators.minLength(6),Validators.maxLength(60)]),
+    new_password: new FormControl('', [Validators.required, Validators.minLength(6),Validators.maxLength(60),])
+  })
   usuario!: RespuestaRegistro
   image_url = env.URL + 'usuario/imagen/'
+  hide = false
 
   constructor(
     private util_service: UtilsService

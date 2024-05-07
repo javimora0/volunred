@@ -51,10 +51,34 @@
           <mat-icon matSuffix>pin_drop</mat-icon>
         </mat-form-field>
       </div>
+      <button mat-raised-button class="btn-actualizar-imagen">Modificar Datos</button>
+    </form>
+    <h2>Modificar Contraseña</h2>
+    <form [formGroup]="password">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Introduzca su contraseña</mat-label>
+          <input formControlName="old_password" matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Repita su contraseña</mat-label>
+          <input formControlName="new_password" matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button class="btn-actualizar-imagen">Modificar Contraseña</button>
     </form>
   </div>
   <div class="img-container">
     <img src="{{image_url + usuario.usuario.id}}" alt="Imagen de un usuario" class="imagen-perfil">
     <button mat-raised-button class="btn-actualizar-imagen">Actualizar Imagen</button>
   </div>
+
 </div>

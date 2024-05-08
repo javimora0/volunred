@@ -6,11 +6,23 @@
         <mat-form-field appearance="outline">
           <mat-label>Nombre</mat-label>
           <input matInput placeholder="Alberto" formControlName="nombre">
+          @if (datos_usuario.get('nombre')?.hasError('required')) {
+            <mat-error>El nombre es <strong>obligatorio</strong></mat-error>
+          }
+          @if (datos_usuario.get('nombre')?.hasError('minlength') || datos_usuario.get('nombre')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>2 y 50</strong> caracteres</mat-error>
+          }
           <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Apellidos</mat-label>
           <input matInput placeholder="Morales Rico" formControlName="apellidos">
+          @if (datos_usuario.get('apellidos')?.hasError('required')) {
+            <mat-error>Los apellidos son <strong>obligatorios</strong></mat-error>
+          }
+          @if (datos_usuario.get('apellidos')?.hasError('minlength') || datos_usuario.get('nombre')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>4 y 90</strong> caracteres</mat-error>
+          }
           <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
       </div>
@@ -18,11 +30,23 @@
         <mat-form-field appearance="outline">
           <mat-label>Correo electrónico</mat-label>
           <input matInput placeholder="email@email.com" formControlName="email">
+          @if (datos_usuario.get('email')?.hasError('required')) {
+            <mat-error>Correo electrónico <strong>obligatorio</strong></mat-error>
+          }
+          @if (datos_usuario.get('email')?.hasError('pattern')) {
+            <mat-error>Introduzca un correo electrónico <strong>válido</strong></mat-error>
+          }
           <mat-icon matSuffix>mail</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Nombre de usuario</mat-label>
           <input matInput placeholder="elon musk" formControlName="username">
+          @if (datos_usuario.get('username')?.hasError('required')) {
+            <mat-error>El nombre de usuario es <strong>obligatorio</strong></mat-error>
+          }
+          @if (datos_usuario.get('username')?.hasError('minlength') || datos_usuario.get('username')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>3 y 30</strong> caracteres</mat-error>
+          }
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
       </div>
@@ -30,12 +54,21 @@
         <mat-form-field appearance="outline" (click)="picker.open()">
           <mat-label>Fecha de nacimiento</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
+          @if (datos_usuario.get('fecha_nacimiento')?.hasError('required')) {
+            <mat-error>La fecha de nacimiento es <strong>obligatoria</strong></mat-error>
+          }
+          @if (datos_usuario.get('fecha_nacimiento')?.hasError('validar_fecha_nacimiento') && !datos_usuario.get('fecha_nacimiento')?.hasError('required')) {
+            <mat-error>La fecha de nacimiento es <strong>erronea. +18</strong></mat-error>
+          }
           <mat-icon matSuffix>calendar_month</mat-icon>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>DNI | NIE</mat-label>
           <input matInput placeholder="00000000E" formControlName="dni_nie">
+          @if (datos_usuario.get('dni_nie')?.hasError('required')) {
+            <mat-error>El DNI o el NIE es obligatorio</mat-error>
+          }
           <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
       </div>
@@ -43,6 +76,12 @@
         <mat-form-field appearance="outline">
           <mat-label>Número de teléfono</mat-label>
           <input matInput placeholder="666000666" formControlName="telefono">
+          @if (datos_usuario.get('telefono')?.hasError('required')) {
+            <mat-error>El teléfono es obligatorio</mat-error>
+          }
+          @if (datos_usuario.get('telefono')?.hasError('minlength') || datos_usuario.get('telefono')?.hasError('maxlength') || datos_usuario.get('telefono')?.hasError('pattern')) {
+            <mat-error>Debe contener solo 6 números</mat-error>
+          }
           <mat-icon matSuffix>call</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -52,10 +91,13 @@
               <mat-option [value]="pais.name.common">{{ pais.name.common }}</mat-option>
             }
           </mat-select>
+          @if (datos_usuario.get('ubicacion')?.hasError('required')) {
+            <mat-error>La ubicación es obligatoria</mat-error>
+          }
           <mat-icon matSuffix>pin_drop</mat-icon>
         </mat-form-field>
       </div>
-      <button mat-raised-button class="btn-actualizar-imagen" (click)="modificar_datos()"
+      <button mat-raised-button class="btn-actualizar-datos" (click)="modificar_datos()"
               [disabled]="!datos_usuario.valid">Modificar Datos
       </button>
     </form>
@@ -69,6 +111,15 @@
                   [attr.aria-pressed]="hide">
             <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
+          @if (datos_usuario.get('password')?.hasError('required')) {
+            <mat-error>La contraseña es <strong>obligatoria</strong></mat-error>
+          }
+          @if (datos_usuario.get('password')?.hasError('minlength') || datos_usuario.get('password')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+          }
+          @if (datos_usuario.get('password')?.hasError('validar_passwords')) {
+            <mat-error>Las contraseñas no coinciden</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Nueva contraseña</mat-label>
@@ -77,9 +128,18 @@
                   [attr.aria-pressed]="hide">
             <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
+          @if (datos_usuario.get('repeat_password')?.hasError('required')) {
+            <mat-error>Repita su contraseña</mat-error>
+          }
+          @if (datos_usuario.get('repeat_password')?.hasError('minlength') || datos_usuario.get('repeat_password')?.hasError('maxlength')) {
+            <mat-error>Debe contener entre <strong>6 y 60</strong> caracteres</mat-error>
+          }
+          @if (datos_usuario.get('repeat_password')?.hasError('validar_passwords')) {
+            <mat-error>Las contraseñas no coinciden</mat-error>
+          }
         </mat-form-field>
       </div>
-      <button mat-raised-button class="btn-actualizar-imagen" (click)="modificar_password()"
+      <button mat-raised-button class="btn-actualizar-datos" (click)="modificar_password()"
               [disabled]="!password.valid">Modificar Contraseña
       </button>
     </form>
@@ -94,5 +154,4 @@
            src="assets/icons/estrella.png" alt="Estrella"/>
     </div>
   </div>
-
 </div>

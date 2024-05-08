@@ -1,18 +1,21 @@
-/* Sidebar */
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
 .sidebar {
   width: 220px;
-  height: 100vh;
   background-color: #7EB494;
   color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
+  margin-right: 20px;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 
 .sidebar-title {
-  padding: 0;
   font-size: 1.5rem;
   margin: 0 0 20px;
   color: #ffffff;
@@ -45,7 +48,18 @@
   color: white;
 }
 
-/* Responsividad del sidebar */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .main-container {
+    flex-direction: row;
+  }
+}
+
 @media (max-width: 768px) {
   .sidebar {
     width: 180px;
@@ -64,5 +78,9 @@
   .menu a {
     padding: 8px;
     font-size: 0.9rem;
+  }
+
+  .content-container {
+    margin-top: 20px;
   }
 }

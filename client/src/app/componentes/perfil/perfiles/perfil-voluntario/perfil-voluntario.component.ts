@@ -142,10 +142,6 @@ export class PerfilVoluntarioComponent implements OnInit {
 
   }
 
-  modificar_imagen() {
-
-  }
-
   modificar_password() {
     let body = {
       new_password: this.password.value.new_password,
@@ -198,11 +194,11 @@ export class PerfilVoluntarioComponent implements OnInit {
           next: (res) => {
             console.log(res)
             if (res.status === 200) {
-              //TODO:
               window.location.reload()
             }
           },
           error: (err) => {
+            //TODO: Control errores
             console.log(err)
           }
         })

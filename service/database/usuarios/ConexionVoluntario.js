@@ -4,7 +4,7 @@ const conx = new Conexion()
 
 class ConexionVoluntario {
 
-    put_voluntario = async (id, body) => {
+    put_voluntario = async (body, id) => {
         conx.conectar()
         let voluntario
         try {

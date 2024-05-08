@@ -8,23 +8,26 @@ class ConexionUsuario {
     put_password = async (password, id) => {
         conx.conectar()
         let usuario
-        let password_crypt = bcrypt.hash(password, 10)
+        let password_crypt = await bcrypt.hash(password, 10)
+        console.log(password_crypt)
         try {
             usuario = await model.Usuario.update({password:password_crypt}, {where:{id:id}})
         } catch (err) {
+            console.log(err)
             usuario = null
         } finally {
             conx.desconectar()
         }
         return usuario
     }
-    put_usuario = async (id, body) => {
+    put_usuario = async (body,id) => {
         conx.conectar()
         let usuario
         try {
             await model.Usuario.update(body, {where:{id:id}})
             usuario = await model.Usuario.findByPk(id)
         } catch (err) {
+            console.log(err)
             usuario = null
         } finally {
             conx.desconectar()

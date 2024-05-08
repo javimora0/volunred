@@ -17,6 +17,9 @@ import {MatSelect} from "@angular/material/select";
 import {RespuestaRegistro} from "../../../../interfaces/auth";
 import {UtilsService} from "../../../../services/utils.service";
 import {env} from "../../../../../environments/environment.development";
+import {PaisesService} from "../../../../services/paises.service";
+import {Voluntario} from "../../../../interfaces/usuario";
+import {UsuarioService} from "../../../../services/usuario.service";
 
 @Component({
   selector: 'app-perfil-voluntario',
@@ -51,19 +54,28 @@ export class PerfilVoluntarioComponent implements OnInit {
     ubicacion: new FormControl('', [Validators.required]),
   })
   password = new FormGroup({
-    old_password: new FormControl('', [Validators.required,Validators.minLength(6),Validators.maxLength(60)]),
-    new_password: new FormControl('', [Validators.required, Validators.minLength(6),Validators.maxLength(60),])
+    old_password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(60)]),
+    new_password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(60),])
   })
   usuario!: RespuestaRegistro
   image_url = env.URL + 'usuario/imagen/'
-  hide = false
+  hide = true
+  paises: any
 
   constructor(
-    private util_service: UtilsService
+    private util_service: UtilsService,
+    private paises_service: PaisesService,
+    private usuario_service: UsuarioService
   ) {
   }
 
   ngOnInit() {
+    this.paises = this.paises_service.get_paises()
+      .subscribe({
+        next: (res) => {
+          this.paises = res.body
+        }
+      })
     this.usuario = this.util_service.getUsuarioSession(sessionStorage.getItem('token'))
     this.initForm()
   }
@@ -79,6 +91,7 @@ export class PerfilVoluntarioComponent implements OnInit {
     this.datos_usuario.controls['ubicacion'].setValue(this.usuario.usuario.ubicacion)
   }
 
+  //TODO: Meter funcion en utlils para llamarla desde ahi y no repetir codigo
   validar_fecha_nacimiento(control: AbstractControl): ValidationErrors | null {
     const date = new Date(control.value);
     const system_date = new Date();
@@ -88,5 +101,71 @@ export class PerfilVoluntarioComponent implements OnInit {
     }
 
     return edad >= 18 ? null : {'validar_fecha_nacimiento': true};
+  }
+
+  modificar_datos() {
+    let body: Voluntario = {
+      nombre: this.datos_usuario.value.nombre ?? '',
+      apellidos: this.datos_usuario.value.apellidos ?? '',
+      fecha_nacimiento: this.datos_usuario.value.fecha_nacimiento ?? new Date,
+      ubicacion: this.datos_usuario.value.ubicacion ?? '',
+    }
+    if (this.datos_usuario.value.email !== this.usuario.usuario.email) {
+      body.email = this.datos_usuario.value.email ?? ''
+    }
+    if (this.datos_usuario.value.username !== this.usuario.usuario.username) {
+      body.username = this.datos_usuario.value.username ?? ''
+    }
+    if (this.datos_usuario.value.telefono !== this.usuario.vol_org.telefono) {
+      body.telefono = this.datos_usuario.value.telefono ?? 0
+    }
+    if (this.datos_usuario.value.dni_nie !== this.usuario.vol_org.dni_nie) {
+      body.dni_nie = this.datos_usuario.value.dni_nie ?? ''
+    }
+    console.log(body)
+    this.usuario_service.put_usuario(this.usuario.usuario.id, body)
+      .subscribe({
+        next: (res) => {
+          if (res.status === 200) {
+            sessionStorage.setItem('token', res.body.token)
+            //TODO: Mostrar mensaje confirmacion usuario modificado
+          }
+        },
+        error: (err) => {
+          //TODO: Control errores
+          console.log(err)
+        }
+      })
+
+  }
+
+  modificar_imagen() {
+
+  }
+
+  modificar_password() {
+    let body = {
+      new_password: this.password.value.new_password,
+      old_password: this.password.value.old_password
+    }
+    console.log(body)
+    this.usuario_service.put_password(this.usuario.usuario.id, body)
+      .subscribe({
+        next: (res) => {
+          console.log(res)
+          if (res.status === 200) {
+            //TODO: Mensaje contraseña modificada
+            this.password.reset()
+          }
+        },
+        error: (err) => {
+          //TODO: Control errores
+          console.log(err)
+          if (err.status === 400) {
+            //TODO: Contraseña incorrecta
+          }
+          this.password.reset()
+        }
+      })
   }
 }

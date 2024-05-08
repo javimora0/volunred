@@ -3,7 +3,7 @@ const conexion_usuario = require('../database/usuarios/ConexionUsuario')
 const conexion_voluntario = require('../database/usuarios/ConexionVoluntario')
 const conexion_organizacion = require('../database/usuarios/ConexionOrganizacion')
 const {StatusCodes} = require("http-status-codes");
-const conexion_entradas = require("../database/ConexionEntradas");
+const auth_controller = require("../controllers/auth_controller");
 const path = require("path");
 const {subir_archivo} = require("../helpers/subir_archivo");
 const bcrypt = require("bcrypt");
@@ -150,7 +150,12 @@ const put_usuario = async (req, res = response) => {
     if (!voluntario) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al modificar el voluntario'})
     }
-    res.status(StatusCodes.OK).json({'usuario': usuario})
+    // Generar nuevo token
+    // Obtener roles usuario y generar token
+    let {roles_usuario, token} = await auth_controller.get_token(voluntario, usuario)
+
+
+    res.status(StatusCodes.OK).json({'usuario': usuario, 'token': token})
 }
 
 /**
@@ -165,7 +170,8 @@ const put_usuario = async (req, res = response) => {
 const put_password = async (req, res = response) => {
     let conx = new conexion_usuario()
     let usuario = await conx.get_usuario(req.params.id_usuario)
-    if (!bcrypt.compare(req.body.old_password, usuario.password)) {
+    let igual = await bcrypt.compare(req.body.old_password, usuario.password)
+    if (!igual) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Contraseña incorrecta'})
     }
     let usuario_modificado = await conx.put_password(req.body.new_password, req.params.id_usuario)

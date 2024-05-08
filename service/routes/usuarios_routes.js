@@ -21,14 +21,14 @@ router.route('/:id_usuario')
             min: 4,
             max: 90
         }).isString(),
-        check('email', 'Debe introducir un correo electrónico válido').isEmail().custom(middleware.existe_email),
-        check('username', 'Debe introducir un nombre de usuario válido').isLength({
+        check('email', 'Debe introducir un correo electrónico válido').optional().isEmail().custom(middleware.existe_email),
+        check('username', 'Debe introducir un nombre de usuario válido').optional().isLength({
             min: 3,
             max: 30
         }).custom(middleware.existe_username),
         check('fecha_nacimiento', 'Debe introducir una fecha de nacimiento válida'),
-        check('dni_nie', 'Debe introducir un DNI o NIE válido').custom(middleware.check_dni_nie).custom(middleware.existe_dni_nie),
-        check('telefono', 'Debe introducir un numero de telefono válido').isInt().custom(middleware.existe_telefono),
+        check('dni_nie', 'Debe introducir un DNI o NIE válido').optional().custom(middleware.check_dni_nie).custom(middleware.existe_dni_nie),
+        check('telefono', 'Debe introducir un numero de telefono válido').optional().isInt().custom(middleware.existe_telefono),
         check('ubicacion', 'Debe introducir una ubicacion válida').isString()
         , validar_campos], validar_jwt.validar_token, middleware.existe_usuario, usuario_controller.put_usuario)
 

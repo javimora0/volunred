@@ -20,6 +20,7 @@ import {env} from "../../../../../environments/environment.development";
 import {PaisesService} from "../../../../services/paises.service";
 import {Voluntario} from "../../../../interfaces/usuario";
 import {UsuarioService} from "../../../../services/usuario.service";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-perfil-voluntario',
@@ -38,6 +39,7 @@ import {UsuarioService} from "../../../../services/usuario.service";
     MatIconButton,
     MatOption,
     MatSelect,
+    NgForOf,
   ],
   templateUrl: './perfil-voluntario.component.html',
   styleUrl: './perfil-voluntario.component.css'
@@ -61,6 +63,7 @@ export class PerfilVoluntarioComponent implements OnInit {
   image_url = env.URL + 'usuario/imagen/'
   hide = true
   paises: any
+  selected_file: File | null = null;
 
   constructor(
     private util_service: UtilsService,
@@ -167,5 +170,43 @@ export class PerfilVoluntarioComponent implements OnInit {
           this.password.reset()
         }
       })
+  }
+
+  generar_estrellas(rating: number | undefined): number[] {
+    return Array(Math.round(<number>rating)).fill(0);
+  }
+
+  seleccionar_imagen(): void {
+    const file_input = document.getElementById('file_input') as HTMLInputElement;
+    file_input.click();
+  }
+
+  on_file_selected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selected_file = input.files[0];
+      this.upload_image();
+    }
+  }
+
+  upload_image(): void {
+    if (this.selected_file) {
+      const form_data = new FormData();
+      form_data.append('archivo', this.selected_file, this.selected_file.name);
+      this.usuario_service.put_imagen(this.usuario.usuario.id, form_data)
+        .subscribe({
+          next: (res) => {
+            console.log(res)
+            if (res.status === 200) {
+              //TODO:
+              window.location.reload()
+            }
+          },
+          error: (err) => {
+            console.log(err)
+          }
+        })
+
+    }
   }
 }

@@ -39,9 +39,10 @@ class ConexionUsuario {
         let usuario
         conx.conectar()
         try {
-            await model.Usuario.update({nombre_foto:nombre,extension_foto:extension}, {where:{id:id,activa:true}})
+            await model.Usuario.update({nombre_foto:nombre,extension_foto:extension}, {where:{id:id,activo:true}})
             usuario = await model.Usuario.findByPk(id)
         } catch (err) {
+            console.log(err)
             usuario = null
         } finally {
             conx.desconectar()

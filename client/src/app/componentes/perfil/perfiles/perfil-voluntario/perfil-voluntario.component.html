@@ -49,13 +49,15 @@
           <mat-label>Ubicación</mat-label>
           <mat-select formControlName="ubicacion">
             @for (pais of paises; track pais.name) {
-              <mat-option [value]="pais.name.common">{{pais.name.common}}</mat-option>
+              <mat-option [value]="pais.name.common">{{ pais.name.common }}</mat-option>
             }
           </mat-select>
           <mat-icon matSuffix>pin_drop</mat-icon>
         </mat-form-field>
       </div>
-      <button mat-raised-button class="btn-actualizar-imagen" (click)="modificar_datos()" [disabled]="!datos_usuario.valid">Modificar Datos</button>
+      <button mat-raised-button class="btn-actualizar-imagen" (click)="modificar_datos()"
+              [disabled]="!datos_usuario.valid">Modificar Datos
+      </button>
     </form>
     <h2>Modificar Contraseña</h2>
     <form [formGroup]="password">
@@ -77,12 +79,20 @@
           </button>
         </mat-form-field>
       </div>
-      <button mat-raised-button class="btn-actualizar-imagen" (click)="modificar_password()" [disabled]="!password.valid">Modificar Contraseña</button>
+      <button mat-raised-button class="btn-actualizar-imagen" (click)="modificar_password()"
+              [disabled]="!password.valid">Modificar Contraseña
+      </button>
     </form>
   </div>
   <div class="img-container">
     <img src="{{image_url + usuario.usuario.id}}" alt="Imagen de un usuario" class="imagen-perfil">
-    <button mat-raised-button class="btn-actualizar-imagen" (click)="modificar_imagen()">Actualizar Imagen</button>
+    <button mat-raised-button class="btn-actualizar-imagen" (click)="seleccionar_imagen()">Actualizar Imagen</button>
+    <input type="file" id="file_input" class="input-file" (change)="on_file_selected($event)">
+    <h2 class="calificacion-title">Tu calificación</h2>
+    <div class="estrellas-container">
+      <img *ngFor="let estrella of generar_estrellas(usuario.vol_org.media_calificaciones)" class="estrella"
+           src="assets/icons/estrella.png" alt="Estrella"/>
+    </div>
   </div>
 
 </div>

@@ -153,8 +153,6 @@ const put_usuario = async (req, res = response) => {
     // Generar nuevo token
     // Obtener roles usuario y generar token
     let {roles_usuario, token} = await auth_controller.get_token(voluntario, usuario)
-
-
     res.status(StatusCodes.OK).json({'usuario': usuario, 'token': token})
 }
 

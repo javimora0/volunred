@@ -21,6 +21,11 @@ import {PaisesService} from "../../../../services/paises.service";
 import {Voluntario} from "../../../../interfaces/usuario";
 import {UsuarioService} from "../../../../services/usuario.service";
 import {NgForOf} from "@angular/common";
+import {MessageService} from "primeng/api";
+import {ButtonModule} from "primeng/button";
+import {RippleModule} from "primeng/ripple";
+import {ToastModule} from "primeng/toast";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-perfil-voluntario',
@@ -40,9 +45,14 @@ import {NgForOf} from "@angular/common";
     MatOption,
     MatSelect,
     NgForOf,
+    ButtonModule,
+    RippleModule,
+    ToastModule,
+    RouterOutlet
   ],
   templateUrl: './perfil-voluntario.component.html',
-  styleUrl: './perfil-voluntario.component.css'
+  styleUrl: './perfil-voluntario.component.css',
+  providers: [MessageService]
 })
 export class PerfilVoluntarioComponent implements OnInit {
   datos_usuario = new FormGroup({
@@ -68,7 +78,8 @@ export class PerfilVoluntarioComponent implements OnInit {
   constructor(
     private util_service: UtilsService,
     private paises_service: PaisesService,
-    private usuario_service: UsuarioService
+    private usuario_service: UsuarioService,
+    private messageService: MessageService
   ) {
   }
 
@@ -125,18 +136,26 @@ export class PerfilVoluntarioComponent implements OnInit {
     if (this.datos_usuario.value.dni_nie !== this.usuario.vol_org.dni_nie) {
       body.dni_nie = this.datos_usuario.value.dni_nie ?? ''
     }
-    console.log(body)
     this.usuario_service.put_usuario(this.usuario.usuario.id, body)
       .subscribe({
         next: (res) => {
           if (res.status === 200) {
             sessionStorage.setItem('token', res.body.token)
-            //TODO: Mostrar mensaje confirmacion usuario modificado
+            this.messageService.add({
+              key: 'tc',
+              severity: 'success',
+              summary: 'OK!',
+              detail: 'Tus datos han sido modificados.'
+            });
           }
         },
         error: (err) => {
-          //TODO: Control errores
-          console.log(err)
+          this.messageService.add({
+            key: 'tc',
+            severity: 'error',
+            summary: 'OPS!',
+            detail: 'Ha occurrido un error al modificar tus datos. Contacta con un administrador'
+          });
         }
       })
 
@@ -147,21 +166,27 @@ export class PerfilVoluntarioComponent implements OnInit {
       new_password: this.password.value.new_password,
       old_password: this.password.value.old_password
     }
-    console.log(body)
     this.usuario_service.put_password(this.usuario.usuario.id, body)
       .subscribe({
         next: (res) => {
-          console.log(res)
           if (res.status === 200) {
-            //TODO: Mensaje contraseña modificada
+            this.messageService.add({
+              key: 'tc',
+              severity: 'success',
+              summary: 'OK!',
+              detail: 'Tu contraseña ha sido modificada con éxito.'
+            });
             this.password.reset()
           }
         },
         error: (err) => {
-          //TODO: Control errores
-          console.log(err)
           if (err.status === 400) {
-            //TODO: Contraseña incorrecta
+            this.messageService.add({
+              key: 'tc',
+              severity: 'error',
+              summary: 'OPS!',
+              detail: 'Tu contraseña actual no es correcta.'
+            });
           }
           this.password.reset()
         }
@@ -189,20 +214,39 @@ export class PerfilVoluntarioComponent implements OnInit {
     if (this.selected_file) {
       const form_data = new FormData();
       form_data.append('archivo', this.selected_file, this.selected_file.name);
-      this.usuario_service.put_imagen(this.usuario.usuario.id, form_data)
-        .subscribe({
-          next: (res) => {
-            console.log(res)
-            if (res.status === 200) {
-              window.location.reload()
-            }
-          },
-          error: (err) => {
-            //TODO: Control errores
-            console.log(err)
-          }
-        })
+      this.usuario_service.put_imagen(this.usuario.usuario.id, form_data).subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.status === 200) {
+            let x = 5;
 
+            const interval = setInterval(() => {
+              this.messageService.clear('tc')
+              this.messageService.add({
+                key: 'tc',
+                severity: 'success',
+                summary: '¡OK!',
+                detail: `Tu foto de perfil ha sido modificada con éxito. Recargando en ${x} segundos...`,
+              });
+
+              x -= 1;
+
+              if (x < 0) {
+                clearInterval(interval);
+                window.location.reload();
+              }
+            }, 1000);
+          }
+        },
+        error: (err) => {
+          this.messageService.add({
+            key: 'tc',
+            severity: 'error',
+            summary: '¡OPS!',
+            detail: 'Ha ocurrido un error al modificar tu foto de perfil. Contacta con un administrador.',
+          });
+        },
+      });
     }
   }
 }

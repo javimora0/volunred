@@ -285,4 +285,7 @@ export class PerfilVoluntarioComponent implements OnInit {
       });
     }
   }
+  navegar_perfil() {
+    //TODO: Navegar a perfil, pasando username por url
+  }
 }

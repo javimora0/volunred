@@ -153,6 +153,7 @@
       <img *ngFor="let estrella of generar_estrellas(usuario.vol_org.media_calificaciones)" class="estrella"
            src="assets/icons/estrella.png" alt="Estrella"/>
     </div>
+    <button mat-raised-button class="btn-actualizar-imagen" (click)="navegar_perfil()">Ver mi perfil</button>
   </div>
 </div>
-<p-toast  position="top-right" key="tc"></p-toast>
+<p-toast position="top-right" key="tc"></p-toast>

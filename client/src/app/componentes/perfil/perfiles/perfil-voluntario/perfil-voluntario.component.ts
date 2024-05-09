@@ -26,6 +26,8 @@ import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {ToastModule} from "primeng/toast";
 import {RouterOutlet} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogoComponent} from "../../../commons/dialogo/dialogo.component";
 
 @Component({
   selector: 'app-perfil-voluntario',
@@ -79,7 +81,8 @@ export class PerfilVoluntarioComponent implements OnInit {
     private util_service: UtilsService,
     private paises_service: PaisesService,
     private usuario_service: UsuarioService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -115,6 +118,24 @@ export class PerfilVoluntarioComponent implements OnInit {
     }
 
     return edad >= 18 ? null : {'validar_fecha_nacimiento': true};
+  }
+
+  open_dialog_datos() {
+    const dialogRef = this.dialog.open(DialogoComponent, {
+      data: {
+        mensaje: "Vas a modificar tus datos"
+      },
+      width: '500px',
+      disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.modificar_datos()
+      }else {
+        window.location.reload()
+      }
+    });
   }
 
   modificar_datos() {
@@ -158,7 +179,24 @@ export class PerfilVoluntarioComponent implements OnInit {
           });
         }
       })
+  }
 
+  open_dialog_password() {
+    const dialogRef = this.dialog.open(DialogoComponent, {
+      data: {
+        mensaje: "Vas a modificar tu constraseña"
+      },
+      width: '500px',
+      disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.modificar_password()
+      }else {
+        window.location.reload()
+      }
+    });
   }
 
   modificar_password() {
@@ -226,11 +264,9 @@ export class PerfilVoluntarioComponent implements OnInit {
                 key: 'tc',
                 severity: 'success',
                 summary: '¡OK!',
-                detail: `Tu foto de perfil ha sido modificada con éxito. Recargando en ${x} segundos...`,
+                detail: `Tu foto de perfil ha sido modificada con éxito. Espere ${x} segundos...`,
               });
-
               x -= 1;
-
               if (x < 0) {
                 clearInterval(interval);
                 window.location.reload();

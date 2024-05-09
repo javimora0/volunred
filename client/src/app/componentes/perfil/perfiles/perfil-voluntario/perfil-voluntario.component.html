@@ -97,7 +97,7 @@
           <mat-icon matSuffix>pin_drop</mat-icon>
         </mat-form-field>
       </div>
-      <button mat-raised-button class="btn-actualizar-datos" (click)="modificar_datos()"
+      <button mat-raised-button class="btn-actualizar-datos" (click)="open_dialog_datos()"
               [disabled]="!datos_usuario.valid">Modificar Datos
       </button>
     </form>
@@ -139,7 +139,7 @@
           }
         </mat-form-field>
       </div>
-      <button mat-raised-button class="btn-actualizar-datos" (click)="modificar_password()"
+      <button mat-raised-button class="btn-actualizar-datos" (click)="open_dialog_password()"
               [disabled]="!password.valid">Modificar Contraseña
       </button>
     </form>

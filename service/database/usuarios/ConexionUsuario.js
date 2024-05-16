@@ -1,10 +1,27 @@
 const Conexion = require('../Conexion')
 const model = require('../../models/index')
-const bcrypt = require ('bcrypt')
+const bcrypt = require('bcrypt')
 const conx = new Conexion()
 
 class ConexionUsuario {
 
+    get_usuarios = async() => {
+        let usuarios
+        conx.conectar()
+        try {
+            usuarios = await model.Usuario.findAll()
+        } catch (err) {
+            usuarios = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuarios
+    }
+    /**
+     * @desc Obtiene un usuario por id
+     * @param id
+     * @returns {Promise<Model>}
+     */
     put_password = async (password, id) => {
         conx.conectar()
         let usuario
@@ -118,12 +135,11 @@ class ConexionUsuario {
         return comentarios;
     };
 
-
     get_usuario = async (id) => {
         let usuario
         conx.conectar()
         try {
-            usuario = await model.Usuario.findByPk(id, {where:{activo:1}})
+            usuario = await model.Usuario.findByPk(id, {where: {activo: 1}})
         } catch (err) {
             usuario = null
         } finally {
@@ -142,7 +158,7 @@ class ConexionUsuario {
         let usuario
         conx.conectar()
         try {
-            usuario = await model.Usuario.findOne({where:{email:email}})
+            usuario = await model.Usuario.findOne({where: {email: email}})
             if (!usuario) {
                 usuario = null
             }
@@ -166,7 +182,7 @@ class ConexionUsuario {
         let usuario
         conx.conectar()
         try {
-            usuario = await model.Usuario.findOne({where:{username:username}})
+            usuario = await model.Usuario.findOne({where: {username: username}})
             if (!usuario) {
                 usuario = null
             }
@@ -214,7 +230,7 @@ class ConexionUsuario {
         conx.conectar()
         try {
             resultado = await model.Usuario.findAll({
-                where: { id: id },
+                where: {id: id},
                 include: [{
                     model: model.Rol,
                     as: 'roles',
@@ -241,8 +257,7 @@ class ConexionUsuario {
         conx.conectar()
         let usuario = [];
         try {
-            usuario = await model.Usuario.findAll({where:{email:email, activo:1}})
-            console.log(usuario)
+            usuario = await model.Usuario.findAll({where: {email: email, activo: 1}})
         } catch (error) {
             console.error(error)
         } finally {
@@ -263,7 +278,7 @@ class ConexionUsuario {
         conx.conectar()
         let usuario = [];
         try {
-            usuario = await model.Usuario.findAll({where:{username:username, activo:1}})
+            usuario = await model.Usuario.findAll({where: {username: username, activo: 1}})
         } catch (error) {
             console.error(error)
         } finally {

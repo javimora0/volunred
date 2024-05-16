@@ -4,13 +4,22 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class solicitud_voluntariado extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // Relación con Usuario
+      this.belongsTo(models.Usuario, {
+        foreignKey: 'id_usuario',
+        as: 'usuario'
+      });
+      // Relación con voluntariado
+      this.belongsTo(models.voluntariado, {
+        foreignKey: 'id_voluntariado',
+        as: 'voluntariado'
+      });
+      // Relación con estado_solicitud
+      this.belongsTo(models.estado_solicitud, {
+        foreignKey: 'id_estado',
+        as: 'estado'
+      });
     }
   }
   solicitud_voluntariado.init({

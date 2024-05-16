@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
                 as: 'roles'
             });
         }
+
+        toJSON() {
+            let values = Object.assign({}, this.get());
+            delete values.password; // Excluir la contraseña
+            return values;
+        }
     }
 
     Usuario.init({

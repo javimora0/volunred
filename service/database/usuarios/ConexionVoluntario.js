@@ -4,7 +4,6 @@ const conx = new Conexion()
 
 class ConexionVoluntario {
 
-
     get_voluntarios = async()=> {
         conx.conectar()
         let voluntarios
@@ -23,6 +22,21 @@ class ConexionVoluntario {
      * @param id_usuario
      * @returns {Promise<Model>}
      */
+    put_voluntario = async (body, id) => {
+        conx.conectar()
+        let voluntario
+        try {
+            await model.Voluntario.update(body, {where:{id_usuario:id}})
+            voluntario = await model.Voluntario.findOne({where:{id_usuario:id}})
+        } catch (err) {
+            voluntario = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntario
+    }
+
+
     get_voluntario = async (id_usuario) => {
         conx.conectar()
         let voluntario

@@ -12,6 +12,9 @@ const {StatusCodes} = require("http-status-codes");
  * @returns {Promise<unknown>}
  */
 const existe_email = async(email = '') => {
+    if (!email) {
+        return Promise.resolve(true);
+    }
     return new Promise((resolve, reject) => {
         const conx_usuario = new conexion_usuario()
         conx_usuario.email_existe_validator(email)
@@ -30,6 +33,9 @@ const existe_email = async(email = '') => {
  * @returns {Promise<unknown>}
  */
 const existe_username = async(username = '') => {
+    if (!username) {
+        return Promise.resolve(true);
+    }
     return new Promise((resolve, reject) => {
         const conx_usuario = new conexion_usuario()
         conx_usuario.username_existe_validator(username)
@@ -48,6 +54,9 @@ const existe_username = async(username = '') => {
  * @returns {Promise<unknown>}
  */
 const existe_dni_nie = async (dni_nie) => {
+    if (!dni_nie) {
+        return Promise.resolve(true);
+    }
     return new Promise((resolve, reject) => {
         const conx_voluntario = new conexion_voluntario()
         conx_voluntario.dni_nie_existe_validator(dni_nie)
@@ -66,6 +75,9 @@ const existe_dni_nie = async (dni_nie) => {
  * @returns {Promise<unknown>}
  */
 const existe_telefono = async (telefono) => {
+    if (!telefono) {
+        return Promise.resolve(true);
+    }
     return new Promise((resolve, reject) => {
         const conx_voluntario = new conexion_voluntario()
         conx_voluntario.telefono_existe_validator(telefono)
@@ -185,7 +197,7 @@ const check_cif = async (cif = '') => {
  */
 const existe_usuario = async (req, res, next) => {
     const conx = new conexion_usuario()
-    const id = req.params.id_usuario
+    const id = req.params.id_usuario | req.params.id
     let usuario = await conx.get_usuario(id)
     if (!usuario) {
         return res.status(StatusCodes.NO_CONTENT).json({ 'msg': 'Usuario no encontrado' })

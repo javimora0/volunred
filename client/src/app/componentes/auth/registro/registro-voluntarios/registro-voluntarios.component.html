@@ -63,7 +63,6 @@
           @if (formulario_voluntario.get('fecha_nacimiento')?.hasError('validar_fecha_nacimiento') && !formulario_voluntario.get('fecha_nacimiento')?.hasError('required')) {
             <mat-error>La fecha de nacimiento es <strong>erronea. +18</strong></mat-error>
           }
-
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">

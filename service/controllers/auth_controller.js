@@ -100,7 +100,7 @@ const login = async (req, res = response) => {
 
 
 
-
+// TODO: Meter estas funciones en utils
 // -----------------------Funciones auxiliares --------------------------------//
 async function get_token(vol_org, usuario) {
     const conx_usuario = new conexion_usuario()
@@ -128,5 +128,6 @@ async function check_login(login, password) {
 module.exports = {
     registro_voluntario,
     registro_organizacion,
-    login
+    login,
+    get_token
 }

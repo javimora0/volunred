@@ -2,11 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {Categoria} from "../../interfaces/categorias";
 import {CatetegoriasService} from "../../services/catetegorias.service";
 import {env} from "../../../environments/environment.development";
+import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 
 @Component({
   selector: 'app-tipos-voluntariado',
   standalone: true,
-  imports: [],
+  imports: [
+    TitleCasePipe
+  ],
   templateUrl: './tipos-voluntariado.component.html',
   styleUrl: './tipos-voluntariado.component.css'
 })
@@ -28,4 +31,7 @@ export class TiposVoluntariadoComponent implements OnInit{
         }
       })
   }
+
+  protected readonly TitleCasePipe = TitleCasePipe;
+  protected readonly UpperCasePipe = UpperCasePipe;
 }

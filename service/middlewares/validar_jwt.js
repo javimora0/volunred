@@ -1,6 +1,15 @@
 const jwt = require('jsonwebtoken')
 const {StatusCodes} = require("http-status-codes");
 
+const validar_token = (req, res, next) => {
+    const token = req.header('x-token')
+
+    if (!token) {
+        return res.status(StatusCodes.UNAUTHORIZED).json({'msg':'No hay token en la peticion'})
+    }
+    next()
+}
+
 const validar_voluntario = (req, res, next) => {
     const token = req.header('x-token')
 
@@ -9,10 +18,7 @@ const validar_voluntario = (req, res, next) => {
     }
 
     try {
-        const {roles} = jwt.verify(token, process.env.secretOrPrivateKey)
-        const rolesArray = roles[0].roles.map(rol => rol.nombre);
-
-        if (rolesArray.includes('voluntario')) {
+        if (jwt.verify(token, process.env.secretOrPrivateKey).roles[0].nombre === 'voluntario') {
             next();
         } else {
             res.status(StatusCodes.UNAUTHORIZED).json({ 'msg': 'Acceso no autorizado' });
@@ -31,10 +37,7 @@ const validar_organizacion = (req, res, next) => {
     }
 
     try {
-        const {roles} = jwt.verify(token, process.env.secretOrPrivateKey)
-        const rolesArray = roles[0].roles.map(rol => rol.nombre);
-
-        if (rolesArray.includes('organizacion')) {
+        if (jwt.verify(token, process.env.secretOrPrivateKey).roles[0].nombre === 'organizacion') {
             next();
         } else {
             res.status(StatusCodes.UNAUTHORIZED).json({ 'msg': 'Acceso no autorizado' });
@@ -53,10 +56,7 @@ const validar_admin = (req, res, next) => {
     }
 
     try {
-        const {roles} = jwt.verify(token, process.env.secretOrPrivateKey)
-        const rolesArray = roles[0].roles.map(rol => rol.nombre);
-
-        if (rolesArray.includes('admin')) {
+        if (jwt.verify(token, process.env.secretOrPrivateKey).roles[0].nombre === 'admin') {
             next();
         } else {
             res.status(StatusCodes.UNAUTHORIZED).json({ 'msg': 'Acceso no autorizado' });
@@ -69,5 +69,6 @@ const validar_admin = (req, res, next) => {
 module.exports = {
     validar_voluntario,
     validar_organizacion,
-    validar_admin
+    validar_admin,
+    validar_token
 }

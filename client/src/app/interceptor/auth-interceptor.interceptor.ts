@@ -1,7 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
-  //JavierMorales
   let token = sessionStorage.getItem('token')
 
   if (req.params.has('image') && token) {

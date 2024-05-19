@@ -33,4 +33,11 @@ export class UsuarioService {
       params: {auth: 1, image: 1}
     })
   }
+
+  post_preferencias(body: any, id_voluntario: number | undefined): Observable<HttpResponse<any>> {
+    return this.http.post<any>(env.URL + `usuario/preferencias/${id_voluntario}`, body, {
+      observe: 'response' as 'response',
+      params: {auth: 1}
+    })
+  }
 }

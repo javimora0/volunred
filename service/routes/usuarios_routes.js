@@ -53,4 +53,11 @@ router.get('/voluntariados/:id_usuario', middleware.existe_usuario, usuario_cont
 router.route('/imagen/:id_usuario')
     .get(middleware.existe_usuario, usuario_controller.get_imagen)
     .put(middleware.existe_usuario, usuario_controller.put_imagen)
+
+router.post('/preferencias/:id_voluntario', [
+    check('sexo','Debe seleccionar un sexo valido').not().isEmpty(),
+    check('experiencia', 'Debe seleccionar su experiencia').not().isEmpty(),
+    check('disponibilidad', 'Elige entre online, presencial o ambas').not().isEmpty()
+    ,validar_campos], validar_jwt.validar_voluntario ,middleware.existe_voluntario,usuario_controller.agregar_preferencias)
+
 module.exports = router

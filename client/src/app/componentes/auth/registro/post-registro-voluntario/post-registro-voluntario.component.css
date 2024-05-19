@@ -1,35 +1,125 @@
-.main-container{
-  width: 50%;
-  margin-top: 50px;
+.main-container {
+  width: 80%;
+  max-width: 800px;
+  margin: 50px auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
 }
 
 .select-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
+
+.info-image {
+  height: 80px;
+  width: auto;
+}
+
+p {
+  margin: 0 10px;
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+}
+
 .container {
   display: flex;
   justify-content: center;
-}
-.btn-saltar {
-  color: white;
-  background-color: #7EB494;
+  width: 100%;
 }
 
-.btn-continuar {
+.mat-form-field.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.mat-radio-group.full-width {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.custom-button {
+  margin: 10px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  width: auto;
+  flex-grow: 0;
+  border-radius: 25px;
+  text-transform: none;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-button.btn-continuar {
+
   color: white;
   background-color: #868686;
 }
 
-.botones {
-  display: flex;
-  justify-content: space-between;
+.custom-button.btn-saltar {
+  color: white;
+  background-color: #7EB494;
 }
 
-button {
-  width: 25%;
 
+.botones {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.half-width {
+  width: 48%;
+}
+
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .half-width {
+    width: 100%;
+  }
+
+  .main-container {
+    width: 95%;
+  }
+
+  .info-image {
+    height: 60px;
+  }
+
+  .mat-form-field.full-width, .mat-radio-group.full-width {
+    flex-direction: column;
+  }
+
+  .custom-button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .botones {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+  }
 }

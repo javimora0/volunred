@@ -1,25 +1,50 @@
 <div class="container">
   <div class="main-container">
     <div class="select-container">
+      <img class="info-image" src="assets/informacion.png">
+      <p>Este formulario nos proporcionará información para poder recomendarte voluntariados acordes a tus intereses.</p>
     </div>
-    <h1>Elige tus ámbitos profesionales</h1>
-    <mat-form-field appearance="outline">
-      <mat-label>Ámbitos</mat-label>
-      <mat-select [formControl]="ambitos_elegidos" multiple>
-        @for (ambito of ambitos_profesionales?.ambitos_profesionales; track ambito.id) {
-          <mat-option (click)="seleccion_ambito()" [value]="ambito">{{ambito.ambito}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-    <div class="botones">
-      @if (!ambitos_seleccionados) {
-        <button class="btn-continuar" disabled mat-button>Continuar</button>
-      } @else {
-        <button class="btn-saltar" (click)="boton_continuar()" mat-button>Continuar</button>
-      }
-      <button class="btn-saltar" (click)="boton_saltar()" mat-button>Saltar</button>
-    </div>
+    <form [formGroup]="formulario">
+      <!-- Ámbitos profesionales -->
+      <h3>Elige tus ámbitos profesionales: </h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Ámbitos</mat-label>
+        <mat-select formControlName="ambitos_elegidos" multiple>
+          @for (ambito of ambitos_profesionales?.ambitos_profesionales; track ambito.id) {
+            <mat-option (click)="seleccion_ambito()" [value]="ambito">{{ambito.ambito | titlecase}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
+      <!-- Selección de sexo -->
+      <h3>Sexo: </h3>
+      <mat-radio-group formControlName="sexo" aria-label="Selecciona un sexo" class="full-width">
+        <mat-radio-button value="f">Femenino</mat-radio-button>
+        <mat-radio-button value="m">Masculino</mat-radio-button>
+      </mat-radio-group>
+
+      <!-- Participación en voluntariado -->
+      <h3>¿Has participado en voluntariado?</h3>
+      <mat-radio-group formControlName="participacion_voluntariado" aria-label="Participación en voluntariado" class="full-width">
+        <mat-radio-button value="true">Sí</mat-radio-button>
+        <mat-radio-button value="false">No</mat-radio-button>
+      </mat-radio-group>
+
+      <!-- Disponibilidad -->
+      <h3>Disponibilidad:</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Disponibilidad</mat-label>
+        <mat-select formControlName="disponibilidad">
+          <mat-option value="presencial">Presencial</mat-option>
+          <mat-option value="online">Online</mat-option>
+          <mat-option value="ambos">Ambos</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="botones">
+        <button class="btn-continuar custom-button" mat-raised-button [disabled]="!formulario.valid" (click)="boton_continuar()">Continuar</button>
+        <button class="btn-saltar custom-button" mat-stroked-button (click)="boton_saltar()">Saltar</button>
+      </div>
+    </form>
   </div>
-
 </div>

@@ -2,7 +2,7 @@ const {response} = require('express')
 const conexion_usuario = require('../database/usuarios/ConexionUsuario')
 const conexion_voluntario = require('../database/usuarios/ConexionVoluntario')
 const conexion_organizacion = require('../database/usuarios/ConexionOrganizacion')
-const {StatusCodes} = require("http-status-codes");
+const {StatusCodes, BAD_REQUEST} = require("http-status-codes");
 const auth_controller = require("../controllers/auth_controller");
 const path = require("path");
 const {subir_archivo} = require("../helpers/subir_archivo");
@@ -178,6 +178,16 @@ const put_password = async (req, res = response) => {
     }
     res.status(StatusCodes.OK).json({'usuario': usuario})
 }
+
+const agregar_preferencias = async (req, res = response) => {
+    let conx = new conexion_usuario()
+    let preferencias = await conx.agregar_preferencias(req.params.id_voluntario, req.body)
+    if (!preferencias) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al agregar las pereferencias.'})
+    }
+    res.status(StatusCodes.CREATED).json({'msg':'Preferencias añadidas con éxito.'})
+}
+
 module.exports = {
     get_datos,
     get_comentarios,
@@ -186,5 +196,6 @@ module.exports = {
     get_imagen,
     put_imagen,
     put_usuario,
-    put_password
+    put_password,
+    agregar_preferencias
 }

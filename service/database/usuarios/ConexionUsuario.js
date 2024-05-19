@@ -5,6 +5,21 @@ const conx = new Conexion()
 
 class ConexionUsuario {
 
+    agregar_preferencias = async(id_voluntario, body) => {
+        let preferencias
+        body.id_voluntario = id_voluntario
+        conx.conectar()
+        try {
+            preferencias = await model.preferencias.create(body)
+        } catch (err) {
+            preferencias = null
+        } finally {
+            conx.desconectar()
+        }
+        return preferencias
+    }
+
+
     get_usuarios = async() => {
         let usuarios
         conx.conectar()
@@ -148,6 +163,18 @@ class ConexionUsuario {
         return usuario
     }
 
+    get_voluntario = async (id) => {
+        let usuario
+        conx.conectar()
+        try {
+            usuario = await model.Voluntario.findByPk(id, {where: {activo: 1}})
+        } catch (err) {
+            usuario = null
+        } finally {
+            conx.desconectar()
+        }
+        return usuario
+    }
     /**
      * @desc Comprueba las credenciales por email de un usuario
      * @param email

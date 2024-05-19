@@ -48,6 +48,8 @@ const existe_username = async(username = '') => {
     })
 }
 
+
+
 /**
  * @desc Validacion para que no se repitan dni o nie
  * @param dni_nie
@@ -204,7 +206,15 @@ const existe_usuario = async (req, res, next) => {
     }
     next()
 }
-
+const existe_voluntario = async (req, res, next) => {
+    const conx = new conexion_usuario()
+    const id = req.params.id_voluntario | req.params.id
+    let vol = await conx.get_voluntario(id)
+    if (!vol) {
+        return res.status(StatusCodes.NO_CONTENT).json({ 'msg': 'Voluntario no encontrado' })
+    }
+    next()
+}
 /**
  * @author Comprueba si existe la categoria de voluntariado
  * @param req
@@ -245,5 +255,6 @@ module.exports = {
     existe_tipo_entrada,
     existe_entrada,
     existe_tipo_derecho_deber,
-    existe_categoria
+    existe_categoria,
+    existe_voluntario
 }

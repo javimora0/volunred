@@ -15,6 +15,18 @@ class ConexionCategoriasVoluntariado {
         }
         return categoria
     }
+    get_categoria_nombre = async (nombre) => {
+        conx.conectar()
+        let categoria
+        try {
+            categoria = await model.categoria.findOne({where: {activa: true, ambito:nombre}})
+        } catch (err) {
+            categoria = null
+        } finally {
+            conx.desconectar()
+        }
+        return categoria
+    }
     get_categorias = async () => {
         conx.conectar()
         let categorias

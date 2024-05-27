@@ -13,6 +13,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {model:{tableName: 'usuarios'},key:'id'}
       },
+      id_categoria: {
+        type: Sequelize.INTEGER,
+        references: {model:{tableName: 'categorias'},key:'id'}
+      },
       titulo: {
         type: Sequelize.STRING
       },

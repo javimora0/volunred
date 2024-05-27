@@ -12,6 +12,7 @@ class Server {
         this.derechos_deberes_path = '/api/derechos_deberes'
         this.tipos_voluntariado = '/api/categoria'
         this.usuario = '/api/usuario'
+        this.voluntariado = '/api/voluntariado'
         this.middlewares()
         this.routes()
     }
@@ -36,6 +37,8 @@ class Server {
         this.app.use(this.derechos_deberes_path, require('../routes/derechos_deberes_routes'))
         this.app.use(this.tipos_voluntariado, require('../routes/tipos_voluntariado_routes'))
         this.app.use(this.usuario, require('../routes/usuarios_routes'))
+        this.app.use(this.voluntariado, require('../routes/voluntariado_routes'))
+
     }
     listen() {
         this.app.listen(process.env.PORT, () => {

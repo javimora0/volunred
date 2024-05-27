@@ -49,7 +49,18 @@ class ConexionVoluntario {
         }
         return voluntario
     }
-
+    get_voluntario_id = async (id) => {
+        conx.conectar()
+        let voluntario
+        try {
+            voluntario = await model.Voluntario.findByPk(id)
+        } catch (err) {
+            voluntario = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntario
+    }
     /**
      * @desc Crea un voluntario, necesario haber creado antes un usuario.
      * @param body

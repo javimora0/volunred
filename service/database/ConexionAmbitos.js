@@ -3,6 +3,30 @@ const model = require('../models/index')
 const conx = new Conexion()
 
 class ConexionAmbitos {
+    get_ambitos_voluntario = async (id_voluntario) => {
+        console.log("ENTRO")
+        let ambitos
+        conx.conectar()
+        try {
+            ambitos = await model.Voluntario.findOne({
+                where: { id: id_voluntario },
+                include: [{
+                    model: model.Ambito_voluntario,
+                    as: 'ambitos_voluntarios',
+                    include: [{
+                        model: model.Ambito_profesional,
+                        as: 'ambito_profesional'
+                    }]
+                }]
+            });
+        } catch (error) {
+            ambitos = null
+        } finally {
+            conx.desconectar()
+        }
+        return ambitos
+    }
+
     get_ambitos = async () => {
         let ambitos
         conx.conectar()

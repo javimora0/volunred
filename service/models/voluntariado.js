@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     voluntariado.init({
         titulo: DataTypes.STRING,
         id_usuario: DataTypes.INTEGER,
+        id_categoria: DataTypes.INTEGER,
         enlace: DataTypes.STRING,
         descripcion: DataTypes.TEXT,
         ubicacion: DataTypes.STRING,

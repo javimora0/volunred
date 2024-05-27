@@ -12,6 +12,7 @@
   height: 300px;
   object-fit: cover;
 }
+
 .top-container {
   margin-top: 20px;
   display: flex;
@@ -21,8 +22,9 @@
 
 .category-container {
   cursor: cell;
-  flex: 0 1 18%;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 8px;
   text-align: center;
   margin: 10px;
@@ -38,7 +40,8 @@
 }
 
 .category-image {
-  width: 50%;
+  width: 100%;
+  max-width: 500px; /* Adjust the max-width to the desired size */
   height: auto;
   border-radius: 6px;
 }
@@ -47,38 +50,39 @@ hr {
   width: 75%;
   border-color: #7EB494;
 }
+
 .full-category-container {
   display: flex;
-  align-items: center; /* Alineación vertical centrada */
-  justify-content: space-between; /* Espaciado entre el texto y la imagen */
-  margin: 20px auto; /* Margen arriba y abajo, auto para centrar horizontalmente */
-  max-width: 1200px; /* Ancho máximo para las tarjetas, ajusta según necesidad */
-  padding: 15px; /* Padding interno */
-  border: 1px solid #ccc; /* Borde sutil */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo con un poco de transparencia */
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .text-container {
-  width: 50%; /* Ajuste de ancho para el texto */
-  padding-right: 10px; /* Espaciado a la derecha del texto */
+  width: 50%;
+  padding-right: 10px;
 }
 
 .category-image {
-  width: 20%; /* Reducción del tamaño de la imagen */
-  height: auto; /* Altura automática para mantener proporciones */
-  border-radius: 4px; /* Bordes redondeados para la imagen */
+  width: 20%;
+  height: auto;
+  border-radius: 4px;
 }
 
 .titulo {
-  font-size: 1.2rem; /* Ajuste del tamaño del título */
-  color: #333; /* Color oscuro para el título */
-  margin-bottom: 0.5rem; /* Margen debajo del título */
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 p {
-  font-size: 1rem; /* Ajuste del tamaño del texto para la descripción */
-  color: #666; /* Color más suave para la descripción */
-  margin-bottom: 0.5rem; /* Margen debajo de la descripción */
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
 }

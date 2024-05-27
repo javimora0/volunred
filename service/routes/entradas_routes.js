@@ -13,7 +13,7 @@ router.post('/', [
     check('texto', 'Debe introducir un cuerpo válido').not().isEmpty(),
     check('id_tipo_entrada', 'Debe introducir el id del tipo de entrada correctamente').custom(middleware.existe_tipo_entrada)
     , validar_campos
-], validar_jwt.validar_admin, entradas_controller.crear_entrada)
+],entradas_controller.crear_entrada)
 router.get('/tipos', entradas_controller.get_tipos)
 
 router.route('/imagen/:id_entrada')

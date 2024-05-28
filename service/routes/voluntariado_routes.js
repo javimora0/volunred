@@ -10,4 +10,5 @@ router.get('/recomendaciones/:id_voluntario', voluntariado_controller.get_recome
 // Muestra voluntariados en funcion de tus preferencias como la edad, experiencia o disponibilidad
 router.get('/recomendaciones/automaticas/:id_voluntario', voluntariado_controller.get_recomendaciones_automaticas)
 
+router.get('/imagen/:id_voluntariado', voluntariado_controller.get_imagen_voluntariado)
 module.exports = router

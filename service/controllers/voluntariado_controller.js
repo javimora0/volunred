@@ -5,6 +5,8 @@ const conx_user = require('../database/usuarios/ConexionUsuario')
 const conx_ambitos = require('../database/ConexionAmbitos')
 const conx_cat_voluntariados = require('../database/ConexionCategoriasVoluntariado')
 const {StatusCodes} = require("http-status-codes");
+const conexion_usuario = require("../database/usuarios/ConexionUsuario");
+const path = require("path");
 const conx = new conx_voluntariado()
 const conx_cat = new conx_cat_voluntariados()
 
@@ -25,16 +27,10 @@ const get_recomendaciones = async (req, res = response) => {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener el usuario'})
     }
 
-    // Obtenemos las preferencias del voluntario
-    const preferencias_voluntario = await conx.get_preferencias(req.params.id_voluntario)
-    if (!preferencias_voluntario) {
-        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener las preferencias del usuario'})
-    }
-
     // Recoger ambitos_voluntarios
     let ambitos_voluntario = await conexion_ambitos.get_ambitos_voluntario(voluntario.id)
     let voluntariados = await conx.get_voluntariados_especificos(usuario.ubicacion, ambitos_voluntario['ambitos_voluntarios'])
-    res.status(StatusCodes.OK).json({'voluntariados': voluntariados.voluntariados_especificos})
+    res.status(StatusCodes.OK).json({'voluntariados': voluntariados})
 }
 
 const get_recomendaciones_automaticas = async (req, res = response) => {
@@ -128,7 +124,8 @@ const get_recomendaciones_automaticas = async (req, res = response) => {
     if (!voluntariados) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener los voluntariados'})
     }
-    res.status(StatusCodes.OK).json(voluntariados)
+    console.log(ambitos)
+    res.status(StatusCodes.OK).json({'voluntariados': voluntariados})
 }
 
 const get_edad_voluntario = (fecha) => {
@@ -140,7 +137,21 @@ const get_edad_voluntario = (fecha) => {
     return edad;
 }
 
+const get_imagen_voluntariado = async (req, res = response) => {
+    let voluntariado = await conx.get_voluntariado(req.params.id_voluntariado)
+    let nombre_foto = voluntariado.nombre_portada + voluntariado.extension_portada
+    if (nombre_foto) {
+        const path_img = path.join(__dirname, '../uploads', 'imgs_voluntariados', nombre_foto)
+        if (path_img) {
+            return res.sendFile(path_img)
+        }
+    }
+    const path_img = path.join(__dirname, '../uploads', 'imgs_voluntariados', 'foto_perfil_defecto.jpg')
+    res.sendFile(path_img);
+}
+
 module.exports = {
     get_recomendaciones,
-    get_recomendaciones_automaticas
+    get_recomendaciones_automaticas,
+    get_imagen_voluntariado
 }

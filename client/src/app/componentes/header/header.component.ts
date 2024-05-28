@@ -68,4 +68,7 @@ export class HeaderComponent implements OnInit{
   navegar_perfil() {
     this.router.navigate(['perfil'])
   }
+  navegar_recomendaciones() {
+    this.router.navigate(['inicio/recomendaciones'])
+  }
 }

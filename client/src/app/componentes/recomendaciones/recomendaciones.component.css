@@ -1,0 +1,129 @@
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  max-width: none;
+  height: 300px;
+  object-fit: cover;
+}
+
+.recommendation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.recommendation-button {
+  width: 100%;
+  max-width: 250px;
+  padding: 30px 50px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  text-transform: none;
+  background-color: #7eb494;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-align: center;
+}
+
+.recommendation-button:hover {
+  background-color: #659f7a;
+  transform: translateY(-2px);
+}
+
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: #7eb494;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.card-image img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.card-content p {
+  margin: 10px 0;
+  color: #333;
+  text-align: left;
+  width: 100%;
+}
+
+.btn-link {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #7eb494;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-link:hover {
+  background-color: #659f7a;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .recommendation-container {
+    flex-direction: column;
+  }
+
+  .recommendation-button-container {
+    flex: 1 1 100%;
+    margin-bottom: 10px;
+  }
+  .card {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

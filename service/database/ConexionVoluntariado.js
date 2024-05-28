@@ -4,6 +4,18 @@ const {Op} = require("sequelize");
 const conx = new Conexion()
 
 class ConexionVoluntariado {
+    get_voluntariado = async (id) => {
+        let voluntariado
+        conx.conectar()
+        try {
+            voluntariado = await model.voluntariado.findByPk(id)
+        } catch (err) {
+            voluntariado = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariado
+    }
 
     get_preferencias = async (id_voluntario) => {
         let preferencias
@@ -24,25 +36,31 @@ class ConexionVoluntariado {
         for (let i = 0; i < vol.length; i++) {
             tipos.push(vol[i].ambito_profesional.id)
         }
+        console.log(tipos)
         let voluntariados_especificos
         conx.conectar()
         try {
             voluntariados_especificos = await model.voluntariado.findAll({
                 where: {
-                    id_categoria: {
-                        [Op.in]: tipos
-                    },
-                    ubicacion: ubicacion_usuario,
+                    [Op.or]: [
+                        { id_categoria: { [Op.in]: tipos } },
+                        { ubicacion: ubicacion_usuario }
+                    ],
                     activo: true,
                     finalizado: false
-                }
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria', 'descripcion', 'nombre_imagen', 'extension_imagen', 'activa']
+                }]
             });
         } catch (err) {
             voluntariados_especificos = null
         } finally {
             conx.desconectar()
         }
-        return {voluntariados_especificos, tipos}
+        return voluntariados_especificos
     }
 
     get_voluntariados_array = async (array) => {
@@ -60,7 +78,12 @@ class ConexionVoluntariado {
                     },
                     activo: true,
                     finalizado: false
-                }
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria', 'descripcion', 'nombre_imagen', 'extension_imagen', 'activa']
+                }]
             });
         } catch (err) {
             console.log(err)

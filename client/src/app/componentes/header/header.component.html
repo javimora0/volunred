@@ -15,7 +15,7 @@
       <button mat-button>ADMINISTRACIÓN</button>
     }
     @if (is_voluntario) {
-      <button class="fav" mat-button>RECOMENDACIONES</button>
+      <button class="fav" (click)="navegar_recomendaciones()" mat-button>RECOMENDACIONES</button>
     }
     <button mat-button>QUIENES SOMOS</button>
     @if (!is_login) {

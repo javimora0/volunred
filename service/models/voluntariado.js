@@ -5,7 +5,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class voluntariado extends Model {
         static associate(models) {
-
+            this.belongsTo(models.categoria, {
+                foreignKey: 'id_categoria',
+                as: 'categoria'
+            });
         }
     }
 

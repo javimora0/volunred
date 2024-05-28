@@ -1,0 +1,33 @@
+<div class="image-container">
+  <img class="img" src="assets/fondo-recomendaciones.png" alt="">
+</div>
+<div class="recommendation-container">
+  <button mat-raised-button class="recommendation-button" (click)="nuestras_recomendaciones()">
+    Nuestras recomendaciones
+  </button>
+  <button mat-raised-button class="recommendation-button" (click)="segun_tus_preferencias()">
+    Según tus preferencias
+  </button>
+</div>
+<div class="container">
+  @for (voluntariado of voluntariados; track voluntariado.id) {
+    <div class="card">
+      <div class="card-header">
+        <h2>{{ voluntariado.titulo }}</h2>
+      </div>
+      <div class="card-body">
+        <div class="card-image">
+          <img src="{{image_url + voluntariado.id}}" alt="{{ voluntariado.titulo }}">
+        </div>
+        <div class="card-content">
+          <p><mat-icon matSuffix>public</mat-icon> <strong> Ubicación:</strong> {{ voluntariado.ubicacion | titlecase }}</p>
+          <p><mat-icon matSuffix>support_agent</mat-icon> <strong> Modalidad:</strong> {{ voluntariado.modalidad | titlecase }}</p>
+          <p><mat-icon matSuffix>event_upcoming</mat-icon> <strong> Fecha Inicio:</strong> {{ voluntariado.fecha_inicio | date }}</p>
+          <p><mat-icon matSuffix>free_cancellation</mat-icon> <strong> Fecha Fin:</strong> {{ voluntariado.fecha_fin | date }}</p>
+          <p><mat-icon matSuffix>category</mat-icon> <strong> Categoría:</strong> {{ voluntariado.categoria.categoria | titlecase }}</p>
+          <a (click)="navegar_voluntariado(voluntariado.id)" class="btn-link">Más Información</a>
+        </div>
+      </div>
+    </div>
+  }
+</div>

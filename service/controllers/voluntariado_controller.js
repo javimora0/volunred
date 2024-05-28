@@ -124,7 +124,6 @@ const get_recomendaciones_automaticas = async (req, res = response) => {
     if (!voluntariados) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener los voluntariados'})
     }
-    console.log(ambitos)
     res.status(StatusCodes.OK).json({'voluntariados': voluntariados})
 }
 
@@ -146,12 +145,21 @@ const get_imagen_voluntariado = async (req, res = response) => {
             return res.sendFile(path_img)
         }
     }
-    const path_img = path.join(__dirname, '../uploads', 'imgs_voluntariados', 'foto_perfil_defecto.jpg')
+    const path_img = path.join(__dirname, '../uploads', 'imgs_voluntariados', 'portada_defecto.jpg')
     res.sendFile(path_img);
+}
+
+const get_voluntariado = async (req, res = response) => {
+    const voluntariado = await conx.get_voluntariado(req.params.id_voluntariado)
+    if (!voluntariado) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener el voluntariado'})
+    }
+    res.status(StatusCodes.OK).json({'voluntariado':voluntariado})
 }
 
 module.exports = {
     get_recomendaciones,
     get_recomendaciones_automaticas,
-    get_imagen_voluntariado
+    get_imagen_voluntariado,
+    get_voluntariado
 }

@@ -29,3 +29,7 @@ export interface Categoria {
   extension_imagen: string;
   activa:           boolean;
 }
+
+export interface VoluntariadoUnico {
+  voluntariado: Voluntariado;
+}

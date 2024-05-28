@@ -1,0 +1,80 @@
+mat-card {
+  width: 100%;
+}
+
+mat-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #7eb494;
+}
+
+mat-card-subtitle {
+  font-size: 1.2rem;
+  color: #757575;
+}
+
+mat-card-content p {
+  margin: 10px 0;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+mat-card-content mat-icon {
+  margin-right: 8px;
+  color: #7eb494;
+}
+
+.description-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  border: 1px solid #333333;
+  padding: 10px 10px 10px 10px;
+}
+
+.info-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+mat-card-image {
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  width: auto;
+  max-width: 100%;
+}
+
+a[mat-button] {
+  display: flex;
+  align-items: center;
+  color: #4e6e5c;
+  text-decoration: none;
+}
+
+a[mat-button] mat-icon {
+  margin-right: 4px;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+button {
+  margin: 0 8px;
+}
+
+.btn {
+  color: white;
+  background-color: #7eb494;
+}
+.border {
+  border-bottom: solid 1px #7eb494;
+}
+h2 {
+  color: #7eb494;
+}

@@ -1,7 +1,44 @@
-<h1 mat-dialog-title>{{ data.id }}</h1>
-<div mat-dialog-content>
-  <p>¿Esta seguro?</p>
-  <button mat-button [mat-dialog-close]="true">Aceptar</button>
-  <button mat-button [mat-dialog-close]="false">Cancelar</button>
-</div>
-
+@if(voluntariado) {
+  <h1 mat-dialog-title>Información del voluntariado</h1>
+  <div mat-dialog-content>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ voluntariado.titulo | titlecase }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="image_url" alt="{{ voluntariado.titulo | titlecase }}">
+      <mat-card-content>
+        <h2>Descripción del voluntariado</h2>
+        <div class="description-container border">
+          <p>{{ voluntariado?.descripcion }}</p>
+        </div>
+        <div class="info-container border">
+          <mat-icon>location_on</mat-icon>
+          <p><strong>Ubicación:</strong> {{voluntariado.ubicacion | titlecase }}</p>
+        </div>
+        <div class="info-container border">
+          <mat-icon>category</mat-icon>
+          <p><strong>Categoria:</strong> {{voluntariado.categoria.categoria | titlecase }}</p>
+        </div>
+        <div class="info-container border">
+          <mat-icon>people</mat-icon>
+          <p><strong>Modalidad:</strong> {{ voluntariado.modalidad | titlecase }}</p>
+        </div>
+        <div class="info-container border">
+          <mat-icon>event</mat-icon>
+          <p><strong>Fecha de Inicio:</strong> {{ voluntariado.fecha_inicio | date }}</p>
+        </div>
+        <div class="info-container border">
+          <mat-icon>event</mat-icon>
+          <p><strong>Fecha de Fin:</strong> {{ voluntariado.fecha_fin | date }}</p>
+        </div>
+        <a mat-button [href]="voluntariado.enlace" target="_blank">
+          <mat-icon>link</mat-icon> Más información
+        </a>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false">Cerrar</button>
+    <button class="btn" mat-raised-button (click)="on_inscribirse()">Inscribirse</button>
+  </div>
+}

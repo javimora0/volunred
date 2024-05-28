@@ -65,7 +65,8 @@ export class RecomendacionesComponent implements OnInit{
       data: {
         id: id
       },
-      width: '500px',
+      width: '80vw', // Ajusta el ancho a un porcentaje de la ventana
+      maxWidth: '800px', // Establece un ancho máximo
       disableClose: false
     });
 

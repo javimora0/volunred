@@ -5,16 +5,22 @@ const conx = new Conexion()
 
 class ConexionVoluntariado {
     get_voluntariado = async (id) => {
-        let voluntariado
+        let vol
         conx.conectar()
         try {
-            voluntariado = await model.voluntariado.findByPk(id)
+            vol = await model.voluntariado.findByPk(id, {
+                include: [{
+                model: model.categoria,
+                as: 'categoria',
+                attributes: ['categoria', 'descripcion', 'nombre_imagen', 'extension_imagen', 'activa']
+            }]})
         } catch (err) {
-            voluntariado = null
+            console.log(err)
+            vol = null
         } finally {
             conx.desconectar()
         }
-        return voluntariado
+        return vol
     }
 
     get_preferencias = async (id_voluntario) => {

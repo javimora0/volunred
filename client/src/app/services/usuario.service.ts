@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {env} from "../../environments/environment.development";
 import {Voluntario} from "../interfaces/usuario";
 import {Form} from "@angular/forms";
+import {Solicitudes} from "../interfaces/solicitudes";
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,13 @@ export class UsuarioService {
 
   post_preferencias(body: any, id_voluntario: number | undefined): Observable<HttpResponse<any>> {
     return this.http.post<any>(env.URL + `usuario/preferencias/${id_voluntario}`, body, {
+      observe: 'response' as 'response',
+      params: {auth: 1}
+    })
+  }
+
+  get_solicitudes(id_usuario: number | undefined): Observable<HttpResponse<Solicitudes>> {
+    return this.http.get<Solicitudes>(env.URL + `usuario/solicitudes/${id_usuario}`, {
       observe: 'response' as 'response',
       params: {auth: 1}
     })

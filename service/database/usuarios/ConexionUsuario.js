@@ -110,11 +110,14 @@ class ConexionUsuario {
                 include: [{
                     model: model.voluntariado,
                     as: 'voluntariado',
-                    attributes: ['titulo', 'descripcion', 'ubicacion', 'fecha_inicio', 'fecha_fin', 'enlace', 'modalidad', 'activo']
+                        include: [{
+                            model: model.categoria,
+                            as: 'categoria',
+                            attributes: ['categoria', 'descripcion', 'nombre_imagen', 'extension_imagen', 'activa']
+                        }]
                 }, {
                     model: model.estado_solicitud,
-                    as: 'estado',
-                    attributes: ['estado']
+                    as: 'estado'
                 }]
             });
 

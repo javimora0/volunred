@@ -1,0 +1,71 @@
+.table-container {
+  margin: 30px auto;
+  padding: 20px;
+  max-width: 1000px;
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #3f51b5;
+  color: white;
+  text-align: left;
+  padding: 8px;
+}
+
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+}
+
+.mat-column-nombre_voluntariado,
+.mat-column-mensaje_solicitud,
+.mat-column-mensaje_respuesta,
+.mat-column-categoria,
+.mat-column-estado {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.mat-header-row {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 8px;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+}
+
+.mat-cell {
+  display: flex;
+  align-items: center;
+}
+
+.mat-cell p {
+  margin: 0;
+}

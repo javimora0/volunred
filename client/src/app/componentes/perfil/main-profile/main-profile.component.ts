@@ -3,13 +3,15 @@ import {RespuestaRegistro} from "../../../interfaces/auth";
 import {UtilsService} from "../../../services/utils.service";
 import {PerfilOrganizacionComponent} from "../perfiles/perfil-organizacion/perfil-organizacion.component";
 import {PerfilVoluntarioComponent} from "../perfiles/perfil-voluntario/perfil-voluntario.component";
+import {SolicitudesVoluntarioComponent} from "../solicitudes-voluntario/solicitudes-voluntario.component";
 
 @Component({
   selector: 'app-main-profile',
   standalone: true,
   imports: [
     PerfilOrganizacionComponent,
-    PerfilVoluntarioComponent
+    PerfilVoluntarioComponent,
+    SolicitudesVoluntarioComponent
   ],
   templateUrl: './main-profile.component.html',
   styleUrl: './main-profile.component.css'

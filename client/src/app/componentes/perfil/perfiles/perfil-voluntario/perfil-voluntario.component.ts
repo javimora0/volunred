@@ -254,7 +254,6 @@ export class PerfilVoluntarioComponent implements OnInit {
       form_data.append('archivo', this.selected_file, this.selected_file.name);
       this.usuario_service.put_imagen(this.usuario.usuario.id, form_data).subscribe({
         next: (res) => {
-          console.log(res);
           if (res.status === 200) {
             let x = 5;
 

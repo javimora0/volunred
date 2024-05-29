@@ -27,7 +27,6 @@ export class TiposVoluntariadoComponent implements OnInit{
       .subscribe({
         next:(res) => {
           this.tipos_voluntariado = res.body?.categorias
-          console.log(this.tipos_voluntariado)
         }
       })
   }

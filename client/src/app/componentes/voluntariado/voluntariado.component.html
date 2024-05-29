@@ -8,7 +8,7 @@
       <img mat-card-image [src]="image_url" alt="{{ voluntariado.titulo | titlecase }}">
       <mat-card-content>
         <h2>Descripción del voluntariado</h2>
-        <div class="description-container border">
+        <div class="description-container">
           <p>{{ voluntariado?.descripcion }}</p>
         </div>
         <div class="info-container border">
@@ -42,3 +42,6 @@
     <button class="btn" mat-raised-button (click)="on_inscribirse()">Inscribirse</button>
   </div>
 }
+<p-toast position="top-right" key="tc"></p-toast>
+<p-toast position="top-center" key="mensaje" (click)="ver_solicitudes()"></p-toast>
+

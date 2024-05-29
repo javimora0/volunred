@@ -84,7 +84,6 @@ export class RegistroOrganizacionesComponent implements OnInit{
         password: this.formulario_organizacion.value.password ?? '',
         username: this.formulario_organizacion.value.username ?? ''
       }
-      console.log(body)
       this.auth_service.registro_organizacion(body)
         .subscribe({
           next:(res) => {

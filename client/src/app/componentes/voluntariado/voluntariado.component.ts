@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA, MatDialog,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
@@ -20,6 +20,9 @@ import {
 import {DatePipe, TitleCasePipe} from "@angular/common";
 import {env} from "../../../environments/environment.development";
 import {MatIcon} from "@angular/material/icon";
+import {DialogoSolicitudComponent} from "../commons/dialogo-solicitud/dialogo-solicitud.component";
+import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
 
 @Component({
   selector: 'app-voluntariado',
@@ -39,31 +42,67 @@ import {MatIcon} from "@angular/material/icon";
     MatCardSubtitle,
     MatIcon,
     MatAnchor,
-    MatCardImage
+    MatCardImage,
+    ToastModule
   ],
   templateUrl: './voluntariado.component.html',
   styleUrl: './voluntariado.component.css'
 })
-export class VoluntariadoComponent implements OnInit{
+export class VoluntariadoComponent implements OnInit {
   voluntariado: Voluntariado | undefined
   image_url = env.URL + `voluntariado/imagen/${this.data.id}`
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private voluntariado_service: VoluntariadosService
-  ) {}
+    private voluntariado_service: VoluntariadosService,
+    public dialog: MatDialog,
+    private messageService: MessageService,
+  ) {
+  }
 
   ngOnInit() {
-    console.log(this.data.id)
     this.voluntariado_service.get_voluntariado(this.data.id).subscribe({
-      next:(res) => {
-        console.log(res.body?.voluntariado.titulo)
+      next: (res) => {
         this.voluntariado = res.body?.voluntariado
-        console.log(this.voluntariado?.titulo)
       }
     })
   }
 
   on_inscribirse() {
+    const dialogRef = this.dialog.open(DialogoSolicitudComponent, {
+      data: {
+        id_voluntariado: this.voluntariado?.id
+      },
+      width: '80vw',
+      maxWidth: '800px',
+      disableClose: false
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'ok') {
+        this.messageService.add({
+          key: 'mensaje',
+          severity: 'success',
+          summary: 'Enhorabuena!',
+          detail: 'Pulse para ver sus solicitudes!'
+        });
+        this.messageService.add({
+          key: 'tc',
+          severity: 'success',
+          summary: 'Enhorabuena!',
+          detail: 'Solicitud enviada con éxito'
+        });
+      } else if (result === 'nook') {
+        this.messageService.add({
+          key: 'tc',
+          severity: 'success',
+          summary: 'Error',
+          detail: 'Ha ocurrido un error, contacto con un administrador.'
+        });
+      }
+    });
+  }
+  ver_solicitudes() {
+    console.log("ver")
   }
 }

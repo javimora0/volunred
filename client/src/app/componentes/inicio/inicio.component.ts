@@ -22,7 +22,6 @@ export class InicioComponent implements OnInit{
       .subscribe({
         next:(res) => {
           this.entradas = res.body?.entradas
-          console.log(this.entradas)
         }
     })
   }

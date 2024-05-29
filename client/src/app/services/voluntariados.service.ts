@@ -31,4 +31,12 @@ export class VoluntariadosService {
       params: {auth: 1}
     })
   }
+
+
+  post_solicitud(id_voluntariado: number | undefined, id_usuario: number | undefined, body: any): Observable<HttpResponse<any>> {
+    return this.http.post<any>(env.URL + `voluntariado/solicitud/${id_voluntariado}/${id_usuario} `, body,{
+      observe: 'response' as 'response',
+      params: {auth: 1}
+    })
+  }
 }

@@ -115,7 +115,6 @@ export class PostRegistroVoluntarioComponent implements OnInit {
     this.usuario_service.post_preferencias(body, this.usuario?.vol_org.id)
       .subscribe({
         next: (res) => {
-          console.log(res)
         }
       })
   }

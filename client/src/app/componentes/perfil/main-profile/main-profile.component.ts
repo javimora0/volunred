@@ -25,7 +25,6 @@ export class MainProfileComponent implements OnInit{
 
   ngOnInit() {
     this.usuario = this.util_service.getUsuarioSession(sessionStorage.getItem('token'))
-    console.log(this.usuario.roles[0].nombre)
   }
 
   seleccionar(target: string) {

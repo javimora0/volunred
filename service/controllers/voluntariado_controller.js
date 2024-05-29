@@ -165,7 +165,7 @@ const post_solicitud = async (req, res = response) => {
     if (!solicitud) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al realizar la solicitud'})
     }
-    res.status(StatusCodes.OK).json({'solicitud':solicitud})
+    res.status(StatusCodes.CREATED).json({'solicitud':solicitud})
 }
 
 module.exports = {

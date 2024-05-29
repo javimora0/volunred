@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Solicitud para voluntariado</h1>
+<div mat-dialog-content>
+  <p class="instruction-text">Escribe un mensaje para que la organización te conozcan mejor y espera una respuesta!</p>
+  <form [formGroup]="formulario">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Mensaje</mat-label>
+      <textarea matInput formControlName="mensaje_solicitud" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+      <mat-hint align="end">{{formulario.get('mensaje_solicitud')?.value?.length || 0}}/256</mat-hint>
+      @if (formulario.get('mensaje_solicitud')?.hasError('required')) {
+        <mat-error>
+          El mensaje es obligatorio.
+        </mat-error>
+      }
+      @if (formulario.get('mensaje_solicitud')?.hasError('maxlength')) {
+        <mat-error>
+          El mensaje no puede exceder los 256 caracteres.
+        </mat-error>
+      }
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Cerrar</button>
+  <button mat-raised-button (click)="enviar_mensaje()" [disabled]="formulario.invalid">Enviar Solicitud</button>
+</div>

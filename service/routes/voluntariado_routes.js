@@ -13,4 +13,6 @@ router.get('/recomendaciones/automaticas/:id_voluntario', voluntariado_controlle
 router.get('/imagen/:id_voluntariado', voluntariado_controller.get_imagen_voluntariado)
 
 router.get('/:id_voluntariado', voluntariado_controller.get_voluntariado)
+
+router.post('/solicitud/:id_voluntariado/:id_usuario', voluntariado_controller.post_solicitud)
 module.exports = router

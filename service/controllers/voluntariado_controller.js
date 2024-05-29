@@ -3,6 +3,7 @@ const conx_voluntariado = require('../database/ConexionVoluntariado')
 const conx_voluntario = require('../database/usuarios/ConexionVoluntario')
 const conx_user = require('../database/usuarios/ConexionUsuario')
 const conx_ambitos = require('../database/ConexionAmbitos')
+const conx_estados_solicitudes = require('../database/ConexionEstadosSolicitudes')
 const conx_cat_voluntariados = require('../database/ConexionCategoriasVoluntariado')
 const {StatusCodes} = require("http-status-codes");
 const conexion_usuario = require("../database/usuarios/ConexionUsuario");
@@ -157,9 +158,20 @@ const get_voluntariado = async (req, res = response) => {
     res.status(StatusCodes.OK).json({'voluntariado':voluntariado})
 }
 
+const post_solicitud = async (req, res = response) => {
+    const conx_estados = new conx_estados_solicitudes()
+    const estado = await conx_estados.get_estado('pendiente')
+    const solicitud = await conx.post_solicitud(req.params.id_voluntariado, req.params.id_usuario, req.body.mensaje_solicitud, estado.id)
+    if (!solicitud) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al realizar la solicitud'})
+    }
+    res.status(StatusCodes.OK).json({'solicitud':solicitud})
+}
+
 module.exports = {
     get_recomendaciones,
     get_recomendaciones_automaticas,
     get_imagen_voluntariado,
-    get_voluntariado
+    get_voluntariado,
+    post_solicitud
 }

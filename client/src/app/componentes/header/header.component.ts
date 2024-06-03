@@ -71,4 +71,7 @@ export class HeaderComponent implements OnInit{
   navegar_recomendaciones() {
     this.router.navigate(['inicio/recomendaciones'])
   }
+  navegar_voluntariados() {
+    this.router.navigate(['inicio/voluntariados'])
+  }
 }

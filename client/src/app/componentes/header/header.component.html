@@ -4,7 +4,7 @@
     </div>
   <nav class="nav-container">
     <button mat-button (click)="navegar_inicio()">HAZTE VOLUNTARIO</button>
-    <button mat-button>COLABORA CON UNA ONG</button>
+    <button mat-button (click)="navegar_voluntariados()">COLABORA CON UNA ONG</button>
     <button mat-button [matMenuTriggerFor]="informateMenu">INFÓRMATE</button>
     <mat-menu #informateMenu="matMenu" yPosition="below">
       <button class="item" mat-menu-item (click)="navegar_derechos_deberes()">DERECHOS Y DEBERES</button>

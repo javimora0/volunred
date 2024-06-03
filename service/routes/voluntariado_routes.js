@@ -15,4 +15,10 @@ router.get('/imagen/:id_voluntariado', voluntariado_controller.get_imagen_volunt
 router.get('/:id_voluntariado', voluntariado_controller.get_voluntariado)
 
 router.post('/solicitud/:id_voluntariado/:id_usuario', voluntariado_controller.post_solicitud)
+
+// Buscar todos los voluntariados
+router.get('/', voluntariado_controller.get_voluntariados)
+
+router.get('/filtrado', voluntariado_controller.get_voluntariados_filtro)
+
 module.exports = router

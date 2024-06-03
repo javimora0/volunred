@@ -5,6 +5,27 @@ const conx = new Conexion()
 
 class ConexionVoluntariado {
 
+    get_voluntariados = async () => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                where: {
+                    activo: true
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria']
+                }]
+            });
+        } catch (err) {
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
     post_solicitud = async (id_voluntariado, id_usuario, mensaje, id_estado) => {
         let solicitud
         conx.conectar()

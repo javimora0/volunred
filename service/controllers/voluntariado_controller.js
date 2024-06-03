@@ -168,10 +168,24 @@ const post_solicitud = async (req, res = response) => {
     res.status(StatusCodes.CREATED).json({'solicitud':solicitud})
 }
 
+const get_voluntariados = async (req, res = response) => {
+    let voluntariados = await conx.get_voluntariados()
+    if (!voluntariados) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener los voluntariados'})
+    }
+    res.status(StatusCodes.OK).json({'voluntariados':voluntariados})
+}
+
+const get_voluntariados_filtro = async (req, res = response) => {
+
+}
+
 module.exports = {
     get_recomendaciones,
     get_recomendaciones_automaticas,
     get_imagen_voluntariado,
     get_voluntariado,
-    post_solicitud
+    post_solicitud,
+    get_voluntariados,
+    get_voluntariados_filtro
 }

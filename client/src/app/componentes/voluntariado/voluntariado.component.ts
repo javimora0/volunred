@@ -23,6 +23,9 @@ import {MatIcon} from "@angular/material/icon";
 import {DialogoSolicitudComponent} from "../commons/dialogo-solicitud/dialogo-solicitud.component";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
+import {UsuarioService} from "../../services/usuario.service";
+import {RespuestaRegistro} from "../../interfaces/auth";
+import {UtilsService} from "../../services/utils.service";
 
 @Component({
   selector: 'app-voluntariado',
@@ -49,26 +52,57 @@ import {ToastModule} from "primeng/toast";
   styleUrl: './voluntariado.component.css'
 })
 export class VoluntariadoComponent implements OnInit {
+  usuario: RespuestaRegistro | null | undefined
   voluntariado: Voluntariado | undefined
   image_url = env.URL + `voluntariado/imagen/${this.data.id}`
+  esta_inscrito = false
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private voluntariado_service: VoluntariadosService,
     public dialog: MatDialog,
-    private messageService: MessageService,
+    private message_service: MessageService,
+    private usuario_service: UsuarioService,
+    private utils_service: UtilsService,
   ) {
   }
-
   ngOnInit() {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      this.usuario = this.utils_service.getUsuarioSession(token)
+    }
     this.voluntariado_service.get_voluntariado(this.data.id).subscribe({
       next: (res) => {
         this.voluntariado = res.body?.voluntariado
       }
     })
   }
-
   on_inscribirse() {
+    this.usuario_service.get_solicitudes(this.usuario?.usuario.id).subscribe({
+      next:(res) => {
+        console.log(res.body)
+        if (res.body) {
+          for (let i = 0; i < res.body.solicitudes.length; i++) {
+            if (res.body.solicitudes[i].id_voluntariado === this.data.id) {
+              this.esta_inscrito = true
+            }
+          }
+        }
+        if (!this.esta_inscrito) {
+          this.open_dialog()
+        }else {
+          this.message_service.add({
+            key: 'tc',
+            severity: 'info',
+            summary: 'Ops!',
+            detail: 'Ya tienes una solicitud pendiente para este voluntariado!'
+          });
+        }
+      }
+    })
+  }
+
+  open_dialog() {
     const dialogRef = this.dialog.open(DialogoSolicitudComponent, {
       data: {
         id_voluntariado: this.voluntariado?.id
@@ -80,20 +114,14 @@ export class VoluntariadoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'ok') {
-        this.messageService.add({
-          key: 'mensaje',
-          severity: 'success',
-          summary: 'Enhorabuena!',
-          detail: 'Pulse para ver sus solicitudes!'
-        });
-        this.messageService.add({
+        this.message_service.add({
           key: 'tc',
           severity: 'success',
           summary: 'Enhorabuena!',
           detail: 'Solicitud enviada con éxito'
         });
       } else if (result === 'nook') {
-        this.messageService.add({
+        this.message_service.add({
           key: 'tc',
           severity: 'success',
           summary: 'Error',
@@ -102,7 +130,5 @@ export class VoluntariadoComponent implements OnInit {
       }
     });
   }
-  ver_solicitudes() {
-    console.log("ver")
-  }
+
 }

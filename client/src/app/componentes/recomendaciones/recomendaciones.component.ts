@@ -56,6 +56,7 @@ export class RecomendacionesComponent implements OnInit{
     this.voluntariado_service.get_recomendaciones_automaticas(this.usuario?.vol_org.id).subscribe({
       next:(res) => {
         this.voluntariados = res.body?.voluntariados
+
       }
     })
   }
@@ -65,8 +66,8 @@ export class RecomendacionesComponent implements OnInit{
       data: {
         id: id
       },
-      width: '80vw', // Ajusta el ancho a un porcentaje de la ventana
-      maxWidth: '800px', // Establece un ancho máximo
+      width: '80vw',
+      maxWidth: '800px',
       disableClose: false
     });
 

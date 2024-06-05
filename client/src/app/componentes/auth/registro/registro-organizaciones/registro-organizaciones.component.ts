@@ -12,6 +12,7 @@ import {AuthService} from "../../../../services/auth.service";
 import {RegistroOrganizacion} from "../../../../interfaces/auth";
 import {Router} from "@angular/router";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import { COUNTRIES } from '../../../../../app/paises';
 
 @Component({
   selector: 'app-registro-organizaciones',
@@ -51,7 +52,7 @@ export class RegistroOrganizacionesComponent implements OnInit{
   })
   hide = true;
   mensaje_password = ''
-  paises: any
+  paises = COUNTRIES
   error_email = ''
   mensaje_servidor = ''
   error_username = ''
@@ -61,12 +62,12 @@ export class RegistroOrganizacionesComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.paises = this.paises_service.get_paises()
-      .subscribe({
-        next:(res) => {
-          this.paises = res.body
-        }
-      })
+    //this.paises = this.paises_service.get_paises()
+    //  .subscribe({
+    //    next:(res) => {
+    //      this.paises = res.body
+    //    }
+    //  })
   }
   boton_registro_org() {
     this.loading = true

@@ -1,0 +1,141 @@
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  max-width: none;
+  height: 300px;
+  object-fit: cover;
+}
+
+.filtro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.filtro-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mat-form-field.half-width {
+  width: calc(50% - 10px);
+}
+
+.buscar-btn {
+  width: calc(50% - 10px);
+}
+
+.error-msg {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: #7eb494;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.card-image img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.card-content p {
+  margin: 10px 0;
+  color: #333;
+  text-align: left;
+  width: 100%;
+}
+
+.btn-link {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #7eb494;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-link:hover {
+  background-color: #659f7a;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .filtro-container {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -20,6 +20,7 @@ import {AuthService} from "../../../../services/auth.service";
 import {RegistroVoluntario} from "../../../../interfaces/auth";
 import {Router} from "@angular/router";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {COUNTRIES} from "../../../../paises";
 
 @Component({
   selector: 'app-registro-voluntarios',
@@ -61,7 +62,7 @@ export class RegistroVoluntariosComponent implements OnInit {
   })
   mensaje_password = ''
   hide = true;
-  paises: any
+  paises = COUNTRIES
   error_email = ''
   error_username = ''
   error_telefono = ''
@@ -72,12 +73,12 @@ export class RegistroVoluntariosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.paises = this.paises_service.get_paises()
-      .subscribe({
-        next: (res) => {
-          this.paises = res.body
-        }
-      })
+    //this.paises = this.paises_service.get_paises()
+    //  .subscribe({
+    //    next: (res) => {
+    //      this.paises = res.body
+    //    }
+    //  })
   }
 
   /**

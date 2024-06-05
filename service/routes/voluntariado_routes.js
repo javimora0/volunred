@@ -19,6 +19,6 @@ router.post('/solicitud/:id_voluntariado/:id_usuario', voluntariado_controller.p
 // Buscar todos los voluntariados
 router.get('/', voluntariado_controller.get_voluntariados)
 
-router.get('/filtrado', voluntariado_controller.get_voluntariados_filtro)
+router.get('/filtrado/:ubicacion/:modalidad', voluntariado_controller.get_voluntariados_filtro)
 
 module.exports = router

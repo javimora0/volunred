@@ -177,15 +177,15 @@ const get_voluntariados = async (req, res = response) => {
 }
 
 const get_voluntariados_filtro = async (req, res = response) => {
-    let ubicacion = req.body.ubicacion
-    let modalidad = req.body.modalidad
+    let ubicacion = req.params.ubicacion
+    let modalidad = req.params.modalidad
     let voluntariados
-    if (modalidad !== '' && ubicacion !== '') {
-        voluntariados = await conx.get_voluntariado_ubi_moda(req.body.ubicacion, req.body.modalidad)
-    }else if (modalidad !== '') {
-        voluntariados = await conx.get_voluntariado_modalidad(req.body.modalidad)
-    }else if (ubicacion !== '') {
-        voluntariados = await conx.get_voluntariado_ubicacion(req.body.ubicacion)
+    if (modalidad !== 'empty' && ubicacion !== 'empty') {
+        voluntariados = await conx.get_voluntariado_ubi_moda(req.params.ubicacion, req.params.modalidad)
+    }else if (modalidad !== 'empty') {
+        voluntariados = await conx.get_voluntariado_modalidad(req.params.modalidad)
+    }else if (ubicacion !== 'empty') {
+        voluntariados = await conx.get_voluntariado_ubicacion(req.params.ubicacion)
     }
     if (!voluntariados) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados'})

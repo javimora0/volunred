@@ -1,1 +1,79 @@
-<p>voluntariados works!</p>
+<div class="image-container">
+  <img class="img" src="assets/fondo-voluntariados.png" alt="">
+</div>
+
+<div class="filtro-container">
+  <form [formGroup]="formulario" class="filtro-form">
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Modalidad</mat-label>
+        <mat-select formControlName="modalidad">
+          <mat-option value="online">Online</mat-option>
+          <mat-option value="presencial">Presencial</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Ubicación</mat-label>
+        <mat-select formControlName="ubicacion">
+          @for (pais of paises; track $index) {
+            <mat-option [value]="pais">{{ pais }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    @if (formulario.value.modalidad == 'empty' && formulario.value.ubicacion == 'empty') {
+      <div class="row">
+        <button mat-raised-button class="buscar-btn half-width" [disabled]="true">Realizar Búsqueda</button>
+        <button mat-raised-button class="buscar-btn half-width" [disabled]="true">Limpiar Filtro</button>
+      </div>
+    }@else {
+      <div class="row">
+        <button mat-raised-button class="buscar-btn half-width" (click)="busqueda()">Realizar Búsqueda</button>
+        <button mat-raised-button class="buscar-btn half-width" (click)="limpiar()">Limpiar Filtro</button>
+      </div>
+    }
+  </form>
+</div>
+
+<div class="container">
+  @if (voluntariados?.length === 0) {
+    <h3>No hay resultados con este filtro.</h3>
+  } @else {
+    @for (voluntariado of voluntariados; track voluntariado.id) {
+      <div class="card">
+        <div class="card-header">
+          <h2>{{ voluntariado.titulo }}</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-image">
+            <img src="{{image_url + voluntariado.id}}" alt="{{ voluntariado.titulo }}">
+          </div>
+          <div class="card-content">
+            <p>
+              <mat-icon matSuffix>public</mat-icon>
+              <strong> Ubicación:</strong> {{ voluntariado.ubicacion | titlecase }}
+            </p>
+            <p>
+              <mat-icon matSuffix>support_agent</mat-icon>
+              <strong> Modalidad:</strong> {{ voluntariado.modalidad | titlecase }}
+            </p>
+            <p>
+              <mat-icon matSuffix>event_upcoming</mat-icon>
+              <strong> Fecha Inicio:</strong> {{ voluntariado.fecha_inicio | date }}
+            </p>
+            <p>
+              <mat-icon matSuffix>free_cancellation</mat-icon>
+              <strong> Fecha Fin:</strong> {{ voluntariado.fecha_fin | date }}
+            </p>
+            <p>
+              <mat-icon matSuffix>category</mat-icon>
+              <strong> Categoría:</strong> {{ voluntariado.categoria.categoria | titlecase }}
+            </p>
+            <a (click)="navegar_voluntariado(voluntariado.id)" class="btn-link">Más Información</a>
+          </div>
+        </div>
+      </div>
+    }
+  }
+
+</div>

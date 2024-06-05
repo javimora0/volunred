@@ -28,6 +28,7 @@ import {ToastModule} from "primeng/toast";
 import {RouterOutlet} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogoComponent} from "../../../commons/dialogo/dialogo.component";
+import {COUNTRIES} from "../../../../paises";
 
 @Component({
   selector: 'app-perfil-voluntario',
@@ -74,7 +75,7 @@ export class PerfilVoluntarioComponent implements OnInit {
   usuario!: RespuestaRegistro
   image_url = env.URL + 'usuario/imagen/'
   hide = true
-  paises: any
+  paises = COUNTRIES
   selected_file: File | null = null;
 
   constructor(
@@ -87,12 +88,12 @@ export class PerfilVoluntarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.paises = this.paises_service.get_paises()
-      .subscribe({
-        next: (res) => {
-          this.paises = res.body
-        }
-      })
+    //this.paises = this.paises_service.get_paises()
+    //  .subscribe({
+    //    next: (res) => {
+    //      this.paises = res.body
+    //    }
+    //  })
     this.usuario = this.util_service.getUsuarioSession(sessionStorage.getItem('token'))
     this.initForm()
   }

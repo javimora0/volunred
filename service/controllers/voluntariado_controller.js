@@ -123,7 +123,7 @@ const get_recomendaciones_automaticas = async (req, res = response) => {
     }
     const voluntariados = await conx.get_voluntariados_array(ambitos)
     if (!voluntariados) {
-        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener los voluntariados'})
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados'})
     }
     res.status(StatusCodes.OK).json({'voluntariados': voluntariados})
 }
@@ -153,9 +153,9 @@ const get_imagen_voluntariado = async (req, res = response) => {
 const get_voluntariado = async (req, res = response) => {
     const voluntariado = await conx.get_voluntariado(req.params.id_voluntariado)
     if (!voluntariado) {
-        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener el voluntariado'})
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener el voluntariado'})
     }
-    res.status(StatusCodes.OK).json({'voluntariado':voluntariado})
+    res.status(StatusCodes.OK).json({'voluntariado': voluntariado})
 }
 
 const post_solicitud = async (req, res = response) => {
@@ -163,21 +163,34 @@ const post_solicitud = async (req, res = response) => {
     const estado = await conx_estados.get_estado('pendiente')
     const solicitud = await conx.post_solicitud(req.params.id_voluntariado, req.params.id_usuario, req.body.mensaje_solicitud, estado.id)
     if (!solicitud) {
-        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al realizar la solicitud'})
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al realizar la solicitud'})
     }
-    res.status(StatusCodes.CREATED).json({'solicitud':solicitud})
+    res.status(StatusCodes.CREATED).json({'solicitud': solicitud})
 }
 
 const get_voluntariados = async (req, res = response) => {
     let voluntariados = await conx.get_voluntariados()
     if (!voluntariados) {
-        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al obtener los voluntariados'})
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados'})
     }
-    res.status(StatusCodes.OK).json({'voluntariados':voluntariados})
+    res.status(StatusCodes.OK).json({'voluntariados': voluntariados})
 }
 
 const get_voluntariados_filtro = async (req, res = response) => {
-
+    let ubicacion = req.body.ubicacion
+    let modalidad = req.body.modalidad
+    let voluntariados
+    if (modalidad !== '' && ubicacion !== '') {
+        voluntariados = await conx.get_voluntariado_ubi_moda(req.body.ubicacion, req.body.modalidad)
+    }else if (modalidad !== '') {
+        voluntariados = await conx.get_voluntariado_modalidad(req.body.modalidad)
+    }else if (ubicacion !== '') {
+        voluntariados = await conx.get_voluntariado_ubicacion(req.body.ubicacion)
+    }
+    if (!voluntariados) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados'})
+    }
+    res.status(StatusCodes.OK).json({'voluntariados': voluntariados})
 }
 
 module.exports = {

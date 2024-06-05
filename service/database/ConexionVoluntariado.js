@@ -4,7 +4,73 @@ const {Op} = require("sequelize");
 const conx = new Conexion()
 
 class ConexionVoluntariado {
-
+    get_voluntariado_ubi_moda = async (ubicacion, modalidad) => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                where: {
+                    activo: true,
+                    ubicacion: ubicacion,
+                    modalidad: modalidad
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria']
+                }]
+            });
+        } catch (err) {
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
+    get_voluntariado_modalidad = async (modalidad) => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                where: {
+                    activo: true,
+                    modalidad: modalidad
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria']
+                }]
+            });
+        } catch (err) {
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
+    get_voluntariado_ubicacion = async (ubicacion) => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                where: {
+                    activo: true,
+                    ubicacion: ubicacion,
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria']
+                }]
+            });
+        } catch (err) {
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
     get_voluntariados = async () => {
         let voluntariados
         conx.conectar()

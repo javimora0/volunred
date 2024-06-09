@@ -2,6 +2,9 @@ const {response} = require('express')
 const conexion_usuario = require('../database/usuarios/ConexionUsuario')
 const conexion_voluntario = require('../database/usuarios/ConexionVoluntario')
 const conexion_organizacion = require('../database/usuarios/ConexionOrganizacion')
+const conexion_voluntariado = require('../database/ConexionVoluntariado')
+const conexion_estados = require('../database/ConexionEstadosSolicitudes')
+
 const {StatusCodes, BAD_REQUEST} = require("http-status-codes");
 const auth_controller = require("../controllers/auth_controller");
 const path = require("path");
@@ -183,9 +186,56 @@ const agregar_preferencias = async (req, res = response) => {
     let conx = new conexion_usuario()
     let preferencias = await conx.agregar_preferencias(req.params.id_voluntario, req.body)
     if (!preferencias) {
-        return res.status(StatusCodes.BAD_REQUEST).json({'msg':'Error al agregar las pereferencias.'})
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al agregar las pereferencias.'})
     }
-    res.status(StatusCodes.CREATED).json({'msg':'Preferencias añadidas con éxito.'})
+    res.status(StatusCodes.CREATED).json({'msg': 'Preferencias añadidas con éxito.'})
+}
+
+const get_solicitudes_organizacion = async (req, res = response) => {
+    let conx = new conexion_usuario()
+    let conx_voluntariado = new conexion_voluntariado()
+    // Sacar los voluntariados de esa organizacion
+    let voluntariados = await conx_voluntariado.get_voluntariados_organizacion(req.params.id_usuario)
+    if (!voluntariados) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados.'})
+    }
+
+    // Sacar las solicitudes de esos voluntariados
+    let solicitudes = await conx.get_solicitudes_organizacion(voluntariados)
+    if (!solicitudes) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados.'})
+    }
+    res.status(StatusCodes.OK).json({'solicitudes': solicitudes})
+}
+
+const get_solicitud = async (req, res = response) => {
+    let conx = new conexion_usuario()
+    let solicitud = await conx.get_solicitud(req.params.id_solicitud)
+    if (!solicitud) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener la solicitud.'})
+    }
+    res.status(StatusCodes.OK).json({'solicitudes': solicitud})
+}
+
+const responder_solicitud = async (req, res = response) => {
+    let conx = new conexion_usuario()
+    let conx_estados = new conexion_estados()
+    let mensaje_respuesta = req.body.mensaje
+    let id_solicitud = req.params.id_solicitud
+    let estado_aceptado = await conx_estados.get_estado('aceptada')
+    let estado_rechazado = await conx_estados.get_estado('rechazada')
+    let id_estado
+    if (req.body.estado === 'aceptar') {
+        id_estado = estado_aceptado.id
+    } else if (req.body.estado === 'rechazar') {
+        id_estado = estado_rechazado.id
+    }
+    let solicitud = await conx.responder_solicitud(id_estado, mensaje_respuesta, id_solicitud)
+    if (!solicitud) {
+        return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al responder la solicitud.'})
+    }
+
+    res.status(StatusCodes.OK).json({'solicitudes': solicitud})
 }
 
 module.exports = {
@@ -197,5 +247,8 @@ module.exports = {
     put_imagen,
     put_usuario,
     put_password,
-    agregar_preferencias
+    agregar_preferencias,
+    get_solicitudes_organizacion,
+    get_solicitud,
+    responder_solicitud
 }

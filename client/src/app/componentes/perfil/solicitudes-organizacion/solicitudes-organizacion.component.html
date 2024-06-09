@@ -1,0 +1,43 @@
+<div class="table-container">
+  <h2>Solicitudes de los voluntariados</h2>
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef>Estado de la solicitud</th>
+      <td mat-cell *matCellDef="let row">{{ row.estado.estado | titlecase }}
+        @if (row.estado.estado === 'aceptada') {
+          ✅
+        } @else if (row.estado.estado === 'rechazada') {
+          ❌
+        } @else {
+          ❔
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre_voluntariado">
+      <th mat-header-cell *matHeaderCellDef>Nombre del voluntariado</th>
+      <td mat-cell *matCellDef="let row">{{ row.voluntariado.titulo | titlecase }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="usuario">
+      <th mat-header-cell *matHeaderCellDef>Solicitante</th>
+      <td mat-cell *matCellDef="let row">{{ row.usuario.email | titlecase }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-raised-button class="button-detalles" (click)="detalles_solicitud(row.id)">Detalles</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-header-row-custom"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No hay solicitudes disponibles</td>
+    </tr>
+  </table>
+</div>
+<p-toast position="top-right" key="tc"></p-toast>

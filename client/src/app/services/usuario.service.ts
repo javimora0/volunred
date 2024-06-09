@@ -5,6 +5,7 @@ import {env} from "../../environments/environment.development";
 import {Voluntario} from "../interfaces/usuario";
 import {Form} from "@angular/forms";
 import {Solicitudes} from "../interfaces/solicitudes";
+import {Solicitud_Organizacion, Solicitudes_Organizacion} from "../interfaces/solicitudes-organizacion";
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,24 @@ export class UsuarioService {
 
   get_solicitudes(id_usuario: number | undefined): Observable<HttpResponse<Solicitudes>> {
     return this.http.get<Solicitudes>(env.URL + `usuario/solicitudes/${id_usuario}`, {
+      observe: 'response' as 'response',
+      params: {auth: 1}
+    })
+  }
+  get_solicitudes_organizacion(id_usuario: number | undefined): Observable<HttpResponse<Solicitudes_Organizacion>> {
+    return this.http.get<Solicitudes_Organizacion>(env.URL + `usuario/organizacion/solicitudes/${id_usuario}`, {
+      observe: 'response' as 'response',
+      params: {auth: 1}
+    })
+  }
+  get_solicitud(id_solicitud: number | undefined): Observable<HttpResponse<Solicitudes_Organizacion>> {
+    return this.http.get<Solicitudes_Organizacion>(env.URL + `usuario/organizacion/solicitud/${id_solicitud}`, {
+      observe: 'response' as 'response',
+      params: {auth: 1}
+    })
+  }
+  responder_solicitud(body: any,id_solicitud: number | undefined): Observable<HttpResponse<any>> {
+    return this.http.post<any>(env.URL + `usuario/organizacion/solicitud/respuesta/${id_solicitud}`, body,{
       observe: 'response' as 'response',
       params: {auth: 1}
     })

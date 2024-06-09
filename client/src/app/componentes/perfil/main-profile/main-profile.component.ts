@@ -4,6 +4,7 @@ import {UtilsService} from "../../../services/utils.service";
 import {PerfilOrganizacionComponent} from "../perfiles/perfil-organizacion/perfil-organizacion.component";
 import {PerfilVoluntarioComponent} from "../perfiles/perfil-voluntario/perfil-voluntario.component";
 import {SolicitudesVoluntarioComponent} from "../solicitudes-voluntario/solicitudes-voluntario.component";
+import {SolicitudesOrganizacionComponent} from "../solicitudes-organizacion/solicitudes-organizacion.component";
 
 @Component({
   selector: 'app-main-profile',
@@ -11,7 +12,8 @@ import {SolicitudesVoluntarioComponent} from "../solicitudes-voluntario/solicitu
   imports: [
     PerfilOrganizacionComponent,
     PerfilVoluntarioComponent,
-    SolicitudesVoluntarioComponent
+    SolicitudesVoluntarioComponent,
+    SolicitudesOrganizacionComponent
   ],
   templateUrl: './main-profile.component.html',
   styleUrl: './main-profile.component.css'
@@ -26,7 +28,11 @@ export class MainProfileComponent implements OnInit{
   }
 
   ngOnInit() {
+
     this.usuario = this.util_service.getUsuarioSession(sessionStorage.getItem('token'))
+    if (this.usuario.roles[0].nombre === 'organizacion') {
+      this.menu_seleccionado = 'solicitudes_voluntariado'
+    }
   }
 
   seleccionar(target: string) {

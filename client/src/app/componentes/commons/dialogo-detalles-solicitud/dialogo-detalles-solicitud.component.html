@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>Detalles de la solicitud</h1>
+@for (solicitud of solicitudes; track solicitud.id) {
+  <div mat-dialog-content>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ solicitud.voluntariado?.titulo }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-section">
+          <mat-icon>account_circle</mat-icon>
+          <span><strong>Usuario:</strong> {{ solicitud.usuario?.username }}</span>
+        </div>
+        <div class="info-section">
+          <mat-icon>email</mat-icon>
+          <span><strong>Email:</strong> {{ solicitud.usuario?.email }}</span>
+        </div>
+        <div class="info-section">
+          <mat-icon>message</mat-icon>
+          <span><strong>Mensaje del voluntario:</strong></span>
+          <p>{{ solicitud.mensaje_solicitud }}</p>
+        </div>
+        <div class="info-section">
+          <mat-icon>reply</mat-icon>
+          <span><strong>Mensaje de Respuesta:</strong></span>
+          @if (solicitud.mensaje_respuesta === '') {
+            <p> Sin respuesta ❌</p>
+          } @else {
+            <p>{{ solicitud.mensaje_respuesta }}</p>
+          }
+        </div>
+        <div class="info-section">
+          <mat-icon>dock</mat-icon>
+          <span><strong>Estado solicitud:</strong></span>
+          <p>{{ solicitud.estado.estado | titlecase }}</p>
+        </div>
+        @if (solicitud.estado.estado === 'pendiente') {
+          <div class="info-section">
+            <mat-icon>edit</mat-icon>
+            <span><strong>Escribir Mensaje de Respuesta:</strong></span>
+            <textarea matInput [formControl]="mensaje_organizacion" rows="3" placeholder="Escribe tu mensaje aquí..."
+                      (input)="on_text_area($event)"></textarea>
+
+          </div>
+        }
+        @if (mensaje_organizacion.get('ubicacion')?.hasError('required')) {
+          <mat-error>Debe introducir un mensaje de respuesta.</mat-error>
+        }
+        @if (mensaje_organizacion.get('ubicacion')?.hasError('maxlength')) {
+          <mat-error>Debe tener como máximo 256 caracteres.</mat-error>
+        }
+      </mat-card-content>
+    </mat-card>
+    <div mat-dialog-actions>
+      @if (solicitud.estado.estado === 'pendiente') {
+        <button mat-raised-button color="warn" (click)="rechazar(solicitud.id)"
+                [disabled]="!mensaje_organizacion.valid">Rechazar
+        </button>
+        <button mat-raised-button color="primary" (click)="aceptar(solicitud.id)"
+                [disabled]="!mensaje_organizacion.valid">Aceptar
+        </button>
+      }
+      <button mat-raised-button mat-dialog-close>Cerrar</button>
+    </div>
+  </div>
+}

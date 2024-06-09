@@ -4,6 +4,7 @@ const {Op} = require("sequelize");
 const conx = new Conexion()
 
 class ConexionVoluntariado {
+
     get_voluntariado_ubi_moda = async (ubicacion, modalidad) => {
         let voluntariados
         conx.conectar()
@@ -205,6 +206,25 @@ class ConexionVoluntariado {
             conx.desconectar()
         }
         return voluntariados_especificos
+    }
+    get_voluntariados_organizacion = async (id_usuario) => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                    where: {
+                        id_usuario: id_usuario,
+                        activo: true,
+                        finalizado: false
+                    }
+                }
+            )
+        } catch (err) {
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
     }
 }
 

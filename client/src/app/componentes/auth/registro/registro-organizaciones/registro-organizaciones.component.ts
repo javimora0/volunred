@@ -10,7 +10,7 @@ import {PaisesService} from "../../../../services/paises.service";
 import {MatDatepicker, MatDatepickerInput} from "@angular/material/datepicker";
 import {AuthService} from "../../../../services/auth.service";
 import {RegistroOrganizacion} from "../../../../interfaces/auth";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import { COUNTRIES } from '../../../../../app/paises';
 
@@ -33,7 +33,8 @@ import { COUNTRIES } from '../../../../../app/paises';
     MatSelect,
     MatSuffix,
     ReactiveFormsModule,
-    MatProgressSpinner
+    MatProgressSpinner,
+    RouterLink
   ],
   templateUrl: './registro-organizaciones.component.html',
   styleUrl: './registro-organizaciones.component.css'

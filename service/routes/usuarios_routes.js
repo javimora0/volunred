@@ -44,7 +44,7 @@ router.put('/change_password/:id_usuario', [
 router.get('/comentarios/:id_usuario', middleware.existe_usuario, usuario_controller.get_comentarios)
 
 router.route('/solicitudes/:id_usuario')
-    // Obtiene todas las solicitudes de un usuario
+    // Obtiene todas las solicitudes de un usuario voluntario
     .get(middleware.existe_usuario, usuario_controller.get_solicitudes)
 
 // Obtiene todos los datos de un voluntariado de un usuario.
@@ -60,4 +60,12 @@ router.post('/preferencias/:id_voluntario', [
     check('disponibilidad', 'Elige entre online, presencial o ambas').not().isEmpty()
     ,validar_campos], validar_jwt.validar_voluntario ,middleware.existe_voluntario,usuario_controller.agregar_preferencias)
 
+// Obtener las solicitudes de una organización
+router.get('/organizacion/solicitudes/:id_usuario', usuario_controller.get_solicitudes_organizacion)
+
+// Obtener detalle una solicitud
+router.get('/organizacion/solicitud/:id_solicitud', usuario_controller.get_solicitud)
+
+// Organizacion acepta o rechaza solicitud
+router.post('/organizacion/solicitud/respuesta/:id_solicitud', usuario_controller.responder_solicitud)
 module.exports = router

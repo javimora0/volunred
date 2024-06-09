@@ -1,7 +1,7 @@
 /* Contenedor Principal */
 .form-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
   margin: 30px;
@@ -16,7 +16,6 @@
 .formulario {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   width: 45%;
   border-radius: 15px;
   padding: 20px;
@@ -32,24 +31,26 @@
 
 .form-row {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   width: 100%;
   margin-bottom: 15px;
-}
-
-@media (min-width: 1080px) {
-  .form-row {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .form-row mat-form-field {
-    width: calc(50% - 10px);
-  }
+  gap: 20px;
 }
 
 .mat-form-field {
+  flex: 1;
+  min-width: calc(50% - 10px);
   margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .mat-form-field {
+    min-width: 100%;
+  }
 }
 
 .btn-actualizar-datos {

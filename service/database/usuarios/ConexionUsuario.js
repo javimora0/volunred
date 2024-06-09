@@ -1,11 +1,92 @@
 const Conexion = require('../Conexion')
 const model = require('../../models/index')
 const bcrypt = require('bcrypt')
+const {Op} = require("sequelize");
 const conx = new Conexion()
 
 class ConexionUsuario {
+    responder_solicitud = async (id_estado, mensaje_respuesta, id_solicitud) => {
+        let solicitud
+        conx.conectar()
+        try {
+            await model.solicitud_voluntariado.update(
+                { mensaje_respuesta: mensaje_respuesta,
+                id_estado: id_estado},
+                { where: { id: id_solicitud } }
+            );
 
-    agregar_preferencias = async(id_voluntario, body) => {
+            solicitud = await model.solicitud_voluntariado.findOne({
+                where: { id: id_solicitud }
+            });
+        } catch (err){
+            solicitud = null
+        } finally {
+            conx.desconectar()
+        }
+        return solicitud
+    }
+    get_solicitudes_organizacion = async (voluntariados) => {
+        let id_voluntariados = []
+        for (let i = 0; i < voluntariados.length; i++) {
+            id_voluntariados.push(voluntariados[i].id)
+        }
+        let solicitudes
+        conx.conectar()
+        try {
+            solicitudes = await model.solicitud_voluntariado.findAll({
+                where: {
+                    id_voluntariado: {
+                        [Op.in]: id_voluntariados
+                    }
+                },
+                include: [{
+                    model: model.Usuario,
+                    as: 'usuario',
+                }, {
+                    model: model.voluntariado,
+                    as: 'voluntariado',
+                }, {
+                    model: model.estado_solicitud,
+                    as: 'estado'
+                }],
+
+            });
+        } catch (err) {
+            solicitudes = null
+        } finally {
+            conx.desconectar()
+        }
+        return solicitudes
+    }
+    get_solicitud = async (id_solicitud) => {
+        let solicitudes
+        conx.conectar()
+        try {
+            solicitudes = await model.solicitud_voluntariado.findAll({
+                where: {
+                    id: id_solicitud
+                },
+                include: [{
+                    model: model.Usuario,
+                    as: 'usuario',
+                }, {
+                    model: model.voluntariado,
+                    as: 'voluntariado',
+                }, {
+                    model: model.estado_solicitud,
+                    as: 'estado'
+                }],
+
+            });
+        } catch (err) {
+            solicitudes = null
+        } finally {
+            conx.desconectar()
+        }
+        return solicitudes
+    }
+
+    agregar_preferencias = async (id_voluntario, body) => {
         let preferencias
         body.id_voluntario = id_voluntario
         conx.conectar()
@@ -20,7 +101,7 @@ class ConexionUsuario {
     }
 
 
-    get_usuarios = async() => {
+    get_usuarios = async () => {
         let usuarios
         conx.conectar()
         try {
@@ -43,7 +124,7 @@ class ConexionUsuario {
         let password_crypt = await bcrypt.hash(password, 10)
         console.log(password_crypt)
         try {
-            usuario = await model.Usuario.update({password:password_crypt}, {where:{id:id}})
+            usuario = await model.Usuario.update({password: password_crypt}, {where: {id: id}})
         } catch (err) {
             console.log(err)
             usuario = null
@@ -52,11 +133,11 @@ class ConexionUsuario {
         }
         return usuario
     }
-    put_usuario = async (body,id) => {
+    put_usuario = async (body, id) => {
         conx.conectar()
         let usuario
         try {
-            await model.Usuario.update(body, {where:{id:id}})
+            await model.Usuario.update(body, {where: {id: id}})
             usuario = await model.Usuario.findByPk(id)
         } catch (err) {
             console.log(err)
@@ -71,7 +152,12 @@ class ConexionUsuario {
         let usuario
         conx.conectar()
         try {
-            await model.Usuario.update({nombre_foto:nombre,extension_foto:extension}, {where:{id:id,activo:true}})
+            await model.Usuario.update({nombre_foto: nombre, extension_foto: extension}, {
+                where: {
+                    id: id,
+                    activo: true
+                }
+            })
             usuario = await model.Usuario.findByPk(id)
         } catch (err) {
             console.log(err)
@@ -86,7 +172,7 @@ class ConexionUsuario {
         let voluntariados
         try {
             voluntariados = await model.participante_voluntariado.findAll({
-                where: { id_usuario: id },
+                where: {id_usuario: id},
                 include: [{
                     model: model.voluntariado,
                     as: 'voluntariado',
@@ -106,15 +192,15 @@ class ConexionUsuario {
         let solicitudes
         try {
             solicitudes = await model.solicitud_voluntariado.findAll({
-                where: { id_usuario: id },
+                where: {id_usuario: id},
                 include: [{
                     model: model.voluntariado,
                     as: 'voluntariado',
-                        include: [{
-                            model: model.categoria,
-                            as: 'categoria',
-                            attributes: ['categoria', 'descripcion', 'nombre_imagen', 'extension_imagen', 'activa']
-                        }]
+                    include: [{
+                        model: model.categoria,
+                        as: 'categoria',
+                        attributes: ['categoria', 'descripcion', 'nombre_imagen', 'extension_imagen', 'activa']
+                    }]
                 }, {
                     model: model.estado_solicitud,
                     as: 'estado'

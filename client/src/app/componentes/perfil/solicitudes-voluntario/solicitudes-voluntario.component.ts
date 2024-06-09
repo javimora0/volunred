@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatIcon} from "@angular/material/icon";
+import {ToastModule} from "primeng/toast";
 
 @Component({
   selector: 'app-solicitudes-voluntario',
@@ -18,7 +19,8 @@ import {MatIcon} from "@angular/material/icon";
     MatTableModule,
     MatButtonModule,
     MatSort,
-    MatIcon
+    MatIcon,
+    ToastModule
   ],
   templateUrl: './solicitudes-voluntario.component.html',
   styleUrls: ['./solicitudes-voluntario.component.css']

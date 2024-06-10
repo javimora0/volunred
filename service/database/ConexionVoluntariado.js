@@ -5,7 +5,7 @@ const conx = new Conexion()
 
 class ConexionVoluntariado {
 
-    get_voluntariado_ubi_moda = async (ubicacion, modalidad) => {
+    get_voluntariado_ubi_moda = async (ubicacion, modalidad, categoria) => {
         let voluntariados
         conx.conectar()
         try {
@@ -13,6 +13,30 @@ class ConexionVoluntariado {
                 where: {
                     activo: true,
                     ubicacion: ubicacion,
+                    modalidad: modalidad,
+                    id_categoria: categoria
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria']
+                }]
+            });
+        } catch (err) {
+            console.log(err)
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
+    get_voluntariado_modalidad = async (modalidad) => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                where: {
+                    activo: true,
                     modalidad: modalidad
                 },
                 include: [{
@@ -28,14 +52,62 @@ class ConexionVoluntariado {
         }
         return voluntariados
     }
-    get_voluntariado_modalidad = async (modalidad) => {
+    get_voluntariado_modalidad_ubicacion = async (modalidad, ubicacion) => {
         let voluntariados
         conx.conectar()
         try {
             voluntariados = await model.voluntariado.findAll({
                 where: {
                     activo: true,
-                    modalidad: modalidad
+                    modalidad: modalidad,
+                    ubicacion: ubicacion
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria']
+                }]
+            });
+        } catch (err) {
+            console.log(err)
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
+    get_voluntariado_modalidad_categoria = async (modalidad,categoria) => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                where: {
+                    activo: true,
+                    modalidad: modalidad,
+                    id_categoria: categoria
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria']
+                }]
+            });
+        } catch (err) {
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
+    get_voluntariado_ubicacion_categoria = async (ubicacion,categoria) => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                where: {
+                    activo: true,
+                    ubicacion: ubicacion,
+                    id_categoria: categoria
                 },
                 include: [{
                     model: model.categoria,

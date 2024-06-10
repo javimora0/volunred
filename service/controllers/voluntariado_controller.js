@@ -181,14 +181,29 @@ const get_voluntariados_filtro = async (req, res = response) => {
     let modalidad = req.params.modalidad
     let categoria = req.params.categoria
     let voluntariados
+    // modalidad y ubicacion
+    // modalidad y categoria
+    // buicacion y categoria
     if (modalidad !== 'empty' && ubicacion !== 'empty' && categoria !== 'empty') {
-        voluntariados = await conx.get_voluntariado_ubi_moda(req.params.ubicacion, req.params.modalidad)
-    }else if (modalidad !== 'empty') {
-        voluntariados = await conx.get_voluntariado_modalidad(req.params.modalidad)
-    }else if (ubicacion !== 'empty') {
-        voluntariados = await conx.get_voluntariado_ubicacion(req.params.ubicacion)
-    } else if (categoria !== 'empty') {
-        voluntariados = await conx.get_voluntariado_categoria(req.params.categoria)
+        // Busqueda de 3
+        voluntariados = await conx.get_voluntariado_ubi_moda(ubicacion, modalidad, categoria)
+    } else if (categoria === 'empty' && modalidad !== 'empty' && ubicacion !== 'empty') {
+        // modalidad y ubicacion
+        voluntariados = await conx.get_voluntariado_modalidad_ubicacion(modalidad, ubicacion)
+
+    } else if (ubicacion === 'empty' && modalidad !== 'empty' && categoria !== 'empty') {
+        // modalidad y categoria
+        voluntariados = await conx.get_voluntariado_modalidad_categoria(modalidad, categoria)
+
+    } else if (modalidad === 'empty' && ubicacion !== 'empty' && categoria !== 'empty') {
+        // ubicacion y categori
+        voluntariados = await conx.get_voluntariado_ubicacion_categoria(ubicacion, categoria)
+    } else if (modalidad !== 'empty' && ubicacion === 'empty' && categoria === 'empty') {
+        voluntariados = await conx.get_voluntariado_modalidad(modalidad)
+    } else if (ubicacion !== 'empty' && modalidad === 'empty' && categoria === 'empty') {
+        voluntariados = await conx.get_voluntariado_ubicacion(ubicacion)
+    } else if (categoria !== 'empty' && modalidad === 'empty' && ubicacion === 'empty') {
+        voluntariados = await conx.get_voluntariado_categoria(categoria)
     }
     if (!voluntariados) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados'})

@@ -55,7 +55,6 @@ export class DialogoDetallesSolicitudComponent implements OnInit{
     this.usuario_service.get_solicitud(this.data.id)
       .subscribe({
         next:(res) => {
-          console.log(res)
           this.solicitudes = res.body?.solicitudes
           console.log(this.solicitudes)
         }
@@ -86,7 +85,6 @@ export class DialogoDetallesSolicitudComponent implements OnInit{
     this.usuario_service.responder_solicitud(body, id)
       .subscribe({
         next: (res) => {
-          console.log("respuesta" + res.body)
           if (res.status === 200) {
             this.dialogRef.close('ok')
           }

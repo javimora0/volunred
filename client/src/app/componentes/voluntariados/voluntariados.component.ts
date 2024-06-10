@@ -92,19 +92,18 @@ export class VoluntariadosComponent implements OnInit {
   }
 
   busqueda() {
-    if (this.formulario.value.modalidad == '') {
+    if (this.formulario.value.modalidad == '' || this.formulario.value.modalidad == null) {
       this.formulario.value.modalidad = 'empty'
     }
-    if (this.formulario.value.ubicacion == '') {
+    if (this.formulario.value.ubicacion == ''|| this.formulario.value.ubicacion == null) {
       this.formulario.value.ubicacion = 'empty'
     }
-    if (this.formulario.value.categorias == '') {
+    if (this.formulario.value.categorias == ''|| this.formulario.value.categorias == null) {
       this.formulario.value.categorias = 'empty'
     }
     this.voluntariado_service.get_voluntariados_filtrados(this.formulario.value.modalidad, this.formulario.value.ubicacion, this.formulario.value.categorias)
       .subscribe({
         next: (res) => {
-          console.log(res)
           this.voluntariados = res.body?.voluntariados
         }
       })
@@ -115,6 +114,8 @@ export class VoluntariadosComponent implements OnInit {
     this.formulario.reset()
     this.formulario.value.modalidad = 'empty'
     this.formulario.value.ubicacion = 'empty'
+    this.formulario.value.categorias = 'empty'
+
     this.buscar_voluntariados()
   }
 }

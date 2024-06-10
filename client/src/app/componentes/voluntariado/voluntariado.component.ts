@@ -95,7 +95,6 @@ export class VoluntariadoComponent implements OnInit {
     } else {
       this.usuario_service.get_solicitudes(this.usuario?.usuario.id).subscribe({
         next:(res) => {
-          console.log(res.body)
           if (res.body) {
             for (let i = 0; i < res.body.solicitudes.length; i++) {
               if (res.body.solicitudes[i].id_voluntariado === this.data.id) {

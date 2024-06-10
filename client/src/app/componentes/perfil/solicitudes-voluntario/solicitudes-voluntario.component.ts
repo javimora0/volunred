@@ -44,7 +44,6 @@ export class SolicitudesVoluntarioComponent implements OnInit {
     }
     this.usuario_service.get_solicitudes(this.usuario?.usuario.id).subscribe({
       next: (res) => {
-        console.log(res);
         this.solicitudes = res.body?.solicitudes
         this.dataSource = new MatTableDataSource(this.solicitudes);
         this.dataSource.paginator = this.paginator;

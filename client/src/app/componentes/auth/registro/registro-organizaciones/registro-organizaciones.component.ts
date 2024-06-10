@@ -97,7 +97,6 @@ export class RegistroOrganizacionesComponent implements OnInit{
             }
           },
           error:(err) => {
-            console.log(err)
             switch (err.status) {
               case 409:
                 this.loading = false

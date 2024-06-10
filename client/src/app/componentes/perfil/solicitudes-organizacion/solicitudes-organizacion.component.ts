@@ -79,7 +79,6 @@ export class SolicitudesOrganizacionComponent implements OnInit {
   get_solicitudes() {
     this.usuario_service.get_solicitudes_organizacion(this.usuario?.usuario.id).subscribe({
       next: (res) => {
-        console.log(res);
         this.solicitudes = res.body?.solicitudes
         this.dataSource = new MatTableDataSource(this.solicitudes);
         this.dataSource.paginator = this.paginator;

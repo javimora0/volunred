@@ -23,8 +23,8 @@ export class VoluntariadosService {
       params: {auth: 1}
     })
   }
-  get_voluntariados_filtrados(modalidad: string | undefined | null, ubicacion: string | undefined | null): Observable<HttpResponse<Voluntariados>> {
-    return this.http.get<Voluntariados>(env.URL + `voluntariado/filtrado/${ubicacion}/${modalidad}`, {
+  get_voluntariados_filtrados(modalidad: string | undefined | null, ubicacion: string | undefined | null,categoria: string | undefined | null): Observable<HttpResponse<Voluntariados>> {
+    return this.http.get<Voluntariados>(env.URL + `voluntariado/filtrado/${ubicacion}/${modalidad}/${categoria}`, {
       observe: 'response' as 'response',
       params: {auth: 1}
     })

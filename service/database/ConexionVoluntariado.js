@@ -72,6 +72,29 @@ class ConexionVoluntariado {
         }
         return voluntariados
     }
+    get_voluntariado_categoria = async (categoria) => {
+        let voluntariados
+        conx.conectar()
+        try {
+            voluntariados = await model.voluntariado.findAll({
+                where: {
+                    activo: true,
+                    id_categoria: categoria,
+                },
+                include: [{
+                    model: model.categoria,
+                    as: 'categoria',
+                    attributes: ['categoria']
+                }]
+            });
+        } catch (err) {
+            voluntariados = null
+        } finally {
+            conx.desconectar()
+        }
+        return voluntariados
+    }
+
     get_voluntariados = async () => {
         let voluntariados
         conx.conectar()

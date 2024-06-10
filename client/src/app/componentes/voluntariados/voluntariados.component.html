@@ -1,7 +1,7 @@
 <div class="image-container">
   <img class="img" src="assets/fondo-voluntariados.png" alt="">
 </div>
-
+<h2 class="title">Buscar voluntariados</h2>
 <div class="filtro-container">
   <form [formGroup]="formulario" class="filtro-form">
     <div class="row">
@@ -20,8 +20,16 @@
           }
         </mat-select>
       </mat-form-field>
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="categorias">
+          @for (categoria of tipos_voluntariado; track categoria.id) {
+            <mat-option [value]="categoria.id">{{ categoria.categoria | titlecase}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
     </div>
-    @if (formulario.value.modalidad == 'empty' && formulario.value.ubicacion == 'empty') {
+    @if (formulario.value.modalidad == 'empty' && formulario.value.ubicacion == 'empty' && formulario.value.categorias == 'empty') {
       <div class="row">
         <button mat-raised-button class="buscar-btn half-width" [disabled]="true">Realizar Búsqueda</button>
         <button mat-raised-button class="buscar-btn half-width" [disabled]="true">Limpiar Filtro</button>
@@ -75,5 +83,4 @@
       </div>
     }
   }
-
 </div>

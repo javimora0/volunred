@@ -78,28 +78,45 @@ export class VoluntariadoComponent implements OnInit {
     })
   }
   on_inscribirse() {
-    this.usuario_service.get_solicitudes(this.usuario?.usuario.id).subscribe({
-      next:(res) => {
-        console.log(res.body)
-        if (res.body) {
-          for (let i = 0; i < res.body.solicitudes.length; i++) {
-            if (res.body.solicitudes[i].id_voluntariado === this.data.id) {
-              this.esta_inscrito = true
+    if (!this.usuario) {
+      this.message_service.add({
+        key: 'tc',
+        severity: 'info',
+        summary: 'Ops!',
+        detail: 'Necesitas iniciar sesión para inscribirte a un voluntariado.'
+      });
+    } else if (this.usuario.roles[0].nombre !== 'voluntario'){
+      this.message_service.add({
+        key: 'tc',
+        severity: 'info',
+        summary: 'Ops!',
+        detail: 'Necesitas ser voluntario para poder inscribirte a un voluntariado.'
+      });
+    } else {
+      this.usuario_service.get_solicitudes(this.usuario?.usuario.id).subscribe({
+        next:(res) => {
+          console.log(res.body)
+          if (res.body) {
+            for (let i = 0; i < res.body.solicitudes.length; i++) {
+              if (res.body.solicitudes[i].id_voluntariado === this.data.id) {
+                this.esta_inscrito = true
+              }
             }
           }
+          if (!this.esta_inscrito) {
+            this.open_dialog()
+          }else {
+            this.message_service.add({
+              key: 'tc',
+              severity: 'info',
+              summary: 'Ops!',
+              detail: 'Ya tienes una solicitud pendiente para este voluntariado!'
+            });
+          }
         }
-        if (!this.esta_inscrito) {
-          this.open_dialog()
-        }else {
-          this.message_service.add({
-            key: 'tc',
-            severity: 'info',
-            summary: 'Ops!',
-            detail: 'Ya tienes una solicitud pendiente para este voluntariado!'
-          });
-        }
-      }
-    })
+      })
+    }
+
   }
 
   open_dialog() {

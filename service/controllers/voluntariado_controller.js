@@ -179,13 +179,16 @@ const get_voluntariados = async (req, res = response) => {
 const get_voluntariados_filtro = async (req, res = response) => {
     let ubicacion = req.params.ubicacion
     let modalidad = req.params.modalidad
+    let categoria = req.params.categoria
     let voluntariados
-    if (modalidad !== 'empty' && ubicacion !== 'empty') {
+    if (modalidad !== 'empty' && ubicacion !== 'empty' && categoria !== 'empty') {
         voluntariados = await conx.get_voluntariado_ubi_moda(req.params.ubicacion, req.params.modalidad)
     }else if (modalidad !== 'empty') {
         voluntariados = await conx.get_voluntariado_modalidad(req.params.modalidad)
     }else if (ubicacion !== 'empty') {
         voluntariados = await conx.get_voluntariado_ubicacion(req.params.ubicacion)
+    } else if (categoria !== 'empty') {
+        voluntariados = await conx.get_voluntariado_categoria(req.params.categoria)
     }
     if (!voluntariados) {
         return res.status(StatusCodes.BAD_REQUEST).json({'msg': 'Error al obtener los voluntariados'})

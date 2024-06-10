@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit{
   cerrar_sesion() {
     sessionStorage.clear()
     window.location.reload()
-    this.router.navigate([''])
+    this.router.navigate(['/inicio'])
   }
   navegar_login() {
     this.router.navigate(['login'])
